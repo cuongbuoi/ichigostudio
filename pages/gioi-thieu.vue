@@ -7,7 +7,7 @@ useSeoMeta({
 const steps = [
   { t: 'Dựng và tinh chỉnh model', d: 'Chọn lọc và xử lý file 3D, căn chỉnh từng chi tiết trước khi in.' },
   { t: 'In FDM (PLA+) từng phần', d: 'In trên máy FDM, xử lý vân lớp và ráp ghép cẩn thận từng mảnh.' },
-  { t: 'Phối màu bằng nhựa nhiều màu', d: 'Lên màu trực tiếp khi in bằng nhựa nhiều màu (AMS), không dùng sơn, chọn phối màu khi đặt.' },
+  { t: 'Phối màu bằng nhựa', d: 'Lên màu trực tiếp khi in bằng nhựa (AMS), không dùng sơn, chọn phối màu khi đặt.' },
 ]
 const processImages = [
   'Xưởng in FDM figure tokusatsu - hình 1',

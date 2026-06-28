@@ -19,7 +19,7 @@ const relatedItems = computed(() =>
 
 useSeoMeta({
   title: () => `${product.value?.title} - Ichigo Studio`,
-  description: () => `Figure ${product.value?.title}, ${product.value?.series}, tỉ lệ ${product.value?.scale}. In FDM nhiều màu.`,
+  description: () => `Figure ${product.value?.title}, ${product.value?.series}, tỉ lệ ${product.value?.scale}. In FDM.`,
   ogImage: () => product.value?.cover,
 })
 </script>

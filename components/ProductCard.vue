@@ -10,7 +10,7 @@ const { shop } = useAppConfig()
       <template v-if="shop.hasPhotos">
         <NuxtImg
           :src="product.cover"
-          :alt="`Figure ${product.title} - in FDM nhiều màu`"
+          :alt="`Figure ${product.title} - in FDM`"
           loading="lazy"
           width="600"
           height="750"

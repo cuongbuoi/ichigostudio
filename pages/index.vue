@@ -19,10 +19,10 @@ useSeoMeta({
     <div class="relative z-10">
       <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">トクサツ / FDM / PLA+</p>
       <h1 class="font-display text-5xl uppercase leading-[0.95] tracking-tight text-paper md:text-7xl">
-        FIGURE TOKUSATSU<br />IN FDM NHIỀU MÀU.
+        FIGURE TOKUSATSU<br />IN FDM.
       </h1>
       <p class="mt-5 max-w-[40ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Mô hình Kamen Rider, Ultraman và hơn thế. In 3D FDM nhiều màu bằng nhựa, phối màu theo yêu cầu, số lượng giới hạn.
+        Mô hình Kamen Rider, Ultraman và hơn thế. In FDM, phối màu theo yêu cầu, số lượng giới hạn.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
@@ -85,7 +85,7 @@ useSeoMeta({
           TỪ FILE 3D ĐẾN FIGURE TRƯNG BÀY
         </h2>
         <p class="mt-4 max-w-[55ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Mỗi sản phẩm in FDM (PLA+) nhiều màu, phối màu trực tiếp bằng nhựa, không dùng sơn.
+          Mỗi sản phẩm in FDM, phối màu trực tiếp bằng nhựa, không dùng sơn.
           Số lượng nhỏ để giữ chất lượng từng con.
         </p>
         <NuxtLink

@@ -15,7 +15,7 @@ const open = ref(false)
       <!-- Logo Ichigo Studio (logo đã gồm cả chữ) -->
       <NuxtLink to="/" :aria-label="shop.name" class="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper rounded-lg">
         <span class="flex items-center justify-center overflow-hidden rounded-lg bg-paper">
-          <NuxtImg src="/logo.png" :alt="shop.name" width="120" height="120" class="h-10 w-10 object-contain" />
+          <NuxtImg src="/logo.png" :alt="shop.name" width="120" height="120" class="h-10 w-10 rounded-lg object-cover" />
         </span>
       </NuxtLink>
 
