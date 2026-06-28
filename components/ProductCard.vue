@@ -8,7 +8,7 @@ defineProps<{ product: ProductMeta }>()
     <div class="relative overflow-hidden rounded bg-panel border border-paper/10 transition hover:border-hopper">
       <NuxtImg
         :src="product.cover"
-        :alt="`Figure ${product.title} - in FDM, son thu cong`"
+        :alt="`Figure ${product.title} - in FDM, sơn thủ công`"
         loading="lazy"
         width="600"
         height="750"
@@ -20,7 +20,7 @@ defineProps<{ product: ProductMeta }>()
     <div class="mt-3">
       <p class="font-sans text-[10px] uppercase tracking-[0.15em] text-hopper font-medium">{{ product.series }}</p>
       <h3 class="mt-1 font-sans text-base font-semibold leading-snug text-paper">{{ product.title }}</h3>
-      <p class="mt-0.5 font-sans text-xs font-light text-silver">Ti le {{ product.scale }}</p>
+      <p class="mt-0.5 font-sans text-xs font-light text-silver">Tỉ lệ {{ product.scale }}</p>
     </div>
   </NuxtLink>
 </template>

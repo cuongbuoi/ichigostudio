@@ -11,10 +11,10 @@ const shop = useShop()
         <p class="mt-3 max-w-[40ch] font-sans text-sm font-light text-silver/80">{{ shop.tagline }}</p>
         <p class="mt-1 font-sans text-sm font-light text-silver/70">{{ shop.area }}</p>
       </div>
-      <MessengerButton variant="ghost" label="Nhan tin cho shop" />
+      <MessengerButton variant="ghost" label="Nhắn tin cho shop" />
     </div>
     <div class="border-t border-paper/10 py-4 text-center font-sans text-xs text-silver/60">
-      &copy; {{ new Date().getFullYear() }} {{ shop.name }}. In FDM, son thu cong.
+      &copy; {{ new Date().getFullYear() }} {{ shop.name }}. In FDM, sơn thủ công.
     </div>
   </footer>
 </template>

@@ -5,16 +5,16 @@ const active = ref('all')
 const visible = computed(() => filterBySeries(all.value, active.value))
 
 useSeoMeta({
-  title: 'Bo suu tap - Henshin Studio',
-  description: 'Bo suu tap figure in FDM chu de tokusatsu, son thu cong.',
+  title: 'Bộ sưu tập - Henshin Studio',
+  description: 'Bộ sưu tập figure in FDM chủ đề tokusatsu, sơn thủ công.',
 })
 </script>
 
 <template>
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <SectionHeading
-      title="BO SUU TAP"
-      subtitle="Moi model in FDM (PLA+), xu ly be mat va hoan thien son thu cong. Loc theo series ben duoi."
+      title="BỘ SƯU TẬP"
+      subtitle="Mỗi model in FDM (PLA+), xử lý bề mặt và hoàn thiện sơn thủ công. Lọc theo series bên dưới."
     />
 
     <SeriesFilter :series="seriesList" v-model="active" class="mb-10" />
@@ -23,7 +23,7 @@ useSeoMeta({
       <ProductCard v-for="p in visible" :key="p.slug" :product="p" />
     </div>
     <p v-else class="py-20 text-center font-sans text-sm text-silver">
-      Chua co san pham trong series nay. Nhan shop de dat mau rieng.
+      Chưa có sản phẩm trong series này. Nhắn shop để đặt mẫu riêng.
     </p>
   </section>
 </template>

@@ -49,7 +49,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
       v-if="open"
       role="dialog"
       aria-modal="true"
-      :aria-label="`Xem anh ${alt}`"
+      :aria-label="`Xem ảnh ${alt}`"
       class="fixed inset-0 z-[60] flex items-center justify-center bg-night/95 p-4"
       @click.self="emit('close')"
     >
@@ -58,7 +58,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         ref="closeBtn"
         type="button"
         @click="emit('close')"
-        aria-label="Dong hop xem anh"
+        aria-label="Đóng hộp xem ảnh"
         class="absolute right-4 top-4 rounded-full border border-silver/30 p-2.5 text-silver hover:border-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper transition"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
@@ -71,7 +71,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         ref="prevBtn"
         type="button"
         @click="emit('prev')"
-        aria-label="Anh truoc"
+        aria-label="Ảnh trước"
         class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-silver/30 p-2.5 text-silver hover:border-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper transition"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
@@ -82,7 +82,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
       <!-- Image -->
       <NuxtImg
         :src="images[index]"
-        :alt="`${alt} - anh ${index + 1}`"
+        :alt="`${alt} - ảnh ${index + 1}`"
         class="max-h-[85vh] max-w-full rounded object-contain motion-safe:transition-opacity motion-safe:duration-200"
       />
 
@@ -91,7 +91,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         ref="nextBtn"
         type="button"
         @click="emit('next')"
-        aria-label="Anh sau"
+        aria-label="Ảnh sau"
         class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-silver/30 p-2.5 text-silver hover:border-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper transition"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">

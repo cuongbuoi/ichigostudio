@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { buildMessengerHref } from '~/utils/messenger'
 const props = withDefaults(defineProps<{ label?: string; variant?: 'primary' | 'ghost' }>(), {
-  label: 'Lien he qua Messenger', variant: 'primary',
+  label: 'Liên hệ qua Messenger', variant: 'primary',
 })
 const shop = useShop()
 const href = computed(() => buildMessengerHref(shop.messengerUrl))

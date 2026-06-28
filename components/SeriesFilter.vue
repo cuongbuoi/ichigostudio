@@ -2,7 +2,7 @@
 const props = defineProps<{ series: string[]; modelValue: string }>()
 const emit = defineEmits<{ 'update:modelValue': [string] }>()
 const options = computed(() => ['all', ...props.series])
-function label(s: string) { return s === 'all' ? 'Tat ca' : s }
+function label(s: string) { return s === 'all' ? 'Tất cả' : s }
 </script>
 
 <template>

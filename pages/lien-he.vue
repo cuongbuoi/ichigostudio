@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const shop = useShop()
 useSeoMeta({
-  title: `Lien he - ${shop.name}`,
-  description: 'Lien he shop qua Messenger de hoi san pham figure tokusatsu in FDM.',
+  title: `Liên hệ - ${shop.name}`,
+  description: 'Liên hệ shop qua Messenger để hỏi sản phẩm figure tokusatsu in FDM.',
 })
 </script>
 
@@ -10,13 +10,13 @@ useSeoMeta({
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="grid gap-12 md:grid-cols-2">
       <div>
-        <h1 class="font-display text-4xl uppercase tracking-tight text-paper md:text-5xl">LIEN HE</h1>
+        <h1 class="font-display text-4xl uppercase tracking-tight text-paper md:text-5xl">LIÊN HỆ</h1>
         <p class="mt-5 max-w-[45ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Cach nhanh nhat la nhan tin Messenger. Cho shop biet ban quan tam mau nao,
-          shop se bao gia va tinh trang hang.
+          Cách nhanh nhất là nhắn tin Messenger. Cho shop biết bạn quan tâm mẫu nào,
+          shop sẽ báo giá và tình trạng hàng.
         </p>
         <div class="mt-8">
-          <MessengerButton label="Mo Messenger" />
+          <MessengerButton label="Mở Messenger" />
         </div>
       </div>
 
@@ -33,11 +33,11 @@ useSeoMeta({
           </dd>
         </div>
         <div>
-          <dt class="text-[10px] uppercase tracking-[0.15em] text-silver font-medium">Thoi gian phan hoi</dt>
+          <dt class="text-[10px] uppercase tracking-[0.15em] text-silver font-medium">Thời gian phản hồi</dt>
           <dd class="mt-1 text-sm text-paper">{{ shop.responseTime }}</dd>
         </div>
         <div>
-          <dt class="text-[10px] uppercase tracking-[0.15em] text-silver font-medium">Khu vuc</dt>
+          <dt class="text-[10px] uppercase tracking-[0.15em] text-silver font-medium">Khu vực</dt>
           <dd class="mt-1 text-sm text-paper">{{ shop.area }}</dd>
         </div>
       </dl>

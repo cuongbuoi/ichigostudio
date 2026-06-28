@@ -9,7 +9,7 @@ const href = computed(() => buildMessengerHref(shop.messengerUrl))
     :href="href"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Lien he qua Messenger"
+    aria-label="Liên hệ qua Messenger"
     class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hopper text-night shadow-lg transition hover:bg-hopper-bright active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper-bright"
   >
     <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor" aria-hidden="true">

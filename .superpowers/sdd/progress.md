@@ -22,3 +22,4 @@ Task 5: complete (commits 74765cb..253f0ad, lightbox/gallery/detail/prerender so
 Task 6: complete (commits 253f0ad..5af8432, review clean, hero alt fixed)
 Task 7: complete (commits 5af8432..7ced8de, about+contact replace stubs, focus ring + unused import fixed)
 Task 8: complete (commits 7ced8de..a460df4, build/generate OK, README, contrast raised to AA)
+Redesign requested: pivot museum -> Showa Hopper (Kamen Rider, dark hopper-green). Styleguide: docs/superpowers/specs/2026-06-28-showa-hopper-redesign.md

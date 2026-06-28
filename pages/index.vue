@@ -2,7 +2,7 @@
 const shop = useShop()
 const { featured } = useProducts()
 useSeoMeta({
-  title: `${shop.name} - Figure in FDM chu de tokusatsu`,
+  title: `${shop.name} - Figure in FDM chủ đề tokusatsu`,
   description: shop.tagline,
 })
 </script>
@@ -21,14 +21,14 @@ useSeoMeta({
         HERO<br />TOKUSATSU<br />IN FDM.
       </h1>
       <p class="mt-5 max-w-[40ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Figure son tay, chi tiet sac net, so luong gioi han. Tu Showa den Heisei.
+        Figure sơn tay, chi tiết sắc nét, số lượng giới hạn. Từ Showa đến Heisei.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
           to="/san-pham"
           class="inline-flex items-center bg-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-night transition hover:bg-hopper-bright active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper-bright rounded-sm"
-        >XEM BO SUU TAP</NuxtLink>
-        <MessengerButton variant="ghost" label="Nhan Messenger" />
+        >XEM BỘ SƯU TẬP</NuxtLink>
+        <MessengerButton variant="ghost" label="Nhắn Messenger" />
       </div>
     </div>
 
@@ -42,7 +42,6 @@ useSeoMeta({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <!-- Hexagonal compound eye grid (facet motif) -->
         <g fill="#5c8a24">
           <polygon points="60,10 73,17 73,33 60,40 47,33 47,17"/>
           <polygon points="60,42 73,49 73,65 60,72 47,65 47,49"/>
@@ -55,7 +54,7 @@ useSeoMeta({
       </svg>
       <NuxtImg
         src="https://picsum.photos/seed/toku-hero-showa/1200/1400"
-        alt="Nhan vat tokusatsu Showa in FDM, son thu cong"
+        alt="Nhân vật tokusatsu Showa in FDM, sơn thủ công"
         width="1200"
         height="1400"
         preload
@@ -67,8 +66,8 @@ useSeoMeta({
   <!-- FEATURED PRODUCTS -->
   <section class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
-      title="SAN PHAM NOI BAT"
-      subtitle="Nhung mau duoc yeu thich nhat trong xuong."
+      title="SẢN PHẨM NỔI BẬT"
+      subtitle="Những mẫu được yêu thích nhất trong xưởng."
     />
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       <ProductCard v-for="p in featured" :key="p.slug" :product="p" />
@@ -77,7 +76,7 @@ useSeoMeta({
       <NuxtLink
         to="/san-pham"
         class="font-sans text-sm font-medium text-hopper hover:text-hopper-bright hover:underline underline-offset-4 transition"
-      >Xem tat ca san pham &rsaquo;</NuxtLink>
+      >Xem tất cả sản phẩm &rsaquo;</NuxtLink>
     </div>
   </section>
 
@@ -87,7 +86,7 @@ useSeoMeta({
       <div class="overflow-hidden rounded md:col-span-2">
         <NuxtImg
           src="https://picsum.photos/seed/toku-workshop-fdm/900/900"
-          alt="Xuong in FDM va son thu cong figure tokusatsu"
+          alt="Xưởng in FDM và sơn thủ công figure tokusatsu"
           width="900"
           height="900"
           loading="lazy"
@@ -96,16 +95,16 @@ useSeoMeta({
       </div>
       <div class="md:col-span-3">
         <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
-          TU FILE 3D DEN FIGURE TRUNG BAY
+          TỪ FILE 3D ĐẾN FIGURE TRƯNG BÀY
         </h2>
         <p class="mt-4 max-w-[55ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Moi san pham di qua in FDM (PLA+), xu ly be mat va son nhieu lop bang tay.
-          So luong nho de giu chat luong tung con.
+          Mỗi sản phẩm đi qua in FDM (PLA+), xử lý bề mặt và sơn nhiều lớp bằng tay.
+          Số lượng nhỏ để giữ chất lượng từng con.
         </p>
         <NuxtLink
           to="/gioi-thieu"
           class="mt-6 inline-block font-sans text-sm font-medium text-hopper hover:underline underline-offset-4 transition"
-        >Tim hieu quy trinh &rsaquo;</NuxtLink>
+        >Tìm hiểu quy trình &rsaquo;</NuxtLink>
       </div>
     </div>
   </section>
@@ -113,13 +112,13 @@ useSeoMeta({
   <!-- CTA SECTION -->
   <section class="mx-auto max-w-content px-4 py-24 md:px-8">
     <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
-      TIM THAY CON BAN THICH?
+      TÌM THẤY CON BẠN THÍCH?
     </h2>
     <p class="mt-3 max-w-[45ch] font-sans text-sm font-light text-silver">
-      Nhan shop qua Messenger de hoi gia, dat mau son hoac mau theo yeu cau.
+      Nhắn shop qua Messenger để hỏi giá, đặt màu sơn hoặc mẫu theo yêu cầu.
     </p>
     <div class="mt-8">
-      <MessengerButton label="Nhan Messenger" />
+      <MessengerButton label="Nhắn Messenger" />
     </div>
   </section>
 </template>
