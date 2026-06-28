@@ -6,5 +6,6 @@ export default defineAppConfig({
     facebookUrl: 'https://facebook.com/henshinstudio',
     responseTime: 'Thường phản hồi trong vài giờ',
     area: 'TP. Hồ Chí Minh',
+    hasPhotos: false,
   },
 })
