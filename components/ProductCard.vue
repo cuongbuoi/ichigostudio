@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import type { ProductMeta } from '~/types/product'
 defineProps<{ product: ProductMeta }>()
+const { shop } = useAppConfig()
 </script>
 
 <template>
   <NuxtLink :to="`/san-pham/${product.slug}`" class="group block">
     <div class="relative overflow-hidden rounded bg-panel border border-paper/10 transition hover:border-hopper">
-      <NuxtImg
-        :src="product.cover"
-        :alt="`Figure ${product.title} - in FDM, sơn thủ công`"
-        loading="lazy"
-        width="600"
-        height="750"
-        class="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-      />
+      <template v-if="shop.hasPhotos">
+        <NuxtImg
+          :src="product.cover"
+          :alt="`Figure ${product.title} - in FDM, sơn thủ công`"
+          loading="lazy"
+          width="600"
+          height="750"
+          class="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+        />
+      </template>
+      <template v-else>
+        <FigurePlaceholder
+          :label="product.title"
+          ratio="4/5"
+          :seed="product.slug"
+        />
+      </template>
       <!-- Technical badge -->
       <span class="absolute bottom-2 right-2 font-sans text-[9px] font-medium tracking-[0.15em] text-silver/60 bg-night/70 px-1.5 py-0.5 rounded-sm">FDM</span>
     </div>
