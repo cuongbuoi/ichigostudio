@@ -20,3 +20,11 @@ dẫn trong `images` + `cover` (tạm dùng link picsum). Đặt `featured: true
 ## Đổi link Messenger / thông tin shop
 
 Sửa `app.config.ts` (mục `shop`): `messengerUrl`, `name`, `tagline`, `facebookUrl`, `area`, `responseTime`.
+
+## Dùng ảnh thật (khi có ảnh sản phẩm)
+
+1. Tạo thư mục `public/products/<slug>/` và đặt ảnh vào đó.
+2. Cập nhật frontmatter trong `content/products/<slug>.md`: điền đường dẫn vào `cover` và `images` (ví dụ: `/products/kamen-rider-w/cover.jpg`).
+3. Mở `app.config.ts`, đổi `hasPhotos: false` thành `hasPhotos: true`.
+
+Khi `hasPhotos: false` (mặc định), trang hiển thị khung ảnh placeholder on-brand (`FigurePlaceholder`) thay vì ảnh thật.
