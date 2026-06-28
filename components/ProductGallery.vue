@@ -26,7 +26,7 @@ function next() {
     <button
       type="button"
       @click="open"
-      aria-label="Phong to anh san pham"
+      aria-label="Phóng to ảnh sản phẩm"
       class="block w-full overflow-hidden rounded-2xl bg-ink/5 dark:bg-bone/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <NuxtImg
@@ -38,14 +38,14 @@ function next() {
       />
     </button>
 
-    <div class="mt-3 flex gap-3 overflow-x-auto pb-1" role="list" aria-label="Anh san pham">
+    <div class="mt-3 flex gap-3 overflow-x-auto pb-1" role="list" aria-label="Ảnh sản phẩm">
       <button
         v-for="(img, i) in images"
         :key="i"
         type="button"
         role="listitem"
         @click="select(i)"
-        :aria-label="`Xem anh ${i + 1}`"
+        :aria-label="`Xem ảnh ${i + 1}`"
         :aria-current="i === current ? 'true' : undefined"
         :class="[
           'h-20 w-16 shrink-0 overflow-hidden rounded-lg border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent',
@@ -56,7 +56,7 @@ function next() {
       >
         <NuxtImg
           :src="img"
-          :alt="`${alt} - anh ${i + 1}`"
+          :alt="`${alt} - ảnh ${i + 1}`"
           width="120"
           height="150"
           class="h-full w-full object-cover"

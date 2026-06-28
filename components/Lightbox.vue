@@ -30,7 +30,7 @@ watch(() => props.open, (v) => {
       <button
         type="button"
         @click="emit('close')"
-        aria-label="Dong"
+        aria-label="Đóng"
         class="absolute right-4 top-4 rounded-full p-3 text-bone/80 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -39,7 +39,7 @@ watch(() => props.open, (v) => {
       <button
         type="button"
         @click="emit('prev')"
-        aria-label="Anh truoc"
+        aria-label="Ảnh trước"
         class="absolute left-4 rounded-full p-3 text-bone/80 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -47,14 +47,14 @@ watch(() => props.open, (v) => {
 
       <NuxtImg
         :src="images[index]"
-        :alt="`${alt} - anh ${index + 1}`"
+        :alt="`${alt} - ảnh ${index + 1}`"
         class="max-h-[85vh] max-w-full rounded-lg object-contain motion-safe:transition-opacity motion-safe:duration-200"
       />
 
       <button
         type="button"
         @click="emit('next')"
-        aria-label="Anh sau"
+        aria-label="Ảnh sau"
         class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-3 text-bone/80 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>

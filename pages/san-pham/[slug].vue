@@ -10,7 +10,7 @@ const { data: product } = await useAsyncData(`product-${slug.value}`, () =>
 )
 
 if (!product.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Khong tim thay san pham' })
+  throw createError({ statusCode: 404, statusMessage: 'Không tìm thấy sản phẩm' })
 }
 
 const relatedItems = computed(() =>
@@ -20,7 +20,7 @@ const relatedItems = computed(() =>
 useSeoMeta({
   title: () => `${product.value?.title} - Henshin Studio`,
   description: () =>
-    `Figure ${product.value?.title}, ${product.value?.series}, ti le ${product.value?.scale}.`,
+    `Figure ${product.value?.title}, ${product.value?.series}, tỉ lệ ${product.value?.scale}.`,
   ogImage: () => product.value?.cover,
 })
 </script>
@@ -32,7 +32,7 @@ useSeoMeta({
       class="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-ink dark:text-bone/50 dark:hover:text-bone transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-      Bo suu tap
+      Bộ sưu tập
     </NuxtLink>
 
     <div class="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2">
@@ -46,19 +46,19 @@ useSeoMeta({
 
         <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Ti le</dt>
+            <dt class="text-ink/45 dark:text-bone/45">Tỉ lệ</dt>
             <dd class="mt-0.5 font-medium">{{ product.scale }}</dd>
           </div>
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Chieu cao</dt>
+            <dt class="text-ink/45 dark:text-bone/45">Chiều cao</dt>
             <dd class="mt-0.5 font-medium">{{ product.height }}</dd>
           </div>
           <div class="col-span-2">
-            <dt class="text-ink/45 dark:text-bone/45">Chat lieu</dt>
+            <dt class="text-ink/45 dark:text-bone/45">Chất liệu</dt>
             <dd class="mt-0.5 font-medium">{{ product.material }}</dd>
           </div>
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Gia tham khao</dt>
+            <dt class="text-ink/45 dark:text-bone/45">Giá tham khảo</dt>
             <dd class="mt-0.5 font-medium">{{ product.priceRef }}</dd>
           </div>
         </dl>
@@ -68,14 +68,14 @@ useSeoMeta({
         </div>
 
         <div class="mt-8">
-          <MessengerButton :label="`Hoi mua ${product.title}`" />
+          <MessengerButton :label="`Hỏi mua ${product.title}`" />
           <p class="mt-2 text-xs text-ink/45 dark:text-bone/45">{{ shop.responseTime }}</p>
         </div>
       </div>
     </div>
 
-    <section v-if="relatedItems.length" class="mt-20" aria-label="San pham cung series">
-      <SectionHeading title="Cung series" />
+    <section v-if="relatedItems.length" class="mt-20" aria-label="Sản phẩm cùng series">
+      <SectionHeading title="Cùng series" />
       <div class="mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4">
         <ProductCard v-for="p in relatedItems" :key="p.slug" :product="p" />
       </div>
