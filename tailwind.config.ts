@@ -15,7 +15,9 @@ export default <Partial<Config>>{
         night: '#0e0f0c',
         panel: '#15160f',
         panel2: '#1d1f15',
-        hopper: { DEFAULT: '#5c8a24', bright: '#76b02f' },
+        // accent đồng bộ tông xanh forest của logo (hue ~147°), sáng vừa đủ để đạt AA trên nền tối
+        hopper: { DEFAULT: '#2e945c', bright: '#43b877' },
+        ichigo: '#1b5e3a', // xanh logo gốc (deep), dùng cho mảng lớn / nền sáng
         silver: '#c8ccc4',
         paper: '#eef0e8',
       },

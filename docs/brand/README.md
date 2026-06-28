@@ -30,13 +30,14 @@ https://claude.ai/code/artifact/7d881fb0-93d4-4013-8d2e-2c1c4ea1d5df
 ### Accent số / UI (đang dùng trên web)
 | Tên | Hex | Vai trò |
 |---|---|---|
-| Hopper Green | `#5C8A24` | Accent chính trên web: nút, gạch chân, số liệu. |
-| Hopper Bright | `#76B02F` | Hover, điểm nhấn nhỏ. |
+| Hopper Green | `#2E945C` | Accent chính trên web: nút, gạch chân, số liệu. |
+| Hopper Bright | `#43B877` | Hover, điểm nhấn nhỏ. |
 | FDM Orange | `#CC6A2B` | Năng lượng Zeztz, tag sản phẩm, chi tiết in. Dùng ít. |
 | Silver | `#C8CCC4` | Chữ phụ, đường nét kim loại, nhãn. |
 
-> Lưu ý: xanh logo (`#1B5E3A`) đậm hơn accent web (`#5C8A24`). Hiện site dùng Hopper Green
-> làm accent UI. Nếu muốn đồng bộ tuyệt đối với logo, đổi token `hopper` trong `tailwind.config.ts`.
+> Accent web (`#2E945C`) đã đồng bộ về **đúng tông xanh forest của logo** (hue ~147°),
+> chỉ sáng hơn để đạt tương phản WCAG AA với chữ tối trên nền. Logo green gốc `#1B5E3A`
+> (token `ichigo`) dùng cho mảng lớn / nền sáng. Tokens trong `tailwind.config.ts`.
 
 ## Typography
 - **Anton** — display, in hoa, condensed nặng (tiêu đề kiểu poster). Self-host: `assets/fonts/anton-*.woff2`.
