@@ -26,7 +26,7 @@ useSeoMeta({
       </div>
     </div>
     <div class="overflow-hidden rounded-2xl bg-ink/5 dark:bg-bone/5">
-      <NuxtImg src="https://picsum.photos/seed/toku-hero/1200/1400" alt="Figure tokusatsu in 3D"
+      <NuxtImg src="https://picsum.photos/seed/toku-hero/1200/1400" alt="Nhân vật tokusatsu in 3D"
         width="1200" height="1400" preload class="aspect-[6/7] w-full object-cover" />
     </div>
   </section>
