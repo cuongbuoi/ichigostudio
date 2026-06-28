@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { buildMessengerHref } from '~/utils/messenger'
 const shop = useShop()
 useSeoMeta({
   title: `Liên hệ - ${shop.name}`,
@@ -22,7 +21,7 @@ useSeoMeta({
       <dl class="space-y-6 border-t border-ink/10 pt-8 dark:border-bone/10 md:border-l md:border-t-0 md:pl-12 md:pt-0">
         <div>
           <dt class="text-sm text-ink/45 dark:text-bone/45">Facebook</dt>
-          <dd><a :href="shop.facebookUrl" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">{{ shop.facebookUrl }}</a></dd>
+          <dd><a :href="shop.facebookUrl" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{{ shop.facebookUrl }}</a></dd>
         </div>
         <div>
           <dt class="text-sm text-ink/45 dark:text-bone/45">Thời gian phản hồi</dt>
