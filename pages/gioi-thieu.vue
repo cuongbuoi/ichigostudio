@@ -8,7 +8,7 @@ useSeoMeta({
 const steps = [
   { t: 'Dựng và tinh chỉnh model', d: 'Chọn lọc và xử lý file 3D, căn chỉnh từng chi tiết trước khi in.' },
   { t: 'In FDM (PLA+) từng phần', d: 'In trên máy FDM, xử lý vân lớp và ráp ghép cẩn thận từng mảnh.' },
-  { t: 'Sơn thủ công nhiều lớp', d: 'Lên màu, tô bóng và phủ lớp bảo vệ để figure bền màu khi trưng bày.' },
+  { t: 'Phối màu bằng nhựa nhiều màu', d: 'Lên màu trực tiếp khi in bằng nhựa nhiều màu (AMS), không dùng sơn, chọn phối màu khi đặt.' },
 ]
 const processImages = [
   { src: 'https://picsum.photos/seed/about-fdm-1/800/600', alt: 'Xưởng in FDM figure tokusatsu - hình 1' },
@@ -25,7 +25,7 @@ const processImages = [
       </h1>
       <p class="mt-6 font-sans text-sm font-light leading-relaxed text-silver">
         {{ shop.name }} là xưởng nhỏ chuyên figure in FDM các nhân vật tokusatsu.
-        Số lượng giới hạn, tập trung vào độ chi tiết và nước sơn.
+        Số lượng giới hạn, tập trung vào độ chi tiết và phối màu nhựa.
       </p>
     </div>
 

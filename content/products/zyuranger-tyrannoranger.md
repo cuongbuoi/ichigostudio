@@ -4,7 +4,7 @@ slug: "zyuranger-tyrannoranger"
 series: "Super Sentai"
 scale: "1/12"
 height: "17 cm"
-material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
+material: "In FDM nhiều màu (PLA+), phối màu trực tiếp bằng nhựa"
 priceRef: "Liên hệ"
 featured: false
 order: 4

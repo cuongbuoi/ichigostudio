@@ -20,10 +20,10 @@ useSeoMeta({
     <div class="relative z-10">
       <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">トクサツ / FDM / PLA+</p>
       <h1 class="font-display text-5xl uppercase leading-[0.95] tracking-tight text-paper md:text-7xl">
-        FIGURE TOKUSATSU<br />IN FDM, SƠN THỦ CÔNG.
+        FIGURE TOKUSATSU<br />IN FDM NHIỀU MÀU.
       </h1>
       <p class="mt-5 max-w-[40ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Mô hình Kamen Rider, Ultraman và hơn thế. In 3D FDM rồi sơn tay từng chi tiết, số lượng giới hạn.
+        Mô hình Kamen Rider, Ultraman và hơn thế. In 3D FDM nhiều màu bằng nhựa, phối màu theo yêu cầu, số lượng giới hạn.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
@@ -57,7 +57,7 @@ useSeoMeta({
       <template v-if="shopConfig.hasPhotos">
         <NuxtImg
           src="https://picsum.photos/seed/toku-hero-showa/1200/1400"
-          alt="Nhân vật tokusatsu Showa in FDM, sơn thủ công"
+          alt="Nhân vật tokusatsu Showa in FDM nhiều màu"
           width="1200"
           height="1400"
           preload
@@ -98,7 +98,7 @@ useSeoMeta({
         <template v-if="shopConfig.hasPhotos">
           <NuxtImg
             src="https://picsum.photos/seed/toku-workshop-fdm/900/900"
-            alt="Xưởng in FDM và sơn thủ công figure tokusatsu"
+            alt="Xưởng in FDM figure tokusatsu nhiều màu"
             width="900"
             height="900"
             loading="lazy"
@@ -118,7 +118,7 @@ useSeoMeta({
           TỪ FILE 3D ĐẾN FIGURE TRƯNG BÀY
         </h2>
         <p class="mt-4 max-w-[55ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Mỗi sản phẩm đi qua in FDM (PLA+), xử lý bề mặt và sơn nhiều lớp bằng tay.
+          Mỗi sản phẩm in FDM (PLA+) nhiều màu, phối màu trực tiếp bằng nhựa, không dùng sơn.
           Số lượng nhỏ để giữ chất lượng từng con.
         </p>
         <NuxtLink
@@ -135,7 +135,7 @@ useSeoMeta({
       TÌM THẤY CON BẠN THÍCH?
     </h2>
     <p class="mt-3 max-w-[45ch] font-sans text-sm font-light text-silver">
-      Nhắn shop qua Messenger để hỏi giá, đặt màu sơn hoặc mẫu theo yêu cầu.
+      Nhắn shop qua Messenger để hỏi giá, chọn phối màu hoặc mẫu theo yêu cầu.
     </p>
     <div class="mt-8">
       <MessengerButton label="Nhắn Messenger" />

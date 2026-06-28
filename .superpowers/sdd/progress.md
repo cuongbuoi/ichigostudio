@@ -30,3 +30,6 @@ Task 4 (polish): complete (commits 6f6fc74..2fd0acf, review clean)
 Task 5 (polish): complete (commits 2fd0acf..4f7655c, review clean)
 Task 6 (polish): complete (commits 4f7655c..5a960c0, review clean)
 Task 7 (polish): complete (commits 5a960c0..7ede4e2, review clean)
+Task 8 (polish): complete (final commit 42ab90d, tests 8/8, generate 21 routes, greps clean)
+Final whole-branch review: APPROVED (f69f15c..42ab90d). Minor findings noted (all non-blocking). Polish pass complete.
+Redesign complete: Showa Hopper applied + on-brand FigurePlaceholder frames (hasPhotos flag) + real hero copy. Verified via Chrome headless screenshots (home/collection/detail/about) — coherent toku, no stock-photo slop. tests 8/8, generate OK.

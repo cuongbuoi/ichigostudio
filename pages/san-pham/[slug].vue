@@ -19,7 +19,7 @@ const relatedItems = computed(() =>
 
 useSeoMeta({
   title: () => `${product.value?.title} - Henshin Studio`,
-  description: () => `Figure ${product.value?.title}, ${product.value?.series}, tỉ lệ ${product.value?.scale}. In FDM, sơn thủ công.`,
+  description: () => `Figure ${product.value?.title}, ${product.value?.series}, tỉ lệ ${product.value?.scale}. In FDM nhiều màu.`,
   ogImage: () => product.value?.cover,
 })
 </script>

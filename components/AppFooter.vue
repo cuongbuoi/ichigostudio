@@ -14,7 +14,7 @@ const shop = useShop()
       <MessengerButton variant="ghost" label="Nhắn tin cho shop" />
     </div>
     <div class="border-t border-paper/10 py-4 text-center font-sans text-xs text-silver/60">
-      &copy; {{ new Date().getFullYear() }} {{ shop.name }}. In FDM, sơn thủ công.
+      &copy; {{ new Date().getFullYear() }} {{ shop.name }}. In FDM nhiều màu.
     </div>
   </footer>
 </template>

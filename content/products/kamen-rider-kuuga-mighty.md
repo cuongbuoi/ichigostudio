@@ -4,7 +4,7 @@ slug: "kamen-rider-kuuga-mighty"
 series: "Kamen Rider"
 scale: "1/12"
 height: "18 cm"
-material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
+material: "In FDM nhiều màu (PLA+), phối màu trực tiếp bằng nhựa"
 priceRef: "Liên hệ"
 featured: true
 order: 1
@@ -16,5 +16,5 @@ images:
 ---
 
 Mighty Form là hình thái cơ bản của Kamen Rider Kuuga. Model tái hiện chi tiết
-giáp Arcle, đường gân cơ và đôi mắt kép đặc trưng. Sơn thủ công nhiều lớp,
-có thể tùy chọn nền trưng bày.
+giáp Arcle, đường gân cơ và đôi mắt kép đặc trưng. In nhiều màu bằng nhựa,
+có thể chọn phối màu khi đặt.

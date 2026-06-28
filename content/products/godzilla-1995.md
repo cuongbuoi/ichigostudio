@@ -4,7 +4,7 @@ slug: "godzilla-1995"
 series: "Kaiju / Godzilla"
 scale: "1/12"
 height: "22 cm"
-material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
+material: "In FDM nhiều màu (PLA+), phối màu trực tiếp bằng nhựa"
 priceRef: "Liên hệ"
 featured: true
 order: 3
@@ -16,5 +16,5 @@ images:
 ---
 
 Godzilla Burning phiên bản 1995 tái hiện hình thái nguy hiểm nhất của vua quái
-vật, với lớp vảy phát sáng cam-do được sơn gradient tỉ mỉ. Model nặng tay,
+vật, với lớp vảy phát sáng cam-đỏ phối màu trực tiếp bằng nhựa nhiều màu. Model nặng tay,
 đứng vững trên đế gỗ tùy chọn, phù hợp trưng bày trang trọng.

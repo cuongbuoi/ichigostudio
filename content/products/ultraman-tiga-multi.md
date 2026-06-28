@@ -4,7 +4,7 @@ slug: "ultraman-tiga-multi"
 series: "Ultraman"
 scale: "1/12"
 height: "20 cm"
-material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
+material: "In FDM nhiều màu (PLA+), phối màu trực tiếp bằng nhựa"
 priceRef: "Liên hệ"
 featured: true
 order: 2
@@ -17,4 +17,4 @@ images:
 
 Ultraman Tiga Multi Type được tái hiện với tỉ lệ 1/12, bắt trọn vẻ uy nghiêm
 của chiến binh ánh sáng đến từ 30 triệu năm trước. Màu sắc đỏ, xanh và tím
-được phối hợp chính xác theo bản gốc, hoàn thiện bằng sơn thủ công nhiều lớp.
+được phối hợp chính xác theo bản gốc bằng nhựa nhiều màu, không dùng sơn.
