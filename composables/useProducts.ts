@@ -9,5 +9,6 @@ export function useProducts() {
   const featured = computed(() => getFeatured(all.value))
   const seriesList = computed(() => getSeriesList(all.value))
   const related = (current: ProductMeta) => getRelated(all.value, current)
-  return { all, featured, seriesList, related }
+  const getBySlug = (slug: string) => all.value.find(p => p.slug === slug)
+  return { all, featured, seriesList, getBySlug, related }
 }
