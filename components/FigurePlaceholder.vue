@@ -15,7 +15,7 @@ const seedNum = computed(() => {
   if (typeof props.seed === 'number') return props.seed
   let h = 0
   for (let i = 0; i < props.seed.length; i++) {
-    h = Math.imul(31, h) + props.seed.charCodeAt(i) | 0
+    h = (Math.imul(31, h) + props.seed.charCodeAt(i)) | 0
   }
   return Math.abs(h)
 })
@@ -46,7 +46,7 @@ const eyeRotate    = computed(() => ((seedNum.value >> 8) % 30) - 15)  // -15 to
   >
     <!-- Compound-eye SVG motif (faceted hexagonal insect-eye) -->
     <svg
-      class="pointer-events-none absolute inset-0 m-auto"
+      class="pointer-events-none"
       viewBox="0 0 120 120"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
