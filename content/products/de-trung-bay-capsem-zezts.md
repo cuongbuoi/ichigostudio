@@ -17,11 +17,11 @@ images:
 
 Đế trưng bày in 3D dành riêng cho bộ sưu tập Capsem của Kamen Rider Zeztz. Khung
 vòng cung kết hợp đế lục giác giữ trọn 8 Capsem thường quanh viền, cùng một trụ
-trung tâm tôn vị trí cho Dualmare Capsem. Mặt trước gắn logo Zeztz tạo hình tia
-chớp, phối cam và viền bạc nổi bật.
+trung tâm tôn vị trí cho Dualmare Capsem. Mặt trước gắn logo ZZZ của Zeztz, phối
+cam và viền bạc nổi bật.
 
-In bằng nhựa nhiều màu (đen, xám và cam), giữ nguyên vân lớp đặc trưng của in
-FDM, không dùng sơn. Có thể chọn phối màu khi đặt để hợp với góc trưng bày của bạn.
+In bằng nhựa nhiều màu (đen, xám và cam), không dùng sơn. Có thể chọn phối màu khi
+đặt để hợp với góc trưng bày của bạn.
 
 Lưu ý: Capsem và Dualmare Capsem trong ảnh là vật phẩm chính hãng, dùng để minh
 hoạ cách trưng bày, không kèm theo đế.
