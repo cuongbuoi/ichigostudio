@@ -24,7 +24,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
       <template v-if="shop.hasPhotos">
         <NuxtImg
           :src="images[current]"
-          :alt="`${alt} - figure in FDM`"
+          :alt="`${alt} - phụ kiện in 3D`"
           width="900"
           height="1125"
           class="aspect-[4/5] w-full object-cover motion-safe:transition-opacity motion-safe:duration-200"

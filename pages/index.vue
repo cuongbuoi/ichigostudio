@@ -2,7 +2,7 @@
 const shop = useShop()
 const { featured } = useProducts()
 useSeoMeta({
-  title: `${shop.name} - Figure in FDM chủ đề tokusatsu`,
+  title: `${shop.name} - Phụ kiện in 3D cho đồ chơi DX`,
   description: shop.tagline,
 })
 </script>
@@ -17,12 +17,12 @@ useSeoMeta({
     </div>
 
     <div class="relative z-10">
-      <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">トクサツ / FDM / PLA+</p>
+      <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">DX CUSTOM / FDM / PLA+</p>
       <h1 class="font-display text-5xl uppercase leading-[0.95] tracking-tight text-paper md:text-7xl">
-        FIGURE TOKUSATSU<br />IN FDM.
+        PHỤ KIỆN IN 3D<br />CHO ĐỒ CHƠI DX.
       </h1>
-      <p class="mt-5 max-w-[40ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Mô hình Kamen Rider, Ultraman và hơn thế. In FDM, phối màu theo yêu cầu, số lượng giới hạn.
+      <p class="mt-5 max-w-[42ch] font-sans text-sm font-light leading-relaxed text-silver">
+        Phụ kiện và đế trưng bày in FDM cho đồ chơi DX: Super Sentai, Kamen Rider, Beyblade và hơn thế. Phối màu theo yêu cầu.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
@@ -53,7 +53,7 @@ useSeoMeta({
           <polygon points="92,58 105,65 105,81 92,88 79,81 79,65"/>
         </g>
       </svg>
-      <FigurePlaceholder label="Tokusatsu Showa" ratio="6/7" seed="hero" />
+      <FigurePlaceholder label="Phụ kiện DX in 3D" ratio="6/7" seed="hero" />
     </div>
   </section>
 
@@ -82,11 +82,11 @@ useSeoMeta({
       </div>
       <div class="md:col-span-3">
         <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
-          TỪ FILE 3D ĐẾN FIGURE TRƯNG BÀY
+          TỪ FILE 3D ĐẾN PHỤ KIỆN TRƯNG BÀY
         </h2>
         <p class="mt-4 max-w-[55ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Mỗi sản phẩm in FDM, phối màu trực tiếp bằng nhựa, không dùng sơn.
-          Số lượng nhỏ để giữ chất lượng từng con.
+          Mỗi phụ kiện in FDM, phối màu trực tiếp bằng nhựa, không dùng sơn.
+          Số lượng nhỏ để giữ chất lượng từng món.
         </p>
         <NuxtLink
           to="/gioi-thieu"

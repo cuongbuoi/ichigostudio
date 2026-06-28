@@ -2,17 +2,17 @@
 const shop = useShop()
 useSeoMeta({
   title: `Giới thiệu - ${shop.name}`,
-  description: 'Câu chuyện xưởng figure in FDM tokusatsu và quy trình làm sản phẩm.',
+  description: 'Câu chuyện xưởng phụ kiện in 3D cho đồ chơi DX và quy trình làm sản phẩm.',
 })
 const steps = [
-  { t: 'Dựng và tinh chỉnh model', d: 'Chọn lọc và xử lý file 3D, căn chỉnh từng chi tiết trước khi in.' },
+  { t: 'Dựng model khớp đồ chơi', d: 'Đo và dựng file 3D vừa khít với đồ chơi DX, căn chỉnh trước khi in.' },
   { t: 'In FDM (PLA+) từng phần', d: 'In trên máy FDM, xử lý vân lớp và ráp ghép cẩn thận từng mảnh.' },
   { t: 'Phối màu bằng nhựa', d: 'Lên màu trực tiếp khi in bằng nhựa (AMS), không dùng sơn, chọn phối màu khi đặt.' },
 ]
 const processImages = [
-  'Xưởng in FDM figure tokusatsu - hình 1',
-  'Xưởng in FDM figure tokusatsu - hình 2',
-  'Xưởng in FDM figure tokusatsu - hình 3',
+  'Xưởng in 3D phụ kiện DX - hình 1',
+  'Xưởng in 3D phụ kiện DX - hình 2',
+  'Xưởng in 3D phụ kiện DX - hình 3',
 ]
 </script>
 
@@ -20,11 +20,11 @@ const processImages = [
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="max-w-[60ch]">
       <h1 class="font-display text-4xl uppercase tracking-tight text-paper md:text-5xl">
-        LÀM FIGURE VÌ MÊ TOKUSATSU
+        PHỤ KIỆN IN 3D CHO ĐỒ CHƠI DX
       </h1>
       <p class="mt-6 font-sans text-sm font-light leading-relaxed text-silver">
-        {{ shop.name }} là xưởng nhỏ chuyên figure in FDM các nhân vật tokusatsu.
-        Số lượng giới hạn, tập trung vào độ chi tiết và phối màu nhựa.
+        {{ shop.name }} là xưởng nhỏ chuyên phụ kiện và đế trưng bày in FDM cho đồ chơi DX:
+        Super Sentai, Kamen Rider, Beyblade và hơn thế. Số lượng giới hạn, tập trung vào độ vừa khít và phối màu nhựa.
       </p>
     </div>
 

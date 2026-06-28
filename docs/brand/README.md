@@ -53,5 +53,5 @@ https://claude.ai/code/artifact/7d881fb0-93d4-4013-8d2e-2c1c4ea1d5df
 - Tiếng Việt đủ dấu, rõ ràng, không nói quá; rành nghề nhưng thân thiện.
 - Katakana điểm xuyết (一号, 変身) cho chất toku, dùng ít.
 - KHÔNG dùng dấu gạch ngang dài (—); dùng dấu phẩy hoặc chấm.
-- Thuật ngữ chuẩn: Kamen Rider Zeztz, Capsem, Dualmare Capsem, in FDM, phối màu nhựa.
-- Sản phẩm là đế trưng bày in FDM; Capsem là vật phẩm chính hãng dùng minh hoạ, không kèm theo đế.
+- Thuật ngữ chuẩn: đồ chơi DX, phụ kiện in 3D, đế trưng bày, in FDM, phối màu nhựa; tên dòng (Super Sentai, Kamen Rider, Beyblade) và vật phẩm (Capsem, Dualmare Capsem) viết đúng.
+- Sản phẩm là phụ kiện in 3D cho đồ chơi DX; đồ chơi trong ảnh là hàng chính hãng, dùng minh hoạ, không kèm theo.

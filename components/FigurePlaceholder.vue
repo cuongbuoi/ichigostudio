@@ -77,7 +77,7 @@ const eyeRotate    = computed(() => ((seedNum.value >> 8) % 30) - 15)  // -15 to
 
     <!-- Caption area -->
     <div class="absolute bottom-0 left-0 right-0 px-3 pb-3 pt-2">
-      <p class="font-sans text-[9px] font-medium uppercase tracking-[0.18em] text-silver/50">ẢNH FIGURE</p>
+      <p class="font-sans text-[9px] font-medium uppercase tracking-[0.18em] text-silver/50">ẢNH SẢN PHẨM</p>
       <p v-if="label" class="mt-0.5 font-sans text-[9px] font-light uppercase tracking-[0.12em] text-silver/40 truncate">{{ label }}</p>
     </div>
   </div>

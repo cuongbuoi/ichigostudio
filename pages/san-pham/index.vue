@@ -6,7 +6,7 @@ const visible = computed(() => filterBySeries(all.value, active.value))
 
 useSeoMeta({
   title: 'Bộ sưu tập - Ichigo Studio',
-  description: 'Bộ sưu tập figure in FDM chủ đề tokusatsu.',
+  description: 'Bộ sưu tập phụ kiện in 3D cho đồ chơi DX: Super Sentai, Kamen Rider, Beyblade.',
 })
 </script>
 
@@ -14,7 +14,7 @@ useSeoMeta({
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <SectionHeading
       title="BỘ SƯU TẬP"
-      subtitle="Mỗi model in FDM, phối màu trực tiếp bằng nhựa. Lọc theo series bên dưới."
+      subtitle="Phụ kiện và đế trưng bày in FDM cho đồ chơi DX, phối màu bằng nhựa. Lọc theo dòng bên dưới."
     />
 
     <SeriesFilter :series="seriesList" v-model="active" class="mb-10" />

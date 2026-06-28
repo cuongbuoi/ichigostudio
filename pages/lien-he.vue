@@ -2,7 +2,7 @@
 const shop = useShop()
 useSeoMeta({
   title: `Liên hệ - ${shop.name}`,
-  description: 'Liên hệ shop qua Messenger để hỏi sản phẩm figure tokusatsu in FDM.',
+  description: 'Liên hệ shop qua Messenger để hỏi phụ kiện in 3D cho đồ chơi DX.',
 })
 </script>
 
