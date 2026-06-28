@@ -1,5 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{ images: string[]; index: number; open: boolean; alt: string }>()
+const props = defineProps<{
+  images: string[]
+  index: number
+  open: boolean
+  alt: string
+  hasPhotos?: boolean
+}>()
 const emit = defineEmits<{ close: []; prev: []; next: [] }>()
 
 const closeBtn = ref<HTMLButtonElement | null>(null)
@@ -79,12 +85,23 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
         </svg>
       </button>
 
-      <!-- Image -->
-      <NuxtImg
-        :src="images[index]"
-        :alt="`${alt} - ảnh ${index + 1}`"
-        class="max-h-[85vh] max-w-full rounded object-contain motion-safe:transition-opacity motion-safe:duration-200"
-      />
+      <!-- Image or placeholder -->
+      <template v-if="hasPhotos !== false">
+        <NuxtImg
+          :src="images[index]"
+          :alt="`${alt} - ảnh ${index + 1}`"
+          class="max-h-[85vh] max-w-full rounded object-contain motion-safe:transition-opacity motion-safe:duration-200"
+        />
+      </template>
+      <template v-else>
+        <div class="max-h-[85vh] max-w-[min(90vw,600px)] w-full">
+          <FigurePlaceholder
+            :label="alt"
+            ratio="4/5"
+            :seed="index"
+          />
+        </div>
+      </template>
 
       <!-- Next -->
       <button

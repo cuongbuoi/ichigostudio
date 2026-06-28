@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{ images: string[]; alt: string }>()
+const { shop } = useAppConfig()
 
 const current = ref(0)
 const lightbox = ref(false)
@@ -13,21 +14,32 @@ function next() { current.value = (current.value + 1) % props.images.length }
 
 <template>
   <div>
+    <!-- Main image / placeholder -->
     <button
       type="button"
       @click="open"
       aria-label="Phóng to ảnh sản phẩm"
       class="block w-full overflow-hidden rounded bg-panel border border-paper/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
     >
-      <NuxtImg
-        :src="images[current]"
-        :alt="`${alt} - figure in FDM, sơn thủ công`"
-        width="900"
-        height="1125"
-        class="aspect-[4/5] w-full object-cover motion-safe:transition-opacity motion-safe:duration-200"
-      />
+      <template v-if="shop.hasPhotos">
+        <NuxtImg
+          :src="images[current]"
+          :alt="`${alt} - figure in FDM, sơn thủ công`"
+          width="900"
+          height="1125"
+          class="aspect-[4/5] w-full object-cover motion-safe:transition-opacity motion-safe:duration-200"
+        />
+      </template>
+      <template v-else>
+        <FigurePlaceholder
+          :label="alt"
+          ratio="4/5"
+          :seed="current"
+        />
+      </template>
     </button>
 
+    <!-- Thumbnails -->
     <div class="mt-3 flex gap-2 overflow-x-auto pb-1" role="list" :aria-label="`Ảnh ${alt}`">
       <button
         v-for="(img, i) in images"
@@ -44,13 +56,22 @@ function next() { current.value = (current.value + 1) % props.images.length }
             : 'border-transparent opacity-60 hover:opacity-90',
         ]"
       >
-        <NuxtImg
-          :src="img"
-          :alt="`${alt} - ảnh ${i + 1}`"
-          width="120"
-          height="150"
-          class="h-full w-full object-cover"
-        />
+        <template v-if="shop.hasPhotos">
+          <NuxtImg
+            :src="img"
+            :alt="`${alt} - ảnh ${i + 1}`"
+            width="120"
+            height="150"
+            class="h-full w-full object-cover"
+          />
+        </template>
+        <template v-else>
+          <FigurePlaceholder
+            :label="`${i + 1}`"
+            ratio="4/5"
+            :seed="i"
+          />
+        </template>
       </button>
     </div>
 
@@ -59,6 +80,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
       :index="current"
       :open="lightbox"
       :alt="alt"
+      :has-photos="shop.hasPhotos"
       @close="close"
       @prev="prev"
       @next="next"
