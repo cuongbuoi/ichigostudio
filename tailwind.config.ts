@@ -12,15 +12,16 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        // nền off-white / off-black, 1 accent duy nhất (đỏ thép trầm)
-        bone: '#f4f2ec',
-        ink: '#16151a',
-        accent: { DEFAULT: '#b4232a', soft: '#c8443b' },
+        night: '#0e0f0c',
+        panel: '#15160f',
+        panel2: '#1d1f15',
+        hopper: { DEFAULT: '#5c8a24', bright: '#76b02f' },
+        silver: '#c8ccc4',
+        paper: '#eef0e8',
       },
       fontFamily: {
-        // sans display có gu cho heading, sans sạch cho body (self-host ở Task 3)
-        display: ['"Clash Display"', 'system-ui', 'sans-serif'],
-        sans: ['"Geist"', 'system-ui', 'sans-serif'],
+        display: ['Anton', 'Impact', 'sans-serif'],
+        sans: ['Oswald', '"Arial Narrow"', 'system-ui', 'sans-serif'],
       },
       maxWidth: { content: '1400px' },
     },

@@ -4,7 +4,7 @@ slug: "kamen-rider-w-cyclonejoker"
 series: "Kamen Rider"
 scale: "1/12"
 height: "18 cm"
-material: "Resin in 3D, sơn thủ công"
+material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
 priceRef: "Liên hệ"
 featured: false
 order: 5

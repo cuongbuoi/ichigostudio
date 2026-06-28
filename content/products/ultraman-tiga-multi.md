@@ -4,7 +4,7 @@ slug: "ultraman-tiga-multi"
 series: "Ultraman"
 scale: "1/12"
 height: "20 cm"
-material: "Resin in 3D, sơn thủ công"
+material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
 priceRef: "Liên hệ"
 featured: true
 order: 2

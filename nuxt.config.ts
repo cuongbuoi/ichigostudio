@@ -7,14 +7,11 @@ const productRoutes = readdirSync(resolve(__dirname, 'content/products'))
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
-  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css'],
-  colorMode: {
-    classSuffix: '',
-  },
   app: {
     head: {
-      htmlAttrs: { lang: 'vi' },
+      htmlAttrs: { lang: 'vi', class: 'dark' },
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },

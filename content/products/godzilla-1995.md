@@ -4,7 +4,7 @@ slug: "godzilla-1995"
 series: "Kaiju / Godzilla"
 scale: "1/12"
 height: "22 cm"
-material: "Resin in 3D, sơn thủ công"
+material: "In FDM (PLA+), xử lý bề mặt và sơn thủ công"
 priceRef: "Liên hệ"
 featured: true
 order: 3

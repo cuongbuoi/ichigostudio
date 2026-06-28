@@ -1,33 +1,60 @@
 <script setup lang="ts">
 const shop = useShop()
 const links = [
-  { to: '/', label: 'Trang chủ' },
-  { to: '/san-pham', label: 'Bộ sưu tập' },
-  { to: '/gioi-thieu', label: 'Giới thiệu' },
-  { to: '/lien-he', label: 'Liên hệ' },
+  { to: '/', label: 'TRANG CHU' },
+  { to: '/san-pham', label: 'BO SUU TAP' },
+  { to: '/gioi-thieu', label: 'GIOI THIEU' },
+  { to: '/lien-he', label: 'LIEN HE' },
 ]
 const open = ref(false)
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 border-b border-ink/10 bg-bone/80 backdrop-blur dark:border-bone/10 dark:bg-ink/80">
+  <header class="sticky top-0 z-40 border-b border-hopper/30 bg-night/90 backdrop-blur-sm">
     <div class="mx-auto flex h-16 max-w-content items-center justify-between px-4 md:px-8">
-      <NuxtLink to="/" class="font-display text-lg tracking-tight">{{ shop.name }}</NuxtLink>
-      <nav class="hidden items-center gap-8 md:flex" aria-label="Điều hướng chính">
-        <NuxtLink v-for="l in links" :key="l.to" :to="l.to"
-          class="text-sm text-ink/70 transition hover:text-ink dark:text-bone/70 dark:hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded">{{ l.label }}</NuxtLink>
-        <ColorModeToggle />
+      <!-- Logo -->
+      <NuxtLink to="/" class="flex items-baseline gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded">
+        <span class="font-display text-xl uppercase tracking-tight text-paper">{{ shop.name }}</span>
+        <span class="font-sans text-[10px] font-light tracking-[0.2em] text-silver" lang="ja">仮面ライダー</span>
+      </NuxtLink>
+
+      <!-- Desktop nav -->
+      <nav class="hidden items-center gap-6 md:flex" aria-label="Dieu huong chinh">
+        <NuxtLink
+          v-for="l in links"
+          :key="l.to"
+          :to="l.to"
+          class="font-sans text-xs font-medium tracking-[0.12em] text-silver transition hover:text-paper hover:underline decoration-hopper underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
+        >{{ l.label }}</NuxtLink>
       </nav>
-      <div class="flex items-center gap-2 md:hidden">
-        <ColorModeToggle />
-        <button type="button" @click="open = !open" aria-label="Mở menu" class="p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded">
-          <span aria-hidden="true">&#9776;</span>
-        </button>
-      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        @click="open = !open"
+        :aria-expanded="open"
+        aria-label="Mo menu dieu huong"
+        class="flex md:hidden items-center justify-center p-2 text-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line v-if="!open" x1="3" y1="6" x2="21" y2="6"/>
+          <line v-if="!open" x1="3" y1="12" x2="21" y2="12"/>
+          <line v-if="!open" x1="3" y1="18" x2="21" y2="18"/>
+          <line v-if="open" x1="6" y1="6" x2="18" y2="18"/>
+          <line v-if="open" x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </button>
     </div>
-    <nav v-if="open" class="border-t border-ink/10 px-4 py-3 md:hidden dark:border-bone/10" aria-label="Menu di động">
-      <NuxtLink v-for="l in links" :key="l.to" :to="l.to" @click="open = false"
-        class="block py-2 text-ink/80 dark:text-bone/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent rounded">{{ l.label }}</NuxtLink>
+
+    <!-- Mobile menu -->
+    <nav v-if="open" class="border-t border-hopper/20 bg-panel px-4 py-3 md:hidden" aria-label="Menu di dong">
+      <NuxtLink
+        v-for="l in links"
+        :key="l.to"
+        :to="l.to"
+        @click="open = false"
+        class="block py-2.5 font-sans text-sm font-medium tracking-[0.1em] text-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
+      >{{ l.label }}</NuxtLink>
     </nav>
   </header>
 </template>
