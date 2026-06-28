@@ -1,7 +1,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
-  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   css: ['~/assets/css/main.css'],
+  colorMode: {
+    classSuffix: '',
+  },
   app: {
     head: {
       htmlAttrs: { lang: 'vi' },
