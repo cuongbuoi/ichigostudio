@@ -21,3 +21,4 @@ Task 4: complete (commits c837c8a..74765cb, review clean, real content-v3 data v
 Task 5: complete (commits 74765cb..253f0ad, lightbox/gallery/detail/prerender solid, 22 stripped diacritics fixed; stub gioi-thieu/lien-he created -> Task 7 replaces)
 Task 6: complete (commits 253f0ad..5af8432, review clean, hero alt fixed)
 Task 7: complete (commits 5af8432..7ced8de, about+contact replace stubs, focus ring + unused import fixed)
+Task 8: complete (commits 7ced8de..a460df4, build/generate OK, README, contrast raised to AA)
