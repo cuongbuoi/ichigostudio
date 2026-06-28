@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const shop = useShop()
 const { featured } = useProducts()
-const { shop: shopConfig } = useAppConfig()
 useSeoMeta({
   title: `${shop.name} - Figure in FDM chủ đề tokusatsu`,
   description: shop.tagline,
@@ -54,23 +53,7 @@ useSeoMeta({
           <polygon points="92,58 105,65 105,81 92,88 79,81 79,65"/>
         </g>
       </svg>
-      <template v-if="shopConfig.hasPhotos">
-        <NuxtImg
-          src="https://picsum.photos/seed/toku-hero-showa/1200/1400"
-          alt="Nhân vật tokusatsu Showa in FDM nhiều màu"
-          width="1200"
-          height="1400"
-          preload
-          class="aspect-[6/7] w-full object-cover"
-        />
-      </template>
-      <template v-else>
-        <FigurePlaceholder
-          label="Tokusatsu Showa"
-          ratio="6/7"
-          seed="hero"
-        />
-      </template>
+      <FigurePlaceholder label="Tokusatsu Showa" ratio="6/7" seed="hero" />
     </div>
   </section>
 
@@ -95,23 +78,7 @@ useSeoMeta({
   <section class="bg-panel py-20">
     <div class="mx-auto grid max-w-content items-center gap-10 px-4 md:grid-cols-5 md:px-8">
       <div class="overflow-hidden rounded md:col-span-2">
-        <template v-if="shopConfig.hasPhotos">
-          <NuxtImg
-            src="https://picsum.photos/seed/toku-workshop-fdm/900/900"
-            alt="Xưởng in FDM figure tokusatsu nhiều màu"
-            width="900"
-            height="900"
-            loading="lazy"
-            class="aspect-square w-full object-cover"
-          />
-        </template>
-        <template v-else>
-          <FigurePlaceholder
-            label="Xưởng Ichigo Studio"
-            ratio="1/1"
-            seed="workshop"
-          />
-        </template>
+        <FigurePlaceholder label="Xưởng Ichigo Studio" ratio="1/1" seed="workshop" />
       </div>
       <div class="md:col-span-3">
         <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">

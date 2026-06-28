@@ -12,10 +12,11 @@ const open = ref(false)
 <template>
   <header class="sticky top-0 z-40 border-b border-hopper/30 bg-night/90 backdrop-blur-sm">
     <div class="mx-auto flex h-16 max-w-content items-center justify-between px-4 md:px-8">
-      <!-- Logo: mũ Kamen Rider Ichigo + tên shop -->
-      <NuxtLink to="/" class="flex items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded">
-        <RiderMark class="h-8 w-auto text-paper" />
-        <span class="font-display text-xl uppercase tracking-tight text-paper">{{ shop.name }}</span>
+      <!-- Logo Ichigo Studio (logo đã gồm cả chữ) -->
+      <NuxtLink to="/" :aria-label="shop.name" class="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper rounded-lg">
+        <span class="flex items-center justify-center rounded-lg bg-paper p-1.5">
+          <NuxtImg src="/logo.png" :alt="shop.name" width="120" height="120" class="h-10 w-10 object-contain" />
+        </span>
       </NuxtLink>
 
       <!-- Desktop nav -->

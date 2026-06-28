@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const shop = useShop()
-const { shop: shopConfig } = useAppConfig()
 useSeoMeta({
   title: `Giới thiệu - ${shop.name}`,
   description: 'Câu chuyện xưởng figure in FDM tokusatsu và quy trình làm sản phẩm.',
@@ -11,9 +10,9 @@ const steps = [
   { t: 'Phối màu bằng nhựa nhiều màu', d: 'Lên màu trực tiếp khi in bằng nhựa nhiều màu (AMS), không dùng sơn, chọn phối màu khi đặt.' },
 ]
 const processImages = [
-  { src: 'https://picsum.photos/seed/about-fdm-1/800/600', alt: 'Xưởng in FDM figure tokusatsu - hình 1' },
-  { src: 'https://picsum.photos/seed/about-fdm-2/800/600', alt: 'Xưởng in FDM figure tokusatsu - hình 2' },
-  { src: 'https://picsum.photos/seed/about-fdm-3/800/600', alt: 'Xưởng in FDM figure tokusatsu - hình 3' },
+  'Xưởng in FDM figure tokusatsu - hình 1',
+  'Xưởng in FDM figure tokusatsu - hình 2',
+  'Xưởng in FDM figure tokusatsu - hình 3',
 ]
 </script>
 
@@ -30,25 +29,13 @@ const processImages = [
     </div>
 
     <div class="mt-12 grid gap-4 md:grid-cols-3">
-      <template v-for="(img, i) in processImages" :key="i">
-        <template v-if="shopConfig.hasPhotos">
-          <NuxtImg
-            :src="img.src"
-            :alt="img.alt"
-            width="800"
-            height="600"
-            loading="lazy"
-            class="aspect-[4/3] w-full rounded object-cover border border-paper/10"
-          />
-        </template>
-        <template v-else>
-          <FigurePlaceholder
-            :label="img.alt"
-            ratio="4/3"
-            :seed="i"
-          />
-        </template>
-      </template>
+      <FigurePlaceholder
+        v-for="(label, i) in processImages"
+        :key="i"
+        :label="label"
+        ratio="4/3"
+        :seed="i"
+      />
     </div>
 
     <!-- QUY TRINH section: FDM layer-line texture background -->
