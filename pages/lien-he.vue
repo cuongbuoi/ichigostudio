@@ -10,7 +10,7 @@ useSeoMeta({
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="grid gap-12 md:grid-cols-2">
       <div>
-        <h1 class="font-display text-4xl uppercase tracking-tight text-paper md:text-5xl">LIÊN HỆ</h1>
+        <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">LIÊN HỆ</h1>
         <p class="mt-5 max-w-[45ch] font-sans text-sm font-light leading-relaxed text-silver">
           Cách nhanh nhất là nhắn tin Messenger. Cho shop biết bạn quan tâm mẫu nào,
           shop sẽ báo giá và tình trạng hàng.

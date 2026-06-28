@@ -40,7 +40,7 @@ useSeoMeta({
       <div class="lg:py-4">
         <!-- 1 eyebrow per page: series label -->
         <p class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ product.series }}</p>
-        <h1 class="mt-2 font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
+        <h1 class="mt-2 font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
           {{ product.title }}
         </h1>
 

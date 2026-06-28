@@ -19,7 +19,7 @@ const processImages = [
 <template>
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="max-w-[60ch]">
-      <h1 class="font-display text-4xl uppercase tracking-tight text-paper md:text-5xl">
+      <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">
         PHỤ KIỆN IN 3D CHO ĐỒ CHƠI DX
       </h1>
       <p class="mt-6 font-sans text-sm font-light leading-relaxed text-silver">

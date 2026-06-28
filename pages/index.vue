@@ -18,7 +18,7 @@ useSeoMeta({
 
     <div class="relative z-10">
       <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">DX CUSTOM / FDM / PLA+</p>
-      <h1 class="font-display text-5xl uppercase leading-[0.95] tracking-tight text-paper md:text-7xl">
+      <h1 class="font-display text-5xl uppercase leading-[1.5] tracking-tight text-paper md:text-7xl md:leading-[1.5]">
         PHỤ KIỆN IN 3D<br />CHO ĐỒ CHƠI DX.
       </h1>
       <p class="mt-5 max-w-[42ch] font-sans text-sm font-light leading-relaxed text-silver">
@@ -81,7 +81,7 @@ useSeoMeta({
         <FigurePlaceholder label="Xưởng Ichigo Studio" ratio="1/1" seed="workshop" />
       </div>
       <div class="md:col-span-3">
-        <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
+        <h2 class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
           TỪ FILE 3D ĐẾN PHỤ KIỆN TRƯNG BÀY
         </h2>
         <p class="mt-4 max-w-[55ch] font-sans text-sm font-light leading-relaxed text-silver">
@@ -98,7 +98,7 @@ useSeoMeta({
 
   <!-- CTA SECTION -->
   <section class="mx-auto max-w-content px-4 py-24 md:px-8">
-    <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
+    <h2 class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
       TÌM THẤY CON BẠN THÍCH?
     </h2>
     <p class="mt-3 max-w-[45ch] font-sans text-sm font-light text-silver">
