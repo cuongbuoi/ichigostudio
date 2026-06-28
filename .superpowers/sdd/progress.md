@@ -34,3 +34,4 @@ Task 8 (polish): complete (final commit 42ab90d, tests 8/8, generate 21 routes, 
 Final whole-branch review: APPROVED (f69f15c..42ab90d). Minor findings noted (all non-blocking). Polish pass complete.
 Redesign complete: Showa Hopper applied + on-brand FigurePlaceholder frames (hasPhotos flag) + real hero copy. Verified via Chrome headless screenshots (home/collection/detail/about) — coherent toku, no stock-photo slop. tests 8/8, generate OK.
 Content fix: shop does NOT paint. Removed all 'sơn thủ công' claims across pages/components/content + app.config; reframed to FDM multi-color (AMS) filament, choose color on order. tests 8/8, screenshots confirm.
+Rename Henshin Studio -> Ichigo Studio everywhere (app.config, SEO titles, footer, README). New logo: components/RiderMark.vue = side-profile Kamen Rider Ichigo helmet (hopper-green compound eye) shown in header + footer. tests 8/8, generate OK.

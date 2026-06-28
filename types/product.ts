@@ -2,8 +2,9 @@ export interface Product {
   title: string
   slug: string
   series: string
-  scale: string
-  height: string
+  scale?: string
+  height?: string
+  capacity?: string
   material: string
   priceRef: string
   featured: boolean

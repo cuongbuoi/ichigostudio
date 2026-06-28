@@ -30,7 +30,8 @@ const { shop } = useAppConfig()
     <div class="mt-3">
       <p class="font-sans text-[10px] uppercase tracking-[0.15em] text-hopper font-medium">{{ product.series }}</p>
       <h3 class="mt-1 font-sans text-base font-semibold leading-snug text-paper">{{ product.title }}</h3>
-      <p class="mt-0.5 font-sans text-xs font-light text-silver">Tỉ lệ {{ product.scale }}</p>
+      <p v-if="product.scale" class="mt-0.5 font-sans text-xs font-light text-silver">Tỉ lệ {{ product.scale }}</p>
+      <p v-else-if="product.capacity" class="mt-0.5 font-sans text-xs font-light text-silver">{{ product.capacity }}</p>
     </div>
   </NuxtLink>
 </template>

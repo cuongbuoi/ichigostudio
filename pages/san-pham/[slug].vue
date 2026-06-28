@@ -46,15 +46,19 @@ useSeoMeta({
 
         <!-- Specs: "mecha readout" style - grouped, hairline separators -->
         <dl class="mt-6 border-t border-paper/10 pt-4 font-sans">
-          <div class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm pb-4 border-b border-paper/10">
-            <div>
+          <div v-if="product.scale || product.height" class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm pb-4 border-b border-paper/10">
+            <div v-if="product.scale">
               <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Tỉ lệ</dt>
               <dd class="mt-0.5 font-medium text-paper">{{ product.scale }}</dd>
             </div>
-            <div>
+            <div v-if="product.height">
               <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Chiều cao</dt>
               <dd class="mt-0.5 font-medium text-paper">{{ product.height }}</dd>
             </div>
+          </div>
+          <div v-if="product.capacity" class="py-3 border-b border-paper/10">
+            <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Sức chứa</dt>
+            <dd class="mt-0.5 text-sm font-medium text-paper">{{ product.capacity }}</dd>
           </div>
           <div class="py-3 border-b border-paper/10">
             <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Chất liệu</dt>
