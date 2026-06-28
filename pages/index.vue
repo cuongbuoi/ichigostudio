@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const shop = useShop()
 const { featured } = useProducts()
+const { shop: shopConfig } = useAppConfig()
 useSeoMeta({
   title: `${shop.name} - Figure in FDM chủ đề tokusatsu`,
   description: shop.tagline,
@@ -17,11 +18,12 @@ useSeoMeta({
     </div>
 
     <div class="relative z-10">
+      <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">トクサツ / FDM / PLA+</p>
       <h1 class="font-display text-5xl uppercase leading-[0.95] tracking-tight text-paper md:text-7xl">
-        HERO<br />TOKUSATSU<br />IN FDM.
+        FIGURE TOKUSATSU<br />IN FDM, SƠN THỦ CÔNG.
       </h1>
       <p class="mt-5 max-w-[40ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Figure sơn tay, chi tiết sắc nét, số lượng giới hạn. Từ Showa đến Heisei.
+        Mô hình Kamen Rider, Ultraman và hơn thế. In 3D FDM rồi sơn tay từng chi tiết, số lượng giới hạn.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
@@ -32,9 +34,9 @@ useSeoMeta({
       </div>
     </div>
 
-    <!-- Hero image panel with compound-eye watermark -->
+    <!-- Hero image panel -->
     <div class="relative overflow-hidden rounded bg-panel border border-paper/10">
-      <!-- Compound-eye SVG watermark (decorative) -->
+      <!-- Compound-eye SVG watermark (decorative, always shown in hero panel) -->
       <svg
         class="pointer-events-none absolute bottom-4 right-4 h-24 w-24 opacity-[0.07]"
         viewBox="0 0 120 120"
@@ -52,14 +54,23 @@ useSeoMeta({
           <polygon points="92,58 105,65 105,81 92,88 79,81 79,65"/>
         </g>
       </svg>
-      <NuxtImg
-        src="https://picsum.photos/seed/toku-hero-showa/1200/1400"
-        alt="Nhân vật tokusatsu Showa in FDM, sơn thủ công"
-        width="1200"
-        height="1400"
-        preload
-        class="aspect-[6/7] w-full object-cover"
-      />
+      <template v-if="shopConfig.hasPhotos">
+        <NuxtImg
+          src="https://picsum.photos/seed/toku-hero-showa/1200/1400"
+          alt="Nhân vật tokusatsu Showa in FDM, sơn thủ công"
+          width="1200"
+          height="1400"
+          preload
+          class="aspect-[6/7] w-full object-cover"
+        />
+      </template>
+      <template v-else>
+        <FigurePlaceholder
+          label="Tokusatsu Showa"
+          ratio="6/7"
+          seed="hero"
+        />
+      </template>
     </div>
   </section>
 
@@ -84,14 +95,23 @@ useSeoMeta({
   <section class="bg-panel py-20">
     <div class="mx-auto grid max-w-content items-center gap-10 px-4 md:grid-cols-5 md:px-8">
       <div class="overflow-hidden rounded md:col-span-2">
-        <NuxtImg
-          src="https://picsum.photos/seed/toku-workshop-fdm/900/900"
-          alt="Xưởng in FDM và sơn thủ công figure tokusatsu"
-          width="900"
-          height="900"
-          loading="lazy"
-          class="aspect-square w-full object-cover"
-        />
+        <template v-if="shopConfig.hasPhotos">
+          <NuxtImg
+            src="https://picsum.photos/seed/toku-workshop-fdm/900/900"
+            alt="Xưởng in FDM và sơn thủ công figure tokusatsu"
+            width="900"
+            height="900"
+            loading="lazy"
+            class="aspect-square w-full object-cover"
+          />
+        </template>
+        <template v-else>
+          <FigurePlaceholder
+            label="Xưởng Henshin Studio"
+            ratio="1/1"
+            seed="workshop"
+          />
+        </template>
       </div>
       <div class="md:col-span-3">
         <h2 class="font-display text-3xl uppercase tracking-tight text-paper md:text-4xl">
