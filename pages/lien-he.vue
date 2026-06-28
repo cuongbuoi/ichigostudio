@@ -20,15 +20,15 @@ useSeoMeta({
 
       <dl class="space-y-6 border-t border-ink/10 pt-8 dark:border-bone/10 md:border-l md:border-t-0 md:pl-12 md:pt-0">
         <div>
-          <dt class="text-sm text-ink/45 dark:text-bone/45">Facebook</dt>
+          <dt class="text-sm text-ink/65 dark:text-bone/65">Facebook</dt>
           <dd><a :href="shop.facebookUrl" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">{{ shop.facebookUrl }}</a></dd>
         </div>
         <div>
-          <dt class="text-sm text-ink/45 dark:text-bone/45">Thời gian phản hồi</dt>
+          <dt class="text-sm text-ink/65 dark:text-bone/65">Thời gian phản hồi</dt>
           <dd>{{ shop.responseTime }}</dd>
         </div>
         <div>
-          <dt class="text-sm text-ink/45 dark:text-bone/45">Khu vực</dt>
+          <dt class="text-sm text-ink/65 dark:text-bone/65">Khu vực</dt>
           <dd>{{ shop.area }}</dd>
         </div>
       </dl>

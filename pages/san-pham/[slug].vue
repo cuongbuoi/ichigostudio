@@ -29,7 +29,7 @@ useSeoMeta({
   <article v-if="product" class="mx-auto max-w-6xl px-4 py-12 md:px-8">
     <NuxtLink
       to="/san-pham"
-      class="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-ink dark:text-bone/50 dark:hover:text-bone transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      class="inline-flex items-center gap-1 text-sm text-ink/65 hover:text-ink dark:text-bone/65 dark:hover:text-bone transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       Bộ sưu tập
@@ -46,19 +46,19 @@ useSeoMeta({
 
         <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Tỉ lệ</dt>
+            <dt class="text-ink/65 dark:text-bone/65">Tỉ lệ</dt>
             <dd class="mt-0.5 font-medium">{{ product.scale }}</dd>
           </div>
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Chiều cao</dt>
+            <dt class="text-ink/65 dark:text-bone/65">Chiều cao</dt>
             <dd class="mt-0.5 font-medium">{{ product.height }}</dd>
           </div>
           <div class="col-span-2">
-            <dt class="text-ink/45 dark:text-bone/45">Chất liệu</dt>
+            <dt class="text-ink/65 dark:text-bone/65">Chất liệu</dt>
             <dd class="mt-0.5 font-medium">{{ product.material }}</dd>
           </div>
           <div>
-            <dt class="text-ink/45 dark:text-bone/45">Giá tham khảo</dt>
+            <dt class="text-ink/65 dark:text-bone/65">Giá tham khảo</dt>
             <dd class="mt-0.5 font-medium">{{ product.priceRef }}</dd>
           </div>
         </dl>
@@ -69,7 +69,7 @@ useSeoMeta({
 
         <div class="mt-8">
           <MessengerButton :label="`Hỏi mua ${product.title}`" />
-          <p class="mt-2 text-xs text-ink/45 dark:text-bone/45">{{ shop.responseTime }}</p>
+          <p class="mt-2 text-xs text-ink/65 dark:text-bone/65">{{ shop.responseTime }}</p>
         </div>
       </div>
     </div>

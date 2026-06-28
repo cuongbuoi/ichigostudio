@@ -8,11 +8,11 @@ const shop = useShop()
       <div>
         <p class="font-display text-xl tracking-tight">{{ shop.name }}</p>
         <p class="mt-2 max-w-[40ch] text-sm text-ink/60 dark:text-bone/60">{{ shop.tagline }}</p>
-        <p class="mt-1 text-sm text-ink/50 dark:text-bone/50">Khu vực: {{ shop.area }}</p>
+        <p class="mt-1 text-sm text-ink/65 dark:text-bone/65">Khu vực: {{ shop.area }}</p>
       </div>
       <MessengerButton variant="ghost" label="Nhắn tin cho shop" />
     </div>
-    <div class="border-t border-ink/10 py-4 text-center text-xs text-ink/40 dark:border-bone/10 dark:text-bone/40">
+    <div class="border-t border-ink/10 py-4 text-center text-xs text-ink/65 dark:border-bone/10 dark:text-bone/65">
       &copy; {{ new Date().getFullYear() }} {{ shop.name }}
     </div>
   </footer>

@@ -21,7 +21,7 @@ useSeoMeta({
     <div v-if="visible.length" class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       <ProductCard v-for="p in visible" :key="p.slug" :product="p" />
     </div>
-    <p v-else class="py-20 text-center text-ink/50 dark:text-bone/50">
+    <p v-else class="py-20 text-center text-ink/65 dark:text-bone/65">
       Chưa có sản phẩm trong series này. Nhắn shop để đặt mẫu riêng.
     </p>
   </section>
