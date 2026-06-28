@@ -1,4 +1,4 @@
-# Henshin Studio - Website showcase figure 3D tokusatsu
+# Ichigo Studio - Website showcase figure 3D tokusatsu
 
 Nuxt 3 (SSG) + @nuxt/content + Tailwind. Site chỉ trưng bày sản phẩm, liên hệ qua Messenger.
 

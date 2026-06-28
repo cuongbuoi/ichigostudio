@@ -33,3 +33,4 @@ Task 7 (polish): complete (commits 5a960c0..7ede4e2, review clean)
 Task 8 (polish): complete (final commit 42ab90d, tests 8/8, generate 21 routes, greps clean)
 Final whole-branch review: APPROVED (f69f15c..42ab90d). Minor findings noted (all non-blocking). Polish pass complete.
 Redesign complete: Showa Hopper applied + on-brand FigurePlaceholder frames (hasPhotos flag) + real hero copy. Verified via Chrome headless screenshots (home/collection/detail/about) — coherent toku, no stock-photo slop. tests 8/8, generate OK.
+Content fix: shop does NOT paint. Removed all 'sơn thủ công' claims across pages/components/content + app.config; reframed to FDM multi-color (AMS) filament, choose color on order. tests 8/8, screenshots confirm.

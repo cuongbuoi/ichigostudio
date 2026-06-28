@@ -5,7 +5,7 @@ const active = ref('all')
 const visible = computed(() => filterBySeries(all.value, active.value))
 
 useSeoMeta({
-  title: 'Bộ sưu tập - Henshin Studio',
+  title: 'Bộ sưu tập - Ichigo Studio',
   description: 'Bộ sưu tập figure in FDM nhiều màu chủ đề tokusatsu.',
 })
 </script>

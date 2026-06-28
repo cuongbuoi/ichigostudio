@@ -107,7 +107,7 @@ useSeoMeta({
         </template>
         <template v-else>
           <FigurePlaceholder
-            label="Xưởng Henshin Studio"
+            label="Xưởng Ichigo Studio"
             ratio="1/1"
             seed="workshop"
           />
