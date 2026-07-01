@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ichigo-studio",
-  "pages_build_output_dir": ".output/public",
+  // Trên CI của Cloudflare, Nuxt dùng preset cloudflare-pages -> xuất ra "dist".
+  // (Local "dist" là symlink tới .output/public nên yarn deploy vẫn chạy đúng.)
+  "pages_build_output_dir": "dist",
   "compatibility_date": "2026-06-25"
 }
