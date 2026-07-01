@@ -5,10 +5,10 @@ Nuxt 3 (SSG) + @nuxt/content + Tailwind. Site chỉ trưng bày sản phẩm, li
 ## Phát triển
 
 ```bash
-npm install
-npm run dev        # http://localhost:3000
-npm test           # unit test
-npm run generate   # build tĩnh -> .output/public
+yarn               # cài dependencies
+yarn dev           # http://localhost:3000
+yarn test          # unit test
+yarn generate      # build tĩnh -> .output/public
 ```
 
 ## Thêm / sửa sản phẩm

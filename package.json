@@ -7,11 +7,13 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "nuxt generate && wrangler pages deploy --branch main --commit-dirty=true"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "yarn@1.22.22",
   "dependencies": {
     "@nuxt/content": "^3.14.0",
     "@nuxt/image": "^2.0.0",
@@ -28,6 +30,7 @@
     "happy-dom": "^20.10.6",
     "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.9",
+    "wrangler": "^4.106.0"
   }
 }
