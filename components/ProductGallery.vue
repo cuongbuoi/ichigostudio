@@ -26,14 +26,13 @@ function next() { current.value = (current.value + 1) % props.images.length }
           :src="images[current]"
           :alt="`${alt} - phụ kiện in 3D`"
           width="900"
-          height="1125"
-          class="aspect-[4/5] w-full object-cover motion-safe:transition-opacity motion-safe:duration-200"
+          class="aspect-square w-full object-contain motion-safe:transition-opacity motion-safe:duration-200"
         />
       </template>
       <template v-else>
         <FigurePlaceholder
           :label="alt"
-          ratio="4/5"
+          ratio="1/1"
           :seed="current"
         />
       </template>
@@ -50,7 +49,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
         :aria-label="`Xem ảnh ${i + 1} của ${alt}`"
         :aria-current="i === current ? 'true' : undefined"
         :class="[
-          'h-20 w-16 shrink-0 overflow-hidden rounded border-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-hopper',
+          'h-16 w-16 shrink-0 overflow-hidden rounded border-2 bg-panel transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-hopper',
           i === current
             ? 'border-hopper'
             : 'border-transparent opacity-60 hover:opacity-90',
@@ -61,14 +60,13 @@ function next() { current.value = (current.value + 1) % props.images.length }
             :src="img"
             :alt="`${alt} - ảnh ${i + 1}`"
             width="120"
-            height="150"
-            class="h-full w-full object-cover"
+            class="h-full w-full object-contain"
           />
         </template>
         <template v-else>
           <FigurePlaceholder
             :label="`${i + 1}`"
-            ratio="4/5"
+            ratio="1/1"
             :seed="i"
           />
         </template>

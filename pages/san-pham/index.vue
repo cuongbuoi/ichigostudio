@@ -14,7 +14,7 @@ useSeoMeta({
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <SectionHeading
       title="BỘ SƯU TẬP"
-      subtitle="Phụ kiện và đế trưng bày in FDM cho đồ chơi DX, phối màu bằng nhựa. Lọc theo dòng bên dưới."
+      subtitle="Phụ kiện và đế trưng bày in FDM cho đồ chơi DX"
     />
 
     <SeriesFilter :series="seriesList" v-model="active" class="mb-10" />

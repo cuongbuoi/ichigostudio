@@ -13,10 +13,9 @@ const open = ref(false)
   <header class="sticky top-0 z-40 border-b border-hopper/30 bg-night/90 backdrop-blur-sm">
     <div class="mx-auto flex h-16 max-w-content items-center justify-between px-4 md:px-8">
       <!-- Logo Ichigo Studio (logo đã gồm cả chữ) -->
-      <NuxtLink to="/" :aria-label="shop.name" class="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper rounded-lg">
-        <span class="flex items-center justify-center overflow-hidden rounded-lg bg-paper">
-          <NuxtImg src="/logo.png" :alt="shop.name" width="120" height="120" class="h-10 w-10 rounded-lg object-cover" />
-        </span>
+      <NuxtLink to="/" :aria-label="shop.name" class="flex items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper rounded-lg">
+        <NuxtImg src="/logo-mark.png" :alt="shop.name" width="719" height="884" class="h-11 w-auto object-contain" />
+        <span class="font-display text-xl uppercase leading-none tracking-wide text-paper">Ichigo Studio</span>
       </NuxtLink>
 
       <!-- Desktop nav -->

@@ -53,7 +53,14 @@ useSeoMeta({
           <polygon points="92,58 105,65 105,81 92,88 79,81 79,65"/>
         </g>
       </svg>
-      <FigurePlaceholder label="Phụ kiện DX in 3D" ratio="6/7" seed="hero" />
+      <NuxtImg
+        src="/hero-in-3d.webp"
+        alt="Đầu phun máy in 3D FDM đang đùn nhựa filament xanh - Ichigo Studio"
+        width="1024"
+        height="1024"
+        sizes="sm:100vw md:50vw lg:700px"
+        class="aspect-[6/7] w-full object-cover"
+      />
     </div>
   </section>
 
@@ -78,7 +85,15 @@ useSeoMeta({
   <section class="bg-panel py-20">
     <div class="mx-auto grid max-w-content items-center gap-10 px-4 md:grid-cols-5 md:px-8">
       <div class="overflow-hidden rounded md:col-span-2">
-        <FigurePlaceholder label="Xưởng Ichigo Studio" ratio="1/1" seed="workshop" />
+        <NuxtImg
+          src="/workshop-flatlay.webp"
+          alt="Bàn làm việc xưởng Ichigo Studio: phụ kiện in FDM màu xanh, cuộn filament và dụng cụ"
+          loading="lazy"
+          width="1024"
+          height="1024"
+          sizes="sm:100vw md:40vw lg:560px"
+          class="aspect-square w-full object-cover"
+        />
       </div>
       <div class="md:col-span-3">
         <h2 class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
@@ -99,7 +114,7 @@ useSeoMeta({
   <!-- CTA SECTION -->
   <section class="mx-auto max-w-content px-4 py-24 md:px-8">
     <h2 class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
-      TÌM THẤY CON BẠN THÍCH?
+      ĐÃ TÌM THẤY SẢN PHẨM ƯNG Ý CHƯA?
     </h2>
     <p class="mt-3 max-w-[45ch] font-sans text-sm font-light text-silver">
       Nhắn shop qua Messenger để hỏi giá, chọn phối màu hoặc mẫu theo yêu cầu.

@@ -13,14 +13,13 @@ const { shop } = useAppConfig()
           :alt="`${product.title} - phụ kiện in 3D`"
           loading="lazy"
           width="600"
-          height="750"
-          class="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+          class="aspect-square w-full object-contain transition duration-500 group-hover:scale-[1.03]"
         />
       </template>
       <template v-else>
         <FigurePlaceholder
           :label="product.title"
-          ratio="4/5"
+          ratio="1/1"
           :seed="product.slug"
         />
       </template>
