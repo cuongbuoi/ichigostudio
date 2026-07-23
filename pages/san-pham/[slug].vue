@@ -1,17 +1,28 @@
 <script setup lang="ts">
+import MarkdownIt from 'markdown-it'
+import { mapApiProduct, formatPrice } from '~/utils/products'
+
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
-
+const { public: { apiBase } } = useRuntimeConfig()
 const { related } = useProducts()
 const shop = useShop()
 
-const { data: product } = await useAsyncData(`product-${slug.value}`, () =>
-  queryCollection('products').where('slug', '=', slug.value).first()
-)
+const { data: product } = await useAsyncData(`product-${slug.value}`, async () => {
+  try {
+    const api = await $fetch<any>(`${apiBase}/public/products/${slug.value}`)
+    return mapApiProduct(api)
+  } catch {
+    return null
+  }
+})
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Không tìm thấy sản phẩm' })
 }
+
+const md = new MarkdownIt()
+const bodyHtml = computed(() => md.render(product.value?.bodyMd ?? ''))
 
 const relatedItems = computed(() =>
   product.value ? related(product.value as any) : []
@@ -46,33 +57,17 @@ useSeoMeta({
 
         <!-- Specs: "mecha readout" style - grouped, hairline separators -->
         <dl class="mt-6 border-t border-paper/10 pt-4 font-sans">
-          <div v-if="product.scale || product.height" class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm pb-4 border-b border-paper/10">
-            <div v-if="product.scale">
-              <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Tỉ lệ</dt>
-              <dd class="mt-0.5 font-medium text-paper">{{ product.scale }}</dd>
-            </div>
-            <div v-if="product.height">
-              <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Chiều cao</dt>
-              <dd class="mt-0.5 font-medium text-paper">{{ product.height }}</dd>
-            </div>
-          </div>
-          <div v-if="product.capacity" class="py-3 border-b border-paper/10">
-            <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Sức chứa</dt>
-            <dd class="mt-0.5 text-sm font-medium text-paper">{{ product.capacity }}</dd>
-          </div>
           <div class="py-3 border-b border-paper/10">
             <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Chất liệu</dt>
             <dd class="mt-0.5 text-sm font-medium text-paper">{{ product.material }}</dd>
           </div>
           <div class="pt-3">
             <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Giá tham khảo</dt>
-            <dd class="mt-0.5 text-sm font-medium text-hopper">{{ product.priceRef }}</dd>
+            <dd class="mt-0.5 text-sm font-medium text-hopper">{{ formatPrice(product.price) }}</dd>
           </div>
         </dl>
 
-        <div class="prose prose-sm mt-6 max-w-none" style="color: rgba(238,240,232,0.75);">
-          <ContentRenderer :value="product" />
-        </div>
+        <div class="prose prose-sm mt-6 max-w-none" style="color: rgba(238,240,232,0.75);" v-html="bodyHtml" />
 
         <div class="mt-8">
           <MessengerButton :label="`HỎI MUA ${product.title}`" />
