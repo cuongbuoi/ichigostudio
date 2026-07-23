@@ -24,7 +24,11 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    domains: ['picsum.photos'],
+    domains: ['picsum.photos', 'ichigo-studio-api.cuongyo19997.workers.dev'],
+  },
+  nitro: {
+    // SSR on Cloudflare Workers (Static Assets + module worker)
+    preset: 'cloudflare_module',
   },
   runtimeConfig: {
     public: {
