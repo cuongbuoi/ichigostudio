@@ -1,10 +1,16 @@
-import { sortByOrder, getFeatured, getSeriesList, getRelated } from '~/utils/products'
+import { sortByOrder, getFeatured, getSeriesList, getRelated, mapApiProduct } from '~/utils/products'
 import type { ProductMeta } from '~/types/product'
 
 export function useProducts() {
-  const { data } = useAsyncData('products', () =>
-    queryCollection('products').all() as Promise<any[]>
-  )
+  const { public: { apiBase } } = useRuntimeConfig()
+  const { data } = useAsyncData('products', async () => {
+    try {
+      const res = await $fetch<{ items: any[] }>(`${apiBase}/public/products`)
+      return (res.items ?? []).map(mapApiProduct)
+    } catch {
+      return []
+    }
+  })
   const all = computed<ProductMeta[]>(() => sortByOrder((data.value ?? []) as ProductMeta[]))
   const featured = computed(() => getFeatured(all.value))
   const seriesList = computed(() => getSeriesList(all.value))

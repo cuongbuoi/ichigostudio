@@ -36,4 +36,9 @@ export default defineNuxtConfig({
   nitro: {
     prerender: { crawlLinks: true, routes: ['/', ...productRoutes] },
   },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:8787',
+    },
+  },
 })
