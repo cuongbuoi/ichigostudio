@@ -1,13 +1,6 @@
-import { readdirSync } from 'node:fs'
-import { resolve } from 'node:path'
-
-const productRoutes = readdirSync(resolve(__dirname, 'content/products'))
-  .filter((f) => f.endsWith('.md'))
-  .map((f) => `/san-pham/${f.replace(/\.md$/, '')}`)
-
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
-  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/image', '@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css'],
   app: {
     head: {
@@ -32,9 +25,6 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ['picsum.photos'],
-  },
-  nitro: {
-    prerender: { crawlLinks: true, routes: ['/', ...productRoutes] },
   },
   runtimeConfig: {
     public: {
