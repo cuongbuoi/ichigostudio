@@ -6,5 +6,11 @@
   "assets": {
     "directory": ".output/public",
     "binding": "ASSETS"
-  }
+  },
+  "vars": {
+    "NUXT_PUBLIC_API_BASE": "https://ichigo-studio-api.cuongyo19997.workers.dev"
+  },
+  "routes": [
+    { "pattern": "ichigostudio.vn", "custom_domain": true }
+  ]
 }

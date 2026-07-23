@@ -32,7 +32,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8787',
+      // Default = production API. Local dev overrides via .env (NUXT_PUBLIC_API_BASE).
+      apiBase: 'https://ichigo-studio-api.cuongyo19997.workers.dev',
     },
   },
 })
