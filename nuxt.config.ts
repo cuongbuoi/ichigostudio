@@ -1,7 +1,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
-  modules: ['@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/image', '@nuxtjs/tailwindcss', 'nuxt-gtag'],
   css: ['~/assets/css/main.css'],
+  gtag: {
+    id: 'G-TFCVBNLCB8',
+    // Chỉ gửi số liệu ở production; khi `nuxt dev` sẽ không bắn event lên GA.
+    enabled: process.env.NODE_ENV === 'production',
+  },
   app: {
     head: {
       htmlAttrs: { lang: 'vi', class: 'dark' },
