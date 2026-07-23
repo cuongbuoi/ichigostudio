@@ -21,7 +21,9 @@ if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Không tìm thấy sản phẩm' })
 }
 
-const md = new MarkdownIt()
+// breaks: true — chủ shop gõ mỗi dòng một Enter (kiểu bài social), nên xuống
+// dòng đơn phải thành <br> thay vì bị dồn thành khoảng trắng như Markdown chuẩn.
+const md = new MarkdownIt({ breaks: true, linkify: true })
 const bodyHtml = computed(() => md.render(product.value?.bodyMd ?? ''))
 
 const relatedItems = computed(() =>
