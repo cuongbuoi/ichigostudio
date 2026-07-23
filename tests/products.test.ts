@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { sortByOrder, getFeatured, getSeriesList, filterBySeries, getRelated } from '../utils/products'
+import { sortByOrder, getFeatured, getSeriesList, filterBySeries, getRelated, mapApiProduct, formatPrice } from '../utils/products'
 import type { ProductMeta } from '../types/product'
 
 const p = (over: Partial<ProductMeta>): ProductMeta => ({
-  title: 't', slug: 's', series: 'Kamen Rider', scale: '1/12', height: '18 cm',
-  material: 'resin', priceRef: 'Liên hệ', featured: false, order: 0,
+  id: 'id', title: 't', slug: 's', series: 'Kamen Rider',
+  material: 'PLA', price: null, featured: false, order: 0,
   images: [], cover: '', ...over,
 })
 
@@ -30,7 +30,27 @@ describe('utils/products', () => {
     expect(filterBySeries(items, 'all').length).toBe(3)
   })
   it('getRelated lấy cùng series khác slug, giới hạn limit', () => {
-    const cur = items[0] // slug a, Ultraman
-    expect(getRelated(items, cur, 4).map(i => i.slug)).toEqual(['c'])
+    expect(getRelated(items, items[0], 4).map(i => i.slug)).toEqual(['c'])
   })
+})
+
+describe('mapApiProduct', () => {
+  it('maps images [{url}] -> string[] và cover fallback ảnh đầu', () => {
+    const r = mapApiProduct({ id: '1', slug: 's', title: 'T', series: 'X', material: 'PLA', price: 360000, cover: null, featured: false, order: 1, bodyMd: '# hi', images: [{ url: '/media/a.jpg', sort: 0 }, { url: '/media/b.jpg', sort: 1 }] })
+    expect(r.images).toEqual(['/media/a.jpg', '/media/b.jpg'])
+    expect(r.cover).toBe('/media/a.jpg')
+    expect(r.price).toBe(360000)
+    expect(r.bodyMd).toBe('# hi')
+  })
+  it('list item không có images -> images [], cover từ API', () => {
+    const r = mapApiProduct({ id: '1', slug: 's', title: 'T', series: 'X', material: 'PLA', price: null, cover: '/media/c.jpg', featured: true, order: 2 })
+    expect(r.images).toEqual([])
+    expect(r.cover).toBe('/media/c.jpg')
+    expect(r.price).toBeNull()
+  })
+})
+
+describe('formatPrice', () => {
+  it('null -> Liên hệ', () => { expect(formatPrice(null)).toBe('Liên hệ') })
+  it('số -> định dạng vi-VN + ₫', () => { expect(formatPrice(360000)).toBe('360.000 ₫') })
 })

@@ -1,17 +1,16 @@
-export interface Product {
-  title: string
+export interface ProductMeta {
+  id: string
   slug: string
+  title: string
   series: string
-  scale?: string
-  height?: string
-  capacity?: string
   material: string
-  priceRef: string
+  price: number | null
+  cover: string
+  images: string[]
   featured: boolean
   order: number
-  images: string[]
-  cover: string
-  description?: string
 }
 
-export type ProductMeta = Omit<Product, 'description'>
+export interface Product extends ProductMeta {
+  bodyMd?: string | null
+}
