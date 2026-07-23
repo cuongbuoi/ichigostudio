@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = defineProps<{ images: string[]; alt: string }>()
-const { shop } = useAppConfig()
 
 const current = ref(0)
 const lightbox = ref(false)
@@ -21,7 +20,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
       aria-label="Phóng to ảnh sản phẩm"
       class="block w-full overflow-hidden rounded bg-panel border border-paper/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
     >
-      <template v-if="shop.hasPhotos">
+      <template v-if="images && images.length">
         <NuxtImg
           :src="images[current]"
           :alt="`${alt} - phụ kiện in 3D`"
@@ -55,7 +54,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
             : 'border-transparent opacity-60 hover:opacity-90',
         ]"
       >
-        <template v-if="shop.hasPhotos">
+        <template v-if="images && images.length">
           <NuxtImg
             :src="img"
             :alt="`${alt} - ảnh ${i + 1}`"
@@ -78,7 +77,7 @@ function next() { current.value = (current.value + 1) % props.images.length }
       :index="current"
       :open="lightbox"
       :alt="alt"
-      :has-photos="shop.hasPhotos"
+      :has-photos="!!(images && images.length)"
       @close="close"
       @prev="prev"
       @next="next"
