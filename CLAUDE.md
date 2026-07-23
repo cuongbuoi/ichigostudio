@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Ichigo Studio — a Vietnamese-language static showcase site for 3D-printed (FDM) accessories and display stands for DX toys (Kamen Rider / tokusatsu). It is a catalog only: no cart, no checkout. All buying intent funnels to Messenger.
+Ichigo Studio — a Vietnamese-language showcase site for 3D-printed (FDM) accessories and display stands for DX toys (Kamen Rider / tokusatsu). It is a catalog only: no cart, no checkout. All buying intent funnels to Messenger.
 
-Stack: Nuxt 3 (SSG via `nuxt generate`) + `@nuxt/content` v3 + `@nuxt/image` + Tailwind v3. Content is authored in Markdown, not a CMS or database.
+Stack: Nuxt 3 (**SSR**) + `@nuxt/image` + Tailwind v3. Products are fetched at runtime from the Ichigo Studio API (`ichigo-studio-api`, the CMS/D1 backend) via its public read endpoints; there is no Markdown/`@nuxt/content` content store anymore.
 
 ## Commands
 
@@ -14,26 +14,28 @@ This project uses **yarn** (Yarn Classic 1.x) as its package manager — use `ya
 
 ```bash
 yarn               # install dependencies
-yarn dev           # dev server at http://localhost:3000
+yarn dev           # SSR dev server at http://localhost:3000 (needs the API running for product data)
 yarn test          # vitest run (unit tests in tests/)
-yarn generate      # static build -> .output/public (this is the production build)
-yarn preview       # preview the generated site
+yarn build         # SSR build (.output/server) — this is the production build
+yarn preview       # preview the built server
 yarn vitest run tests/products.test.ts   # run a single test file
 ```
+
+The API base URL is `runtimeConfig.public.apiBase` (env `NUXT_PUBLIC_API_BASE`, default `http://localhost:8787`; see `.env.example`). Run `ichigo-studio-api` (`yarn dev`, port 8787) with seeded/published products to see data locally. The API's `ALLOWED_ORIGINS` must include this store's origin (`http://localhost:3000` in dev) so client-side (SPA-navigation) fetches pass CORS.
 
 There is no lint/format script configured.
 
 ## Architecture
 
-**Content-driven products.** Each product is one Markdown file in `content/products/<slug>.md`. Frontmatter is validated by a Zod schema in `content.config.ts` (`title`, `slug`, `series`, `material`, `priceRef`, `images`, `cover` required; `featured`, `order` have defaults). The Markdown body is the product description. Adding a `.md` file is the only step needed to add a product — routes are generated from the directory at build time.
+**API-driven products (SSR).** Products come from the API's public read endpoints: `GET {apiBase}/public/products` (list — each item has `cover` but NOT an `images[]` array) and `GET {apiBase}/public/products/:slug` (detail — includes `images: {url,sort}[]` and `bodyMd`). Only `published` products are returned. To add/edit a product, use the admin (`ichigo-studio-admin`) — the store reflects it live (SSR, no rebuild).
 
-**Static prerender wiring.** `nuxt.config.ts` reads `content/products/` at config-eval time with `readdirSync` to build the list of `/san-pham/<slug>` routes, then passes them to `nitro.prerender.routes` alongside `crawlLinks: true`. If product pages are missing from the static build, this is where to look.
+**Data mapping.** Raw API items are normalized to the `Product`/`ProductMeta` shape by `mapApiProduct()` in `utils/products.ts` (`images:[{url}]→string[]`, `cover = api.cover ?? images[0] ?? ''`, `price:number|null`, `bodyMd`). Price is an integer VND (or `null` = "Liên hệ"); format for display with `formatPrice()` (never show the raw number).
 
-**Data flow.** Pages never query content inline for lists — they go through the `useProducts()` composable (`composables/useProducts.ts`), which loads all products via `queryCollection('products').all()` inside `useAsyncData`, then derives `featured` / `seriesList` / `related` / `getBySlug`. The pure list logic (`sortByOrder`, `getFeatured`, `getSeriesList`, `filterBySeries`, `getRelated`) lives in `utils/products.ts` and is unit-tested in isolation — keep new filtering/sorting logic there as pure functions, not in components. The detail page `pages/san-pham/[slug].vue` queries a single product directly by slug.
+**Data flow.** Lists go through the `useProducts()` composable (`composables/useProducts.ts`), which fetches `/public/products` via `useAsyncData` + `$fetch` (falls back to `[]` on error), maps, and derives `featured` / `seriesList` / `related` / `getBySlug`. The pure list logic (`sortByOrder`, `getFeatured`, `getSeriesList`, `filterBySeries`, `getRelated`) lives in `utils/products.ts` and is unit-tested — keep new filtering/sorting there as pure functions, not in components. The detail page `pages/san-pham/[slug].vue` fetches `/public/products/:slug` (404 via `createError` when missing) and renders `bodyMd` with `markdown-it` (`v-html`, `html` option off — owner-authored content). Note: SSR fetch is server-side (no CORS), but SPA-navigation fetches run in the browser, so the API's CORS `ALLOWED_ORIGINS` must include the store origin.
 
 **Shop config is centralized.** `app.config.ts` (`shop` object) holds all shop identity: `name`, `tagline`, `messengerUrl`, `facebookUrl`, `area`, `responseTime`, and the global `hasPhotos` flag. Access it only via `useShop()`. Messenger links are normalized through `buildMessengerHref()` in `utils/messenger.ts` (adds `https://` if missing).
 
-**Photo placeholder mode.** When `shop.hasPhotos` is `false`, components render the on-brand `FigurePlaceholder` instead of real images (used by `ProductCard`, `ProductGallery`, `Lightbox`, and the home/intro pages). This lets the site ship before product photos exist. Real photos go in `public/products/<slug>/`, referenced from the `cover`/`images` frontmatter; then flip `hasPhotos: true`.
+**Photo placeholder mode (per-product).** Image display is decided per product, not by a global flag: `ProductCard` shows the real image when `product.cover` is set (else the on-brand `FigurePlaceholder`); `ProductGallery`/`Lightbox` show real images when `product.images.length > 0`. Product images are uploaded via the admin to R2 and served by the API at `/media/...` (absolute URLs in `cover`/`images`). (`app.config.ts` may still carry a `hasPhotos` field but it no longer drives product image rendering.)
 
 **Layout.** Single `layouts/default.vue` wraps every page with `AppHeader`, `AppFooter`, a `FloatingContact` Messenger button, and a fixed film-grain overlay (disabled under `prefers-reduced-motion` / `prefers-reduced-transparency`).
 
@@ -54,5 +56,6 @@ Brand tokens are defined in `tailwind.config.ts` and documented in `docs/brand/R
 ## Notes
 
 - The toys shown in product imagery are genuine items used for illustration only and are **not included** — product copy must keep this disclaimer.
-- `.data/`, `.nuxt/`, `.output/`, `dist` (symlink to `.output/public`) are generated/gitignored.
-- `@nuxt/content` v3 uses a SQLite store (`better-sqlite3`) at build time; `image.domains` allows `picsum.photos` for placeholder covers.
+- `.nuxt/`, `.output/` are generated/gitignored. `.env` is gitignored (`.env.example` is tracked).
+- `image.domains` (nuxt.config) must list any remote host serving product images (e.g. the API `/media` host / R2 domain) when deploying with `@nuxt/image`.
+- Deploy: the store is now SSR — use a Nitro SSR preset (e.g. `cloudflare-pages`) and set `NUXT_PUBLIC_API_BASE` to the deployed API URL. The old `yarn generate && wrangler pages deploy` (SSG) `deploy` script in `package.json` is stale and should be updated for SSR before the next deploy.
