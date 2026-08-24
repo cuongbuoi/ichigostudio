@@ -28,4 +28,5 @@ export default <Partial<Config>>{
       maxWidth: { content: '1400px' },
     },
   },
+  plugins: [require('@tailwindcss/typography')],
 }

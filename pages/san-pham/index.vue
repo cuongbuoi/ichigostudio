@@ -1,13 +1,45 @@
 <script setup lang="ts">
 import { filterBySeries } from '~/utils/products'
 const { all, seriesList } = useProducts()
-const active = ref('all')
+// Cho phép deep-link từ trang chủ: /san-pham?series=<tên series>
+const route = useRoute()
+const active = ref(typeof route.query.series === 'string' ? route.query.series : 'all')
 const visible = computed(() => filterBySeries(all.value, active.value))
 
 useSeoMeta({
   title: 'Bộ sưu tập - Ichigo Studio',
   description: 'Bộ sưu tập phụ kiện in 3D cho đồ chơi DX: Super Sentai, Kamen Rider, Beyblade.',
 })
+
+// JSON-LD: CollectionPage + ItemList + Breadcrumb (getter -> data async đã có lúc render).
+const { public: { siteUrl } } = useRuntimeConfig()
+useJsonLd(
+  () => [
+    {
+      '@type': 'CollectionPage',
+      name: 'Bộ sưu tập',
+      url: `${siteUrl}/san-pham`,
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: all.value.length,
+        itemListElement: all.value.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${siteUrl}/san-pham/${p.slug}`,
+          name: p.title,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: 'Bộ sưu tập', item: `${siteUrl}/san-pham` },
+      ],
+    },
+  ],
+  'collection',
+)
 </script>
 
 <template>

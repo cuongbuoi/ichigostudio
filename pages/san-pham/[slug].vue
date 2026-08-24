@@ -35,6 +35,48 @@ useSeoMeta({
   description: () => `${product.value?.title} - ${product.value?.series}. Phụ kiện in 3D cho đồ chơi DX, in FDM.`,
   ogImage: () => product.value?.cover,
 })
+
+// JSON-LD: Product + đường dẫn (Breadcrumb). Dữ liệu đã resolve nhờ await ở trên.
+const { public: { siteUrl } } = useRuntimeConfig()
+if (product.value) {
+  const p = product.value
+  const images = (p.images?.length ? p.images : [p.cover]).filter(Boolean)
+  const url = `${siteUrl}/san-pham/${p.slug}`
+  useJsonLd(
+    [
+      {
+        '@type': 'Product',
+        name: p.title,
+        image: images,
+        description: `${p.title} - ${p.series}. Phụ kiện in 3D FDM (PLA+) cho đồ chơi DX tokusatsu.`,
+        category: p.series,
+        material: p.material,
+        brand: { '@type': 'Brand', name: 'Ichigo Studio' },
+        url,
+        ...(p.price != null
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: p.price,
+                priceCurrency: 'VND',
+                availability: 'https://schema.org/InStock',
+                url,
+              },
+            }
+          : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Bộ sưu tập', item: `${siteUrl}/san-pham` },
+          { '@type': 'ListItem', position: 3, name: p.title, item: url },
+        ],
+      },
+    ],
+    'product',
+  )
+}
 </script>
 
 <template>
@@ -72,7 +114,7 @@ useSeoMeta({
         <div class="prose prose-sm mt-6 max-w-none" style="color: rgba(238,240,232,0.75);" v-html="bodyHtml" />
 
         <div class="mt-8">
-          <MessengerButton :label="`HỎI MUA ${product.title}`" />
+          <MessengerButton :label="`HỎI MUA ${product.title}`" source="product" :item="product.title" />
           <p class="mt-2 font-sans text-xs text-silver/70">{{ shop.responseTime }}</p>
         </div>
       </div>
