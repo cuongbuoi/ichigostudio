@@ -9,6 +9,7 @@ export interface ProductMeta {
   images: string[]
   featured: boolean
   order: number
+  createdAt?: number
 }
 
 export interface Product extends ProductMeta {

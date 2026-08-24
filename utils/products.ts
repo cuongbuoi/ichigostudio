@@ -23,6 +23,10 @@ export function filterBySeries(items: ProductMeta[], series: string | null): Pro
   return sorted.filter(i => i.series === series)
 }
 
+export function getNewest(items: ProductMeta[], limit = 6): ProductMeta[] {
+  return [...items].sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0)).slice(0, limit)
+}
+
 export function getRelated(items: ProductMeta[], current: ProductMeta, limit = 4): ProductMeta[] {
   return sortByOrder(items)
     .filter(i => i.series === current.series && i.slug !== current.slug)
@@ -42,6 +46,7 @@ export function mapApiProduct(api: any): Product {
     images,
     featured: !!api.featured,
     order: api.order ?? 0,
+    createdAt: api.createdAt ?? 0,
     bodyMd: api.bodyMd ?? null,
   }
 }

@@ -1,4 +1,4 @@
-import { sortByOrder, getFeatured, getSeriesList, getRelated, mapApiProduct } from '~/utils/products'
+import { sortByOrder, getFeatured, getSeriesList, getNewest, getRelated, mapApiProduct } from '~/utils/products'
 import type { ProductMeta } from '~/types/product'
 
 export function useProducts() {
@@ -13,8 +13,9 @@ export function useProducts() {
   })
   const all = computed<ProductMeta[]>(() => sortByOrder((data.value ?? []) as ProductMeta[]))
   const featured = computed(() => getFeatured(all.value))
+  const newest = computed(() => getNewest(all.value))
   const seriesList = computed(() => getSeriesList(all.value))
   const related = (current: ProductMeta) => getRelated(all.value, current)
   const getBySlug = (slug: string) => all.value.find(p => p.slug === slug)
-  return { all, featured, seriesList, getBySlug, related }
+  return { all, featured, newest, seriesList, getBySlug, related }
 }
