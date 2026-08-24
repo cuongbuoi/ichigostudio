@@ -10,3 +10,6 @@ dist
 
 # local env (keep .env.example tracked)
 .env
+
+# Contentsquare wizard reports (last-report.json, last-browser-error.json)
+.cs-wizard/
