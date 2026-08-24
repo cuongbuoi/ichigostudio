@@ -1,6 +1,30 @@
-# Thiết kế: Nút chat Messenger fanpage (Facebook Chat Plugin)
+# Thiết kế: Nút chat Messenger fanpage
 
 Ngày: 2026-07-09
+
+## ⚠️ CẬP NHẬT (2026-07-09): Đổi hướng — Facebook Chat Plugin đã bị khai tử
+
+Meta **ngừng hoàn toàn Chat Plugin (`customerchat` SDK) từ 9/5/2024**
+([Meta changelog](https://developers.facebook.com/docs/messenger-platform/changelog/),
+[Chative.IO](https://chative.io/blog/meta-remove-facebook-messenger-chat-plugin)).
+Widget không còn render và mục whitelist domain đã bị gỡ khỏi Meta Business Suite.
+
+**Phần "Thiết kế Chat Plugin nhúng" bên dưới đã bị hủy bỏ.** Đã gỡ:
+`components/MessengerChat.client.vue`, `messengerPageId` trong `app.config.ts`,
+`hasMessengerChat` / `buildChatSdkUrl` trong `utils/messenger.ts`.
+
+**Phương án đã chốt thay thế: nút link `m.me` + bong bóng lời chào.**
+
+- `components/FloatingContact.vue`: giữ nút tròn Messenger (link `m.me`), thêm
+  bong bóng lời chào tự hiện sau ~1.8s ("Chat với Ichigo Studio nhé!"), bấm mở
+  Messenger, có nút đóng. Đóng rồi lưu `sessionStorage` để không làm phiền lại
+  trong phiên. Tôn trọng `prefers-reduced-motion` (bỏ hiệu ứng, hiện ngay).
+- `layouts/default.vue`: dùng lại `<FloatingContact />`.
+- Không SDK bên thứ ba, không cookie theo dõi, hoạt động ngay không cần whitelist.
+
+---
+
+## (LỖI THỜI) Thiết kế gốc: Facebook Chat Plugin
 
 ## Mục tiêu
 

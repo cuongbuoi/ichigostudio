@@ -16,7 +16,7 @@ useSeoMeta({
           shop sẽ báo giá và tình trạng hàng.
         </p>
         <div class="mt-8">
-          <MessengerButton label="Mở Messenger" />
+          <MessengerButton label="Mở Messenger" source="contact-page" />
         </div>
       </div>
 

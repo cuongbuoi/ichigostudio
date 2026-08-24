@@ -1,10 +1,27 @@
 <script setup lang="ts">
 import { buildMessengerHref } from '~/utils/messenger'
-const props = withDefaults(defineProps<{ label?: string; variant?: 'primary' | 'ghost' }>(), {
-  label: 'Liên hệ qua Messenger', variant: 'primary',
+const props = withDefaults(defineProps<{
+  label?: string
+  variant?: 'primary' | 'ghost'
+  /** Nơi đặt nút để phân biệt trong GA4 (VD 'product', 'home-hero', 'footer'). */
+  source?: string
+  /** Tên sản phẩm (nếu bấm từ trang SP) để biết SP nào ra lead. */
+  item?: string
+}>(), {
+  label: 'Liên hệ qua Messenger', variant: 'primary', source: 'generic',
 })
 const shop = useShop()
 const href = computed(() => buildMessengerHref(shop.messengerUrl))
+
+// GA4: coi click Messenger là "lead" (đánh dấu conversion trong GA4 được).
+const { gtag } = useGtag()
+function onContact() {
+  gtag('event', 'generate_lead', {
+    method: 'messenger',
+    source: props.source,
+    ...(props.item ? { item_name: props.item } : {}),
+  })
+}
 </script>
 
 <template>
@@ -12,6 +29,7 @@ const href = computed(() => buildMessengerHref(shop.messengerUrl))
     :href="href"
     target="_blank"
     rel="noopener noreferrer"
+    @click="onContact"
     :class="[
       'inline-flex items-center gap-2 px-6 py-3 font-sans text-sm font-medium tracking-wide transition active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper',
       variant === 'primary'

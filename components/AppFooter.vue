@@ -12,7 +12,13 @@ const shop = useShop()
         <p class="mt-3 max-w-[40ch] font-sans text-sm font-light text-silver/80">{{ shop.tagline }}</p>
         <p class="mt-1 font-sans text-sm font-light text-silver/70">{{ shop.area }}</p>
       </div>
-      <MessengerButton variant="ghost" label="Nhắn tin cho shop" />
+      <div class="flex flex-col gap-4 md:items-end">
+        <MessengerButton variant="ghost" label="Nhắn tin cho shop" source="footer" />
+        <div class="flex items-center gap-3">
+          <span class="font-sans text-xs uppercase tracking-[0.12em] text-silver/70">Theo dõi shop</span>
+          <SocialLinks source="footer" variant="icons" />
+        </div>
+      </div>
     </div>
     <div class="border-t border-paper/10 py-4 text-center font-sans text-xs text-silver/60">
       &copy; {{ new Date().getFullYear() }} {{ shop.name }}.
