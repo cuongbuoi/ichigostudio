@@ -3,7 +3,8 @@ const shop = useShop()
 const links = [
   { to: '/', label: 'TRANG CHỦ' },
   { to: '/san-pham', label: 'BỘ SƯU TẬP' },
-  { to: '/gioi-thieu', label: 'GIỚI THIỆU' },
+  { to: '/blog', label: 'BLOG' },
+  { to: '/feedback', label: 'FEEDBACK' },
   { to: '/lien-he', label: 'LIÊN HỆ' },
 ]
 const open = ref(false)
@@ -26,6 +27,7 @@ const open = ref(false)
           :to="l.to"
           class="font-sans text-xs font-medium tracking-[0.12em] text-silver transition hover:text-paper hover:underline decoration-hopper underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
         >{{ l.label }}</NuxtLink>
+        <SocialLinks source="header" variant="icons" class="ml-2" />
       </nav>
 
       <!-- Mobile hamburger -->
@@ -55,6 +57,7 @@ const open = ref(false)
         @click="open = false"
         class="block py-2.5 font-sans text-sm font-medium tracking-[0.1em] text-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
       >{{ l.label }}</NuxtLink>
+      <SocialLinks source="header-mobile" variant="icons" class="pt-3" @click="open = false" />
     </nav>
   </header>
 </template>
