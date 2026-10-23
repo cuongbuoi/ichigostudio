@@ -69,7 +69,7 @@ const copyBtn = 'shrink-0 rounded border border-paper/30 px-3 py-1 font-sans tex
 
     <div>
       <p class="font-sans text-sm font-light leading-relaxed text-silver">
-        Mở app ngân hàng, quét mã. Nếu chuyển tay, ghi đúng nội dung <span class="text-paper">ICG...</span>, không thêm bớt.
+        Mở app ngân hàng, quét mã. Nếu chuyển tay, ghi đúng nội dung <span class="text-paper">{{ paymentCode }}</span>, không thêm bớt.
       </p>
 
       <dl class="mt-6 divide-y divide-paper/10 border-y border-paper/10 font-sans">
