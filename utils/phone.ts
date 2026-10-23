@@ -1,7 +1,11 @@
-// Cùng quy tắc với API: bỏ ký tự không phải số, 84 + 9 số thành 0 + 9 số.
+// Chuẩn hoá và kiểm tra số điện thoại Việt Nam (giữ y hệt ở API và store).
+
+/** Bỏ mọi ký tự không phải số; `84` + 9 số hoặc `840` + 9 số (thừa số 0) → `0` + 9 số. */
 export function normalizePhone(raw: string): string {
   const digits = raw.replace(/\D/g, '')
-  return /^84\d{9}$/.test(digits) ? `0${digits.slice(2)}` : digits
+  if (/^84\d{9}$/.test(digits)) return '0' + digits.slice(2)
+  if (/^840\d{9}$/.test(digits)) return '0' + digits.slice(3)
+  return digits
 }
 
 export function isValidVnPhone(raw: string): boolean {
