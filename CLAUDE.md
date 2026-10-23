@@ -69,4 +69,4 @@ Brand tokens are defined in `tailwind.config.ts` and documented in `docs/brand/R
 - The toys shown in product imagery are genuine items used for illustration only and are **not included** — product copy must keep this disclaimer.
 - `.nuxt/`, `.output/` are generated/gitignored. `.env` is gitignored (`.env.example` is tracked).
 - `image.domains` (nuxt.config) must list any remote host serving product images (e.g. the API `/media` host / R2 domain) when deploying with `@nuxt/image`.
-- Deploy: the store is now SSR — use a Nitro SSR preset (e.g. `cloudflare-pages`) and set `NUXT_PUBLIC_API_BASE` to the deployed API URL. The old `yarn generate && wrangler pages deploy` (SSG) `deploy` script in `package.json` is stale and should be updated for SSR before the next deploy.
+- Deploy: the store is SSR on a Cloudflare Worker. Nitro preset is `cloudflare_module` (nuxt.config) and `yarn deploy` runs `nuxt build && wrangler deploy`, using `wrangler.jsonc` (serves `.output/server/index.mjs` + `.output/public` assets, sets `NUXT_PUBLIC_API_BASE`, custom domain `ichigostudio.vn`).
