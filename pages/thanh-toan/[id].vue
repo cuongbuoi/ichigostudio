@@ -155,7 +155,7 @@ const btnSecondary = 'inline-flex rounded border border-silver/30 px-6 py-3 font
       <p class="mt-5 max-w-[60ch] text-sm font-light text-silver">
         Nếu bạn đã chuyển khoản đúng nội dung <span class="text-paper">{{ state.paymentCode }}</span>, đơn vẫn được ghi nhận. Cần hỗ trợ, nhắn Messenger cho shop kèm mã này.
       </p>
-      <p v-if="watchingLate" class="mt-2 text-sm font-light text-silver" aria-live="polite">Trang vẫn tự cập nhật nếu tiền về muộn.</p>
+      <p v-if="watchingLate" class="mt-2 text-sm font-light text-silver">Trang vẫn tự cập nhật nếu tiền về muộn.</p>
       <div class="mt-6 flex flex-wrap gap-3">
         <NuxtLink to="/thanh-toan" :class="btnSecondary">Tạo mã mới</NuxtLink>
         <MessengerButton label="Nhắn Messenger" variant="ghost" source="checkout-expired" />
