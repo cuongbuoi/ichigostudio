@@ -49,36 +49,42 @@ export function useCart() {
   }
 }
 
-/** SP published (useProducts) + SP test (khi testMode) cho trang giỏ/checkout. */
-export async function useCartProducts(): Promise<CartProduct[]> {
+const toCartProduct = (p: any): CartProduct => ({
+  id: p.id, slug: p.slug, title: p.title, price: p.price ?? null, cover: p.cover ?? '',
+})
+
+/**
+ * SP published (useProducts) + SP test (khi testMode) cho trang giỏ/checkout.
+ * Gọi ở setup (đăng ký composable/onMounted đúng lúc); trả về hàm nạp thuần, chỉ dùng ref đã bắt + $fetch.
+ */
+export function useCartProductsLoader(): () => Promise<CartProduct[]> {
   const { public: { apiBase } } = useRuntimeConfig()
   const { all } = useProducts()
   const { testMode, testKey } = useCheckoutConfig()
 
-  let published: CartProduct[] = all.value
-  if (!published.length) {
-    try {
-      const res = await $fetch<{ items: any[] }>(`${apiBase}/public/products`)
-      published = (res.items ?? []).map(mapApiProduct)
-    } catch {
-      published = []
+  return async () => {
+    let published: CartProduct[] = all.value
+    if (!published.length) {
+      try {
+        const res = await $fetch<{ items: any[] }>(`${apiBase}/public/products`)
+        published = (res.items ?? []).map(mapApiProduct)
+      } catch {
+        published = []
+      }
     }
-  }
-  const toCartProduct = (p: any): CartProduct => ({
-    id: p.id, slug: p.slug, title: p.title, price: p.price ?? null, cover: p.cover ?? '',
-  })
-  const result = published.map(toCartProduct)
+    const result = published.map(toCartProduct)
 
-  if (testMode.value && testKey.value) {
-    try {
-      const res = await $fetch<{ items: CartProduct[] }>(`${apiBase}/public/checkout/test-products`, {
-        query: { key: testKey.value },
-      })
-      const seen = new Set(result.map(p => p.id))
-      for (const p of res.items ?? []) if (!seen.has(p.id)) result.push(toCartProduct(p))
-    } catch {
-      // 403 hoặc lỗi mạng: bỏ qua SP test
+    if (testMode.value && testKey.value) {
+      try {
+        const res = await $fetch<{ items: CartProduct[] }>(`${apiBase}/public/checkout/test-products`, {
+          query: { key: testKey.value },
+        })
+        const seen = new Set(result.map(p => p.id))
+        for (const p of res.items ?? []) if (!seen.has(p.id)) result.push(toCartProduct(p))
+      } catch {
+        // 403 hoặc lỗi mạng: bỏ qua SP test
+      }
     }
+    return result
   }
-  return result
 }

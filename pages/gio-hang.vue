@@ -9,9 +9,9 @@ useSeoMeta({
 })
 
 const { setQty, remove } = useCart()
-const { entries, resolved, ready } = useCartView()
+const { entries, products, resolved, ready } = useCartView()
 
-const unavailableTitle = (e: CartEntry) => `Sản phẩm này không còn bán (mã ${e.productId.slice(0, 6)})`
+const unavailableTitle = (e: CartEntry) => `${products.value?.find(p => p.id === e.productId)?.title ?? e.productId} không còn bán`
 const canCheckout = computed(() => resolved.value.lines.length > 0 && resolved.value.unavailable.length === 0)
 const isEmpty = computed(() => entries.value.length === 0)
 </script>

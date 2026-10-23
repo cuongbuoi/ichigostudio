@@ -81,7 +81,7 @@ const copyBtn = 'shrink-0 rounded border border-paper/30 px-3 py-1 font-sans tex
           <dt class="text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Số tài khoản</dt>
           <dd class="flex items-center gap-3 text-sm text-paper">
             {{ bank.account }}
-            <button type="button" :class="copyBtn" @click="copy('account', bank.account)">{{ copied === 'account' ? 'Đã chép' : 'Sao chép' }}</button>
+            <button type="button" :class="copyBtn" aria-label="Sao chép số tài khoản" @click="copy('account', bank.account)">{{ copied === 'account' ? 'Đã chép' : 'Sao chép' }}</button>
           </dd>
         </div>
         <div class="flex items-center justify-between gap-4 py-3">
@@ -92,14 +92,14 @@ const copyBtn = 'shrink-0 rounded border border-paper/30 px-3 py-1 font-sans tex
           <dt class="text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Số tiền</dt>
           <dd class="flex items-center gap-3 text-sm text-paper">
             {{ formatPrice(amount) }}
-            <button type="button" :class="copyBtn" @click="copy('amount', String(amount))">{{ copied === 'amount' ? 'Đã chép' : 'Sao chép' }}</button>
+            <button type="button" :class="copyBtn" aria-label="Sao chép số tiền" @click="copy('amount', String(amount))">{{ copied === 'amount' ? 'Đã chép' : 'Sao chép' }}</button>
           </dd>
         </div>
         <div class="py-4">
           <dt class="text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Nội dung chuyển khoản</dt>
           <dd class="mt-2 flex flex-wrap items-center justify-between gap-3">
             <span class="font-display text-3xl tracking-wide text-hopper-bright md:text-4xl">{{ paymentCode }}</span>
-            <button type="button" :class="copyBtn" @click="copy('code', paymentCode)">{{ copied === 'code' ? 'Đã chép' : 'Sao chép' }}</button>
+            <button type="button" :class="copyBtn" aria-label="Sao chép nội dung chuyển khoản" @click="copy('code', paymentCode)">{{ copied === 'code' ? 'Đã chép' : 'Sao chép' }}</button>
           </dd>
         </div>
       </dl>
