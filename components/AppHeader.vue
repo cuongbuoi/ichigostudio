@@ -3,6 +3,9 @@ const shop = useShop()
 const links = [
   { to: '/', label: 'TRANG CHỦ' },
   { to: '/san-pham', label: 'BỘ SƯU TẬP' },
+  { to: '/danh-muc', label: 'DANH MỤC' },
+  { to: '/in-3d', label: 'ĐẶT IN' },
+  { to: '/3d-models', label: '3D MODELS' },
   { to: '/blog', label: 'BLOG' },
   { to: '/feedback', label: 'FEEDBACK' },
   { to: '/lien-he', label: 'LIÊN HỆ' },
@@ -28,15 +31,18 @@ const open = ref(false)
           class="font-sans text-xs font-medium tracking-[0.12em] text-silver transition hover:text-paper hover:underline decoration-hopper underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
         >{{ l.label }}</NuxtLink>
         <SocialLinks source="header" variant="icons" class="ml-2" />
+        <CartLink />
       </nav>
 
-      <!-- Mobile hamburger -->
+      <!-- Mobile: giỏ + hamburger -->
+      <div class="flex items-center gap-1 md:hidden">
+      <CartLink />
       <button
         type="button"
         @click="open = !open"
         :aria-expanded="open"
         aria-label="Mở menu điều hướng"
-        class="flex md:hidden items-center justify-center p-2 text-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
+        class="flex items-center justify-center p-2 text-silver hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
       >
         <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line v-if="!open" x1="3" y1="6" x2="21" y2="6"/>
@@ -46,6 +52,7 @@ const open = ref(false)
           <line v-if="open" x1="18" y1="6" x2="6" y2="18"/>
         </svg>
       </button>
+      </div>
     </div>
 
     <!-- Mobile menu -->

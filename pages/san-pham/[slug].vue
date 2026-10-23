@@ -30,9 +30,16 @@ const relatedItems = computed(() =>
   product.value ? related(product.value as any) : []
 )
 
+// Social proof ngay trên trang SP.
+const { all: feedbackAll } = useFeedbacks()
+const feedbackImages = computed(() => feedbackAll.value.slice(0, 6))
+
+// Điểm tin cậy hiển thị cạnh nút mua (chip sự thật, giảm do dự).
+const trustPoints = ['🚚 Ship toàn quốc', '💳 Thanh toán trước', '🎨 Phối màu theo yêu cầu', '🖨 In theo đơn']
+
 useSeoMeta({
   title: () => `${product.value?.title} - Ichigo Studio`,
-  description: () => `${product.value?.title} - ${product.value?.series}. Phụ kiện in 3D cho đồ chơi DX, in FDM.`,
+  description: () => `${product.value?.title} - ${product.value?.category}. Phụ kiện in 3D cho đồ chơi DX, in FDM.`,
   ogImage: () => product.value?.cover,
 })
 
@@ -48,8 +55,8 @@ if (product.value) {
         '@type': 'Product',
         name: p.title,
         image: images,
-        description: `${p.title} - ${p.series}. Phụ kiện in 3D FDM (PLA+) cho đồ chơi DX tokusatsu.`,
-        category: p.series,
+        description: `${p.title} - ${p.category}. Phụ kiện in 3D FDM (PLA+) cho đồ chơi DX tokusatsu.`,
+        category: p.category,
         material: p.material,
         brand: { '@type': 'Brand', name: 'Ichigo Studio' },
         url,
@@ -80,7 +87,7 @@ if (product.value) {
 </script>
 
 <template>
-  <article v-if="product" class="mx-auto max-w-6xl px-4 py-12 md:px-8">
+  <article v-if="product" class="mx-auto max-w-6xl px-4 pt-12 pb-28 md:px-8 md:pb-12">
     <NuxtLink
       to="/san-pham"
       class="inline-flex items-center gap-1 font-sans text-sm text-silver hover:text-paper transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
@@ -94,7 +101,7 @@ if (product.value) {
 
       <div class="lg:py-4">
         <!-- 1 eyebrow per page: series label -->
-        <p class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ product.series }}</p>
+        <p class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ product.category }}</p>
         <h1 class="mt-2 font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
           {{ product.title }}
         </h1>
@@ -114,17 +121,55 @@ if (product.value) {
         <div class="prose prose-sm mt-6 max-w-none" style="color: rgba(238,240,232,0.75);" v-html="bodyHtml" />
 
         <div class="mt-8">
-          <MessengerButton :label="`HỎI MUA ${product.title}`" source="product" :item="product.title" />
+          <div class="flex flex-wrap items-center gap-3">
+            <AddToCartButton :product="{ id: product.id, title: product.title, price: product.price }" source="product" />
+            <MessengerButton :label="`HỎI MUA ${product.title}`" source="product" :item="product.title" :ref-code="`sp-${product.slug}`" />
+          </div>
           <p class="mt-2 font-sans text-xs text-silver/70">{{ shop.responseTime }}</p>
         </div>
+
+        <!-- Điểm tin cậy -->
+        <ul class="mt-6 grid grid-cols-2 gap-2">
+          <li v-for="t in trustPoints" :key="t" class="rounded border border-paper/10 bg-panel/60 px-3 py-2 font-sans text-xs text-silver">{{ t }}</li>
+        </ul>
+
+        <!-- Phương thức thanh toán -->
+        <PaymentMethods class="mt-3" />
       </div>
     </div>
 
-    <section v-if="relatedItems.length" class="mt-20" aria-label="Sản phẩm cùng series">
-      <h2 class="font-display text-2xl uppercase tracking-tight text-paper mb-8">CÙNG SERIES</h2>
+    <!-- Feedback khách (social proof đúng điểm quyết định) -->
+    <section v-if="feedbackImages.length" class="mt-20" aria-label="Feedback khách hàng">
+      <h2 class="mb-8 font-display text-2xl uppercase tracking-tight text-paper">KHÁCH ĐÃ NHẬN</h2>
+      <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+        <NuxtLink
+          v-for="(f, i) in feedbackImages"
+          :key="i"
+          to="/feedback"
+          class="group aspect-square overflow-hidden rounded-lg border border-paper/10 bg-panel"
+        >
+          <NuxtImg :src="f.imageUrl" alt="Feedback khách hàng Ichigo Studio" loading="lazy" width="300" class="size-full object-cover transition duration-500 group-hover:scale-105" />
+        </NuxtLink>
+      </div>
+    </section>
+
+    <section v-if="relatedItems.length" class="mt-20" aria-label="Sản phẩm cùng danh mục">
+      <h2 class="font-display text-2xl uppercase tracking-tight text-paper mb-8">CÙNG DANH MỤC</h2>
       <div class="grid grid-cols-2 gap-6 lg:grid-cols-4">
         <ProductCard v-for="p in relatedItems" :key="p.slug" :product="p" />
       </div>
     </section>
+
+    <!-- Thanh Hỏi mua dính đáy (chỉ mobile) -->
+    <div class="fixed inset-x-0 bottom-0 z-40 border-t border-hopper/30 bg-night/95 px-4 py-3 backdrop-blur md:hidden">
+      <div class="mx-auto flex max-w-6xl items-center gap-3 pr-16">
+        <div class="min-w-0 flex-1">
+          <p class="truncate font-sans text-[10px] uppercase tracking-wide text-silver">{{ product.title }}</p>
+          <p class="font-sans text-sm font-medium text-hopper">{{ formatPrice(product.price) }}</p>
+        </div>
+        <AddToCartButton :product="{ id: product.id, title: product.title, price: product.price }" source="product-sticky" class="shrink-0" />
+        <MessengerButton label="Hỏi mua" source="product-sticky" :item="product.title" :ref-code="`sp-${product.slug}`" class="shrink-0" />
+      </div>
+    </div>
   </article>
 </template>
