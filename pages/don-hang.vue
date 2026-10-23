@@ -57,7 +57,22 @@ async function loadSaved() {
 }
 
 // Đăng ký sau useSavedOrders nên orders đã nạp từ localStorage lúc chạy.
-onMounted(loadSaved)
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+  loadSaved()
+})
+
+async function retrySaved(code: string, phone: string) {
+  savedResults.value[code] = 'loading'
+  const res = await lookup(code, phone)
+  if (res.kind === 'rate_limited') {
+    rateLimited.value = true
+    savedResults.value[code] = { kind: 'error' }
+    return
+  }
+  savedResults.value[code] = res
+}
 
 function removeSaved(code: string) {
   remove(code)
@@ -102,20 +117,32 @@ const inputClass = 'mt-2 w-full rounded border border-paper/20 bg-panel2 px-4 py
     <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">ĐƠN CỦA BẠN</h1>
 
     <div class="mt-8">
-      <p v-if="rateLimited" class="font-sans text-sm text-paper" role="status">{{ RATE_LIMIT_MSG }}</p>
-      <p v-if="!orders.length" class="font-sans text-sm font-light text-silver">Chưa có đơn nào trên thiết bị này. Bạn có thể tra cứu bằng mã đơn và số điện thoại bên dưới.</p>
-      <ul v-else class="mt-4 grid gap-4 md:grid-cols-2">
+      <div aria-live="polite">
+        <p v-if="rateLimited" class="font-sans text-sm text-paper">{{ RATE_LIMIT_MSG }}</p>
+      </div>
+      <p v-if="mounted && !orders.length" class="font-sans text-sm font-light text-silver">Chưa có đơn nào trên thiết bị này. Bạn có thể tra cứu bằng mã đơn và số điện thoại bên dưới.</p>
+      <ul v-else-if="orders.length" class="mt-4 grid gap-4 md:grid-cols-2">
         <li v-for="o in orders" :key="o.code">
           <div v-if="savedResults[o.code] === 'loading'" class="h-40 animate-pulse rounded bg-panel" aria-busy="true" :aria-label="`Đang tải đơn ${o.code}`" />
           <OrderLookupCard v-else-if="savedResults[o.code] && (savedResults[o.code] as LookupResult).kind === 'ok'" :order="(savedResults[o.code] as any).order" />
           <div v-else-if="savedResults[o.code]" class="rounded border border-paper/10 bg-panel p-5">
             <h3 class="font-display text-xl tracking-wide text-paper">{{ o.code }}</h3>
-            <p class="mt-2 font-sans text-sm text-silver">Không tải được</p>
-            <button
-              type="button"
-              class="mt-3 rounded border border-paper/30 px-4 py-2 font-sans text-xs uppercase tracking-[0.1em] text-paper transition hover:border-paper/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
-              @click="removeSaved(o.code)"
-            >Bỏ khỏi danh sách</button>
+            <template v-if="(savedResults[o.code] as LookupResult).kind === 'not_found'">
+              <p class="mt-2 font-sans text-sm text-silver">Không tải được</p>
+              <button
+                type="button"
+                class="mt-3 rounded border border-paper/30 px-4 py-2 font-sans text-xs uppercase tracking-[0.1em] text-paper transition hover:border-paper/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
+                @click="removeSaved(o.code)"
+              >Bỏ khỏi danh sách</button>
+            </template>
+            <template v-else>
+              <p class="mt-2 font-sans text-sm text-silver">Chưa tải được, thử lại sau</p>
+              <button
+                type="button"
+                class="mt-3 rounded border border-paper/30 px-4 py-2 font-sans text-xs uppercase tracking-[0.1em] text-paper transition hover:border-paper/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
+                @click="retrySaved(o.code, o.phone)"
+              >Thử lại</button>
+            </template>
           </div>
           <div v-else class="rounded border border-paper/10 bg-panel p-5">
             <h3 class="font-display text-xl tracking-wide text-paper">{{ o.code }}</h3>
@@ -136,15 +163,17 @@ const inputClass = 'mt-2 w-full rounded border border-paper/20 bg-panel2 px-4 py
           Số điện thoại đặt hàng
           <input v-model="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0901 234 567" :class="inputClass" />
         </label>
-        <p v-if="formError" class="mt-3 font-sans text-sm text-paper" role="alert">{{ formError }}</p>
+        <div aria-live="polite">
+          <p v-if="formError" class="mt-3 font-sans text-sm text-paper">{{ formError }}</p>
+        </div>
         <button
           type="submit"
           :disabled="submitting"
           class="mt-5 inline-flex rounded bg-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-night transition hover:bg-hopper-bright disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
         >{{ submitting ? 'Đang tra cứu...' : 'Tra cứu' }}</button>
       </form>
-      <div v-if="result" class="mt-6" aria-live="polite">
-        <OrderLookupCard :order="result" />
+      <div aria-live="polite" class="mt-6 empty:mt-0">
+        <OrderLookupCard v-if="result" :order="result" />
       </div>
     </div>
 

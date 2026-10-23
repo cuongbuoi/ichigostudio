@@ -9,6 +9,7 @@ useSeoMeta({
 })
 
 const route = useRoute()
+const router = useRouter()
 const { public: { apiBase } } = useRuntimeConfig()
 const { setTestKey } = useCheckoutConfig()
 
@@ -30,6 +31,9 @@ onMounted(async () => {
     status.value = 'ok'
     // Lưu key + refetch config để giỏ hiện ngay, không cần tải lại trang.
     await setTestKey(key.value)
+    // Đưa key khỏi thanh địa chỉ và lịch sử để GA4 page_view không gửi ?key=...
+    // (Chủ shop vẫn cần bật GA4 "Redact data > query parameter" với tham số `key`.)
+    await router.replace({ query: {} })
   } catch {
     status.value = 'invalid'
   }
@@ -40,17 +44,20 @@ onMounted(async () => {
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">ĐẶT THỬ</h1>
 
+    <div aria-live="polite" class="empty:hidden">
+      <p v-if="status === 'invalid'" class="mt-8 font-sans text-sm text-paper">Link thử không hợp lệ.</p>
+      <p v-else-if="status === 'ok'" class="mt-8 rounded border border-hopper/40 bg-panel px-4 py-3 font-sans text-sm text-paper">
+        Chế độ đặt thử: đơn được đánh dấu TEST
+      </p>
+    </div>
+
     <div v-if="status === 'loading'" class="mt-8 space-y-3" aria-busy="true" aria-label="Đang tải">
       <div class="h-20 animate-pulse rounded bg-panel" />
       <div class="h-20 animate-pulse rounded bg-panel" />
     </div>
 
-    <p v-else-if="status === 'invalid'" class="mt-8 font-sans text-sm text-paper" role="alert">Link thử không hợp lệ.</p>
 
-    <template v-else>
-      <p class="mt-8 rounded border border-hopper/40 bg-panel px-4 py-3 font-sans text-sm text-paper" role="status">
-        Chế độ đặt thử: đơn được đánh dấu TEST
-      </p>
+    <template v-else-if="status === 'ok'">
       <p v-if="!items.length" class="mt-6 font-sans text-sm font-light text-silver">Chưa có sản phẩm thử nào.</p>
       <ul v-else class="mt-6 divide-y divide-paper/10 border-y border-paper/10">
         <li v-for="p in items" :key="p.id" class="flex flex-wrap items-center gap-4 py-4">
