@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { nextPollDelay } from '~/utils/checkout-poll'
+
 const shop = useShop()
 useSeoMeta({
   title: `Chờ thanh toán - ${shop.name}`,
@@ -13,13 +15,12 @@ interface CheckoutState {
   paymentCode: string
   qrUrl: string
   bank: { bankName: string; account: string; accountName: string }
-  expiresAt: string
+  expiresAt: string | number
   orderCode: string | null
   isTest: boolean
 }
 
 const PENDING_KEY = 'ichigo.pendingCheckout.v1'
-const POLL_MS = 3000
 
 const route = useRoute()
 const id = String(route.params.id)
@@ -33,6 +34,8 @@ const notFound = ref(false)
 let timer: ReturnType<typeof setTimeout> | undefined
 let stopped = false
 let handledPaid = false
+/** Đã hết hạn nhưng vẫn đang theo dõi tiền về muộn (hiện dòng báo trên màn hết hạn). */
+const watchingLate = ref(false)
 
 function readPending(): { id: string; phone: string } | null {
   try {
@@ -70,16 +73,18 @@ async function fetchState() {
     }
     // lỗi mạng tạm thời: giữ trạng thái cũ, thử lại ở lượt poll sau
   }
+  // Tiền về muộn sau khi hết hạn: server vẫn tạo đơn, poll chậm có thể bắt được `paid` ở đây.
   if (state.value?.status === 'paid') onPaid(state.value)
-  if (state.value && state.value.status !== 'pending') stopped = true
 }
 
 function schedule() {
-  if (stopped) return
+  const delay = stopped ? null : nextPollDelay(state.value?.status ?? null, state.value?.expiresAt, Date.now())
+  watchingLate.value = delay !== null && state.value?.status === 'expired'
+  if (delay === null) return
   timer = setTimeout(async () => {
     await fetchState()
     schedule()
-  }, POLL_MS)
+  }, delay)
 }
 
 onMounted(async () => {
@@ -89,9 +94,11 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   stopped = true
   clearTimeout(timer)
+  timer = undefined
 })
 
 const btnPrimary = 'inline-flex rounded bg-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-night transition hover:bg-hopper-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper'
+const btnSecondary = 'inline-flex rounded border border-silver/30 px-6 py-3 font-sans text-sm font-medium tracking-wide text-silver transition hover:border-silver/60 hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper'
 </script>
 
 <template>
@@ -145,11 +152,14 @@ const btnPrimary = 'inline-flex rounded bg-hopper px-6 py-3 font-sans text-sm fo
     <div v-else class="font-sans" role="status">
       <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">MÃ QR ĐÃ HẾT HẠN</h1>
       <p class="mt-5 text-sm text-paper">Mã QR đã hết hạn.</p>
-      <NuxtLink to="/thanh-toan" :class="[btnPrimary, 'mt-5']">Tạo mã mới</NuxtLink>
-      <p class="mt-8 max-w-[60ch] text-sm font-light text-silver">
+      <p class="mt-5 max-w-[60ch] text-sm font-light text-silver">
         Nếu bạn đã chuyển khoản đúng nội dung <span class="text-paper">{{ state.paymentCode }}</span>, đơn vẫn được ghi nhận. Cần hỗ trợ, nhắn Messenger cho shop kèm mã này.
       </p>
-      <MessengerButton class="mt-4" label="Nhắn Messenger" variant="ghost" source="checkout-expired" />
+      <p v-if="watchingLate" class="mt-2 text-sm font-light text-silver" aria-live="polite">Trang vẫn tự cập nhật nếu tiền về muộn.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <NuxtLink to="/thanh-toan" :class="btnSecondary">Tạo mã mới</NuxtLink>
+        <MessengerButton label="Nhắn Messenger" variant="ghost" source="checkout-expired" />
+      </div>
     </div>
   </section>
 </template>
