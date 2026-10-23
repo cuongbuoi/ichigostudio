@@ -162,13 +162,13 @@ if (product.value) {
 
     <!-- Thanh Hỏi mua dính đáy (chỉ mobile) -->
     <div class="fixed inset-x-0 bottom-0 z-40 border-t border-hopper/30 bg-night/95 px-4 py-3 backdrop-blur md:hidden">
-      <div class="mx-auto flex max-w-6xl items-center gap-3 pr-16">
+      <div class="mx-auto flex max-w-6xl items-center gap-2 pr-16 sm:gap-3">
         <div class="min-w-0 flex-1">
-          <p class="truncate font-sans text-[10px] uppercase tracking-wide text-silver">{{ product.title }}</p>
-          <p class="font-sans text-sm font-medium text-hopper">{{ formatPrice(product.price) }}</p>
+          <p class="hidden truncate font-sans text-[10px] uppercase tracking-wide text-silver sm:block">{{ product.title }}</p>
+          <p class="truncate font-sans text-sm font-medium text-hopper">{{ formatPrice(product.price) }}</p>
         </div>
-        <AddToCartButton :product="{ id: product.id, title: product.title, price: product.price }" source="product-sticky" class="shrink-0" />
-        <MessengerButton label="Hỏi mua" source="product-sticky" :item="product.title" :ref-code="`sp-${product.slug}`" class="shrink-0" />
+        <AddToCartButton :product="{ id: product.id, title: product.title, price: product.price }" source="product-sticky" compact class="shrink-0" />
+        <MessengerButton label="Hỏi mua" source="product-sticky" :item="product.title" :ref-code="`sp-${product.slug}`" class="shrink-0 !px-3 !py-2.5 sm:!px-6 sm:!py-3" />
       </div>
     </div>
   </article>

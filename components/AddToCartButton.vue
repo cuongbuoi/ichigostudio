@@ -2,6 +2,8 @@
 const props = defineProps<{
   product: { id: string; title: string; price: number | null }
   source?: string
+  /** Icon-only, padding nhỏ (thanh dính đáy mobile). Không chèn link vào hàng. */
+  compact?: boolean
 }>()
 
 const { cartVisible } = useCheckoutConfig()
@@ -31,20 +33,28 @@ onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <template>
-  <div v-if="canBuy" class="inline-flex items-center gap-3">
+  <div v-if="canBuy" :class="compact ? 'inline-flex' : 'inline-flex items-center gap-3'">
     <button
       type="button"
       @click="onAdd"
-      class="inline-flex items-center gap-2 rounded border border-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-hopper transition hover:bg-hopper hover:text-night active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
+      :aria-label="compact ? `Thêm ${product.title} vào giỏ` : undefined"
+      :class="[
+        'inline-flex items-center justify-center rounded border border-hopper font-sans text-sm font-medium tracking-wide transition active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper',
+        compact ? 'h-10 w-10' : 'gap-2 px-6 py-3',
+        compact && justAdded ? 'bg-hopper text-night' : 'text-hopper hover:bg-hopper hover:text-night',
+      ]"
     >
-      <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg v-if="compact && justAdded" viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="5 12 10 17 19 7" />
+      </svg>
+      <svg v-else viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="9" cy="20" r="1.5" /><circle cx="18" cy="20" r="1.5" />
         <path d="M2 3h3l2.5 12h11l2-8H6" />
       </svg>
-      {{ justAdded ? 'Đã thêm vào giỏ' : 'Thêm vào giỏ' }}
+      <template v-if="!compact">{{ justAdded ? 'Đã thêm vào giỏ' : 'Thêm vào giỏ' }}</template>
     </button>
     <NuxtLink
-      v-if="justAdded"
+      v-if="justAdded && !compact"
       to="/gio-hang"
       class="font-sans text-sm text-hopper underline underline-offset-4 hover:text-hopper-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded"
     >Xem giỏ</NuxtLink>
