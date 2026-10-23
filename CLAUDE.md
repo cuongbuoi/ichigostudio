@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Ichigo Studio — a Vietnamese-language showcase site for 3D-printed (FDM) accessories and display stands for DX toys (Kamen Rider / tokusatsu). It is a catalog only: no cart, no checkout. All buying intent funnels to Messenger.
+Ichigo Studio — a Vietnamese-language showcase site for 3D-printed (FDM) accessories and display stands for DX toys (Kamen Rider / tokusatsu). It started as a catalog and now also has a cart and bank-transfer checkout (see "Cart & checkout"), gated by an API setting so it can be switched off. Messenger remains the path for questions and for products without a price ("Hỏi mua").
 
 Stack: Nuxt 3 (**SSR**) + `@nuxt/image` + Tailwind v3. Products are fetched at runtime from the Ichigo Studio API (`ichigo-studio-api`, the CMS/D1 backend) via its public read endpoints; there is no Markdown/`@nuxt/content` content store anymore.
 
@@ -39,9 +39,20 @@ There is no lint/format script configured.
 
 **Layout.** Single `layouts/default.vue` wraps every page with `AppHeader`, `AppFooter`, a `FloatingContact` Messenger button, and a fixed film-grain overlay (disabled under `prefers-reduced-motion` / `prefers-reduced-transparency`).
 
+## Cart & checkout
+
+Client-side cart + VietQR bank transfer, confirmed by a SePay webhook on the API. The server recomputes all prices from the DB (client prices are ignored). 100% of the goods total is paid online; shipping is paid on delivery, and every cart/checkout/thank-you screen must say `Phí ship bạn trả khi nhận hàng.`. Products with `price = null` (or <= 0) cannot be added to the cart.
+
+- Flow: `/gio-hang` (cart) -> `/thanh-toan` (customer form) -> `POST /public/checkout` -> `/thanh-toan/[id]` (QR + bank info, polls until paid, 15 min display window only). Payment code is `ICG` + 8 digits and goes in the transfer content.
+- The cart UI only shows when `GET /public/checkout/config` says `enabled` or `testMode` (`composables/useCheckoutConfig.ts`, client-side fetch; any error means hidden).
+- Other pages: `/don-hang` (saved orders + order lookup by code and phone), `/dat-thu?key=...` (secret test-order page, lists test products and calls `setTestKey` so the cart appears without reload). Both are `noindex`, and cart/checkout/lookup/test pages are deliberately NOT in `server/routes/sitemap.xml.ts`.
+- Storage keys: `ichigo.cart.v1` (localStorage, cart entries), `ichigo.orders.v1` (localStorage, saved `{code, phone}`, max 20), `ichigo.pendingCheckout.v1` (localStorage, `{id, phone}` until the payment is seen as paid), `ichigo.testKey` (sessionStorage, test key).
+- API endpoints used: `GET /public/checkout/config`, `POST /public/checkout`, `GET /public/checkout/:id`, `GET /public/checkout/test-products?key=`, `POST /public/orders/lookup` (404 `not_found` for a wrong code or phone, 429 when rate limited).
+- Pure cart logic lives in `utils/cart.ts` and `utils/phone.ts` (unit-tested). Composables that register hooks (`useCheckoutConfig`, `useProducts`) must be called at setup time, never inside a watch or onMounted; `useCartProductsLoader()` follows that rule and returns a plain async loader.
+
 ## Routing & language conventions
 
-- Routes and slugs are Vietnamese, unaccented kebab-case: `/san-pham` (products), `/san-pham/[slug]`, `/gioi-thieu` (about), `/lien-he` (contact).
+- Routes and slugs are Vietnamese, unaccented kebab-case: `/san-pham` (products), `/san-pham/[slug]`, `/gioi-thieu` (about), `/lien-he` (contact), `/gio-hang`, `/thanh-toan`, `/don-hang`, `/dat-thu`.
 - All user-facing copy is **Vietnamese with full diacritics** — preserve them exactly when editing. Do not strip accents or substitute ASCII.
 - Per the brand voice (`docs/brand/README.md`): no em-dashes (—) in copy — use commas or periods. Sparse katakana accents are intentional.
 

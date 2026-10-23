@@ -14,6 +14,10 @@ const shop = useShop()
       </div>
       <div class="flex flex-col gap-4 md:items-end">
         <MessengerButton variant="ghost" label="Nhắn tin cho shop" source="footer" />
+        <NuxtLink
+          to="/don-hang"
+          class="rounded font-sans text-xs uppercase tracking-[0.12em] text-silver/70 underline underline-offset-4 transition hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
+        >Tra cứu đơn</NuxtLink>
         <div class="flex items-center gap-3">
           <span class="font-sans text-xs uppercase tracking-[0.12em] text-silver/70">Theo dõi shop</span>
           <SocialLinks source="footer" variant="icons" />
