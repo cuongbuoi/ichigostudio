@@ -1,27 +1,35 @@
 <script setup lang="ts">
-const shop = useShop()
-const { all, featured, newest, seriesList } = useProducts()
-const { featured: feedbackImages } = useFeedbacks()
+import { formatPostDate } from '~/composables/useBlog'
 
-// Thẻ series cho khối "Duyệt theo series": ảnh lấy từ sản phẩm đầu tiên có cover.
-const seriesCards = computed(() =>
-  seriesList.value.map((s) => {
-    const inSeries = all.value.filter((p) => p.series === s)
-    return { series: s, cover: inSeries.find((p) => p.cover)?.cover ?? '', count: inSeries.length }
+const shop = useShop()
+const { all, featured, newest, categoryList } = useProducts()
+const { featured: feedbackImages } = useFeedbacks()
+const { posts: blogPosts } = useBlog()
+
+// 3 bài mới nhất cho khối blog ở home (API đã sort theo publishedAt giảm dần).
+const latestPosts = computed(() => blogPosts.value.slice(0, 3))
+// ISO datetime cho <time datetime> (máy đọc được, tốt cho SEO).
+const isoDate = (ms?: number | null) => (ms ? new Date(ms).toISOString() : undefined)
+
+// Thẻ danh mục cho khối "Duyệt theo danh mục": ảnh lấy từ SP đầu tiên có cover.
+const categoryCards = computed(() =>
+  categoryList.value.map((c) => {
+    const inCat = all.value.filter((p) => p.categorySlug === c.slug)
+    return { name: c.name, slug: c.slug, cover: inCat.find((p) => p.cover)?.cover ?? '', count: inCat.length }
   }),
 )
 
 const steps = [
-  { n: '01', t: 'Nhắn shop', d: 'Nhắn Messenger hoặc Facebook, gửi mẫu và series bạn muốn.' },
+  { n: '01', t: 'Nhắn shop', d: 'Nhắn Messenger hoặc Facebook, gửi mẫu và dòng bạn muốn.' },
   { n: '02', t: 'Chốt mẫu & màu', d: 'Cùng chốt phối màu, chất liệu và giá cuối cho món của bạn.' },
-  { n: '03', t: 'Cọc & in', d: 'Cọc 50% hoặc thanh toán đủ, shop bắt đầu in theo đơn.' },
+  { n: '03', t: 'Thanh toán & in', d: 'Thanh toán trước, shop bắt đầu in theo đơn.' },
   { n: '04', t: 'Giao hàng', d: 'In xong, đóng gói kỹ và ship tận nơi toàn quốc.' },
 ]
 
 const faqs = [
   { q: 'Sản phẩm làm bằng chất liệu gì?', a: 'In FDM bằng nhựa PLA+, phối màu trực tiếp bằng nhựa chứ không dùng sơn, nên màu bền và không lo tróc.' },
   { q: 'In mất bao lâu?', a: 'Tùy mẫu và số lượng, thường vài ngày tới hơn một tuần. Shop báo thời gian cụ thể khi chốt đơn.' },
-  { q: 'Thanh toán như thế nào?', a: 'Cọc 50% để bắt đầu in, phần còn lại thanh toán trước khi giao. Hoặc thanh toán đủ ngay từ đầu cũng được.' },
+  { q: 'Thanh toán như thế nào?', a: 'Thanh toán trước toàn bộ để shop bắt đầu in theo đơn. In xong shop đóng gói và ship tận nơi.' },
   { q: 'Có ship toàn quốc không?', a: 'Có. Shop đóng gói kỹ và gửi qua đơn vị vận chuyển tới tận nơi trên toàn quốc.' },
   { q: 'Đồ chơi trong ảnh có bán kèm không?', a: 'Không. Đồ chơi DX trong ảnh chỉ để minh họa cách dùng phụ kiện, không bao gồm khi mua.' },
 ]
@@ -42,6 +50,38 @@ useJsonLd(
     })),
   },
   'faq',
+)
+
+// ItemList các bài blog mới nhất -> Google hiểu danh sách bài, giúp index nhanh
+// (crawler ghé home nhiều nhất). Getter để SSR có sẵn data async.
+const { public: { siteUrl } } = useRuntimeConfig()
+useJsonLd(
+  () =>
+    latestPosts.value.length
+      ? {
+          '@type': 'ItemList',
+          name: 'Bài viết mới nhất',
+          itemListElement: latestPosts.value.map((p, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `${siteUrl}/blog/${p.slug}`,
+            item: {
+              '@type': 'BlogPosting',
+              headline: p.title,
+              url: `${siteUrl}/blog/${p.slug}`,
+              mainEntityOfPage: `${siteUrl}/blog/${p.slug}`,
+              inLanguage: 'vi-VN',
+              ...(p.coverImage ? { image: [p.coverImage] } : {}),
+              ...(p.excerpt ? { description: p.excerpt } : {}),
+              ...(p.publishedAt ? { datePublished: new Date(p.publishedAt).toISOString() } : {}),
+              ...(p.categoryName ? { articleSection: p.categoryName } : {}),
+              author: { '@type': 'Organization', name: 'Ichigo Studio' },
+              publisher: { '@type': 'Organization', name: 'Ichigo Studio' },
+            },
+          })),
+        }
+      : {},
+  'home-blog',
 )
 </script>
 
@@ -92,36 +132,36 @@ useJsonLd(
         </g>
       </svg>
       <NuxtImg
-        src="/hero-in-3d.webp"
-        alt="Đầu phun máy in 3D FDM đang đùn nhựa filament xanh - Ichigo Studio"
+        src="/hero-logo.jpg"
+        alt="Logo Ichigo Studio, in 3D phụ kiện tokusatsu custom"
         width="1024"
         height="1024"
         sizes="sm:100vw md:50vw lg:700px"
         preload
         fetchpriority="high"
         loading="eager"
-        class="aspect-[6/7] w-full object-cover"
+        class="aspect-square w-full object-contain"
       />
     </div>
   </section>
 
-  <!-- BROWSE BY SERIES -->
-  <section v-if="seriesCards.length" class="mx-auto max-w-content px-4 pb-16 md:px-8">
+  <!-- BROWSE BY CATEGORY -->
+  <section v-if="categoryCards.length" class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
-      title="DUYỆT THEO SERIES"
-      subtitle="Chọn thẳng franchise bạn đang chơi."
+      title="DUYỆT THEO DANH MỤC"
+      subtitle="Chọn thẳng dòng bạn đang chơi."
     />
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       <NuxtLink
-        v-for="s in seriesCards"
-        :key="s.series"
-        :to="{ path: '/san-pham', query: { series: s.series } }"
+        v-for="c in categoryCards"
+        :key="c.slug"
+        :to="`/danh-muc/${c.slug}`"
         class="group relative overflow-hidden rounded bg-panel border border-paper/10 transition hover:border-hopper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
       >
         <NuxtImg
-          v-if="s.cover"
-          :src="s.cover"
-          :alt="s.series"
+          v-if="c.cover"
+          :src="c.cover"
+          :alt="c.name"
           loading="lazy"
           width="400"
           class="aspect-[4/3] w-full object-cover opacity-70 transition duration-500 group-hover:opacity-100 group-hover:scale-[1.04]"
@@ -129,8 +169,8 @@ useJsonLd(
         <div v-else class="aspect-[4/3] w-full bg-panel2"></div>
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/90 via-night/40 to-transparent"></div>
         <div class="absolute inset-x-0 bottom-0 p-3">
-          <p class="font-display text-base uppercase leading-tight tracking-tight text-paper md:text-lg">{{ s.series }}</p>
-          <p class="font-sans text-[11px] text-silver">{{ s.count }} sản phẩm</p>
+          <p class="font-display text-base uppercase leading-tight tracking-tight text-paper md:text-lg">{{ c.name }}</p>
+          <p class="font-sans text-[11px] text-silver">{{ c.count }} sản phẩm</p>
         </div>
       </NuxtLink>
     </div>
@@ -185,6 +225,52 @@ useJsonLd(
     </div>
   </section>
 
+  <!-- BLOG / HƯỚNG DẪN (SEO: internal link tới bài mới, cào & index nhanh) -->
+  <section v-if="latestPosts.length" class="mx-auto max-w-content px-4 pb-16 md:px-8" aria-labelledby="home-blog-heading">
+    <div class="mb-10 max-w-content">
+      <h2 id="home-blog-heading" class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">HƯỚNG DẪN &amp; BLOG</h2>
+      <p class="mt-3 max-w-[60ch] font-sans text-sm font-light text-silver">Hướng dẫn chơi đồ DX, hậu trường in 3D và tin tức tokusatsu.</p>
+    </div>
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <article
+        v-for="p in latestPosts"
+        :key="p.slug"
+        class="group flex flex-col overflow-hidden rounded-lg border border-paper/10 bg-panel transition hover:border-hopper/40"
+      >
+        <NuxtLink
+          :to="`/blog/${p.slug}`"
+          class="flex flex-1 flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
+        >
+          <div class="aspect-[16/10] overflow-hidden bg-night">
+            <NuxtImg
+              v-if="p.coverImage"
+              :src="p.coverImage"
+              :alt="p.title"
+              width="400"
+              height="250"
+              sizes="sm:100vw md:50vw lg:380px"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div v-else class="flex h-full w-full items-center justify-center text-silver/40 font-display text-sm">ICHIGO</div>
+          </div>
+          <div class="flex flex-1 flex-col p-5">
+            <p v-if="p.categoryName" class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ p.categoryName }}</p>
+            <h3 class="mt-2 font-display text-lg uppercase leading-snug tracking-tight text-paper">{{ p.title }}</h3>
+            <p v-if="p.excerpt" class="mt-2 flex-1 font-sans text-sm leading-relaxed text-silver line-clamp-3">{{ p.excerpt }}</p>
+            <time v-if="p.publishedAt" :datetime="isoDate(p.publishedAt)" class="mt-4 font-sans text-xs text-silver/60">{{ formatPostDate(p.publishedAt) }}</time>
+          </div>
+        </NuxtLink>
+      </article>
+    </div>
+    <div class="mt-10">
+      <NuxtLink
+        to="/blog"
+        class="font-sans text-sm font-medium text-hopper hover:text-hopper-bright hover:underline underline-offset-4 transition"
+      >Xem tất cả bài viết &rsaquo;</NuxtLink>
+    </div>
+  </section>
+
   <!-- ORDER PROCESS (4 steps) -->
   <section class="bg-panel py-20">
     <div class="mx-auto max-w-content px-4 md:px-8">
@@ -222,9 +308,9 @@ useJsonLd(
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="rounded border border-hopper/30 bg-panel p-8 md:flex md:items-center md:justify-between md:p-10">
       <div>
-        <p class="font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">FACEBOOK / TIKTOK</p>
+        <p class="font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">FACEBOOK / TIKTOK / CULTS3D</p>
         <h2 class="mt-2 font-display text-2xl uppercase leading-tight tracking-tight text-paper md:text-3xl">Theo dõi Ichigo Studio</h2>
-        <p class="mt-2 max-w-[46ch] font-sans text-sm font-light text-silver">Mẫu mới, video in 3D và feedback khách cập nhật liên tục trên Facebook và TikTok.</p>
+        <p class="mt-2 max-w-[46ch] font-sans text-sm font-light text-silver">Mẫu mới, video in 3D và feedback khách cập nhật liên tục trên Facebook và TikTok. Tải file in 3D của shop trên Cults3D.</p>
       </div>
       <div class="mt-6 md:mt-0">
         <SocialLinks source="home" variant="buttons" />
