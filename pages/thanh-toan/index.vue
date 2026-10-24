@@ -140,7 +140,6 @@ const labelCls = 'block text-[10px] font-medium uppercase tracking-[0.15em] text
           :disabled="!canSubmit || submitting"
           class="flex w-full justify-center rounded bg-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-night transition hover:bg-hopper-bright disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper md:w-auto"
         >{{ submitting ? 'Đang tạo mã...' : 'Thanh toán bằng QR' }}</button>
-        <p class="font-sans text-sm font-light text-silver">Phí ship bạn trả khi nhận hàng.</p>
       </form>
 
       <aside class="h-fit rounded border border-paper/10 bg-panel p-6">
@@ -155,7 +154,7 @@ const labelCls = 'block text-[10px] font-medium uppercase tracking-[0.15em] text
           <span class="text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Tạm tính</span>
           <span class="text-xl text-paper">{{ formatPrice(resolved.subtotal) }}</span>
         </div>
-        <p class="mt-3 font-sans text-sm font-light text-silver">Phí ship bạn trả khi nhận hàng.</p>
+        <p class="mt-3 font-sans text-sm font-light text-silver">Giá chưa bao gồm phí vận chuyển. Phí vận chuyển được thanh toán khi nhận hàng.</p>
       </aside>
     </div>
   </section>

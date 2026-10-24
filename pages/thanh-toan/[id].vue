@@ -133,12 +133,13 @@ const btnSecondary = 'inline-flex rounded border border-silver/30 px-6 py-3 font
     </div>
 
     <div v-else-if="state.status === 'paid'" class="font-sans" role="status">
-      <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">CẢM ƠN BẠN</h1>
+      <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">ĐẶT HÀNG THÀNH CÔNG</h1>
       <p class="mt-5 text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Mã đơn</p>
       <p class="mt-1 font-display text-5xl tracking-wide text-hopper-bright md:text-6xl">{{ state.orderCode }}</p>
-      <p class="mt-6 text-sm text-paper">Shop sẽ gọi cho bạn để xác nhận đơn.</p>
-      <p class="mt-2 text-sm font-light text-silver">Phí ship bạn trả khi nhận hàng.</p>
-      <NuxtLink to="/don-hang" :class="[btnPrimary, 'mt-6']">Xem đơn hàng</NuxtLink>
+      <p class="mt-6 text-sm text-paper">Ichigo Studio đã nhận được thanh toán của bạn.</p>
+      <p class="mt-2 text-sm text-paper">Shop sẽ liên hệ qua số điện thoại bạn đã để lại để xác nhận đơn và thời gian giao hàng.</p>
+      <p class="mt-2 text-sm font-light text-silver">Phí vận chuyển được thanh toán trực tiếp cho đơn vị giao hàng khi bạn nhận hàng.</p>
+      <NuxtLink to="/don-hang" :class="[btnPrimary, 'mt-6']">Theo dõi đơn hàng</NuxtLink>
     </div>
 
     <div v-else-if="state.status === 'needs_review'" class="font-sans" role="status">

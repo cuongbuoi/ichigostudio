@@ -88,7 +88,7 @@ const isEmpty = computed(() => entries.value.length === 0)
           <span class="text-[10px] font-medium uppercase tracking-[0.15em] text-silver">Tạm tính</span>
           <span class="text-xl text-paper">{{ formatPrice(resolved.subtotal) }}</span>
         </div>
-        <p class="mt-3 font-sans text-sm font-light text-silver">Phí ship bạn trả khi nhận hàng.</p>
+        <p class="mt-3 font-sans text-sm font-light text-silver">Giá chưa bao gồm phí vận chuyển. Phí vận chuyển được thanh toán khi nhận hàng.</p>
         <p v-if="resolved.unavailable.length" class="mt-3 font-sans text-sm text-paper" aria-live="polite">
           Xoá sản phẩm không còn bán để tiếp tục đặt hàng.
         </p>

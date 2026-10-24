@@ -104,7 +104,7 @@ const copyBtn = 'shrink-0 rounded border border-paper/30 px-3 py-1 font-sans tex
         </div>
       </dl>
 
-      <p class="mt-4 font-sans text-sm font-light text-silver">Phí ship bạn trả khi nhận hàng.</p>
+      <p class="mt-4 font-sans text-sm font-light text-silver">Giá chưa bao gồm phí vận chuyển. Phí vận chuyển được thanh toán khi nhận hàng.</p>
       <p class="mt-2 font-sans text-sm font-light text-silver">Trang tự cập nhật khi shop nhận được tiền.</p>
       <span class="sr-only" role="status" aria-live="polite">{{ copied ? 'Đã chép' : '' }}</span>
     </div>

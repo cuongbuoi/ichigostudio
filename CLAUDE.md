@@ -41,7 +41,7 @@ There is no lint/format script configured.
 
 ## Cart & checkout
 
-Client-side cart + VietQR bank transfer, confirmed by a SePay webhook on the API. The server recomputes all prices from the DB (client prices are ignored). 100% of the goods total is paid online; shipping is paid on delivery, and every cart/checkout/thank-you screen must say `Phí ship bạn trả khi nhận hàng.`. Products with `price = null` (or <= 0) cannot be added to the cart.
+Client-side cart + VietQR bank transfer, confirmed by a SePay webhook on the API. The server recomputes all prices from the DB (client prices are ignored). 100% of the goods total is paid online; shipping is paid on delivery, and cart, checkout and payment screens say `Giá chưa bao gồm phí vận chuyển. Phí vận chuyển được thanh toán khi nhận hàng.` and the thank-you screen says `Phí vận chuyển được thanh toán trực tiếp cho đơn vị giao hàng khi bạn nhận hàng.`. Products with `price = null` (or <= 0) cannot be added to the cart.
 
 - Flow: `/gio-hang` (cart) -> `/thanh-toan` (customer form) -> `POST /public/checkout` -> `/thanh-toan/[id]` (QR + bank info, polls until paid, 15 min display window only). Payment code is `ICG` + 8 digits and goes in the transfer content.
 - The cart UI only shows when `GET /public/checkout/config` says `enabled` or `testMode` (`composables/useCheckoutConfig.ts`, client-side fetch; any error means hidden).
