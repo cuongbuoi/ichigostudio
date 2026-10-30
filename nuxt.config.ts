@@ -39,6 +39,12 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ['picsum.photos', 'ichigo-studio-api.cuongyo19997.workers.dev'],
+    // Resize qua Cloudflare Image Transformations (/cdn-cgi/image/...) của zone ichigostudio.vn
+    // (đã bật trên dashboard 31/10/2026). Chỉ dùng cho build production: `nuxt dev` chạy trên
+    // localhost không có /cdn-cgi. Build với CF_IMAGE_TRANSFORMS=0 để phục vụ ảnh gốc.
+    ...(process.env.NODE_ENV === 'production' && process.env.CF_IMAGE_TRANSFORMS !== '0'
+      ? { provider: 'cloudflare', cloudflare: { baseURL: '/', modifiers: { format: 'auto', quality: 80 } } }
+      : {}),
   },
   nitro: {
     // SSR on Cloudflare Workers (Static Assets + module worker)

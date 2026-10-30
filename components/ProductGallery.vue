@@ -25,6 +25,8 @@ function next() { current.value = (current.value + 1) % props.images.length }
           :src="images[current]"
           :alt="`${alt} - phụ kiện in 3D`"
           width="900"
+          loading="eager"
+          fetchpriority="high"
           class="aspect-square w-full object-contain motion-safe:transition-opacity motion-safe:duration-200"
         />
       </template>

@@ -30,6 +30,7 @@ useSeoMeta({
 <template>
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <SectionHeading
+      as="h1"
       title="FEEDBACK KHÁCH HÀNG"
       subtitle="Ảnh thật khách gửi sau khi nhận hàng — cảm ơn mọi người đã ủng hộ!"
     />

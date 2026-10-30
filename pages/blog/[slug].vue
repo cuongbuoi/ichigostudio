@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatPostDate } from '~/composables/useBlog'
+import { stripLatinRuby } from '~/utils/blog-html'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
@@ -19,7 +20,8 @@ if (!post.value) {
 }
 
 // bodyHtml đã được sanitize phía admin (DOMPurify) trước khi lưu.
-const bodyHtml = computed(() => post.value?.bodyHtml ?? '')
+// stripLatinRuby: gỡ furigana bị gắn nhầm lên chữ Việt khi clone guide Bandai.
+const bodyHtml = computed(() => stripLatinRuby(post.value?.bodyHtml ?? ''))
 const related = computed(() => relatedByCategory(slug.value, post.value?.categorySlug ?? null))
 
 useSeoMeta({
@@ -88,7 +90,8 @@ if (post.value) {
       :src="post.coverImage"
       :alt="post.title"
       class="mt-8 w-full rounded-lg border border-paper/10 object-cover"
-      loading="lazy"
+      loading="eager"
+      fetchpriority="high"
     />
 
     <div

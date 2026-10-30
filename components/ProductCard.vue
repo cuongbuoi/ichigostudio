@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { ProductMeta } from '~/types/product'
 import { formatPrice } from '~/utils/products'
-defineProps<{ product: ProductMeta }>()
+// priority: card đầu lưới listing (thường là ảnh LCP) → tải ngay, không lazy.
+defineProps<{ product: ProductMeta; priority?: boolean }>()
 </script>
 
 <template>
@@ -11,7 +12,8 @@ defineProps<{ product: ProductMeta }>()
         <NuxtImg
           :src="product.cover"
           :alt="`${product.title} - phụ kiện in 3D`"
-          loading="lazy"
+          :loading="priority ? 'eager' : 'lazy'"
+          :fetchpriority="priority ? 'high' : undefined"
           width="600"
           class="aspect-square w-full object-contain transition duration-500 group-hover:scale-[1.03]"
         />

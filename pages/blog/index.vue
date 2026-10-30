@@ -46,6 +46,7 @@ useJsonLd(
 <template>
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <SectionHeading
+      as="h1"
       title="BLOG"
       subtitle="Hướng dẫn, tin tức & hậu trường in 3D"
     />
