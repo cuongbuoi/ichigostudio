@@ -9,8 +9,7 @@ if (!policy) {
   throw createError({ statusCode: 404, statusMessage: 'Không tìm thấy trang' })
 }
 
-const shop = useShop()
-const { public: { siteUrl } } = useRuntimeConfig()
+const { public: { siteUrl, apiBase } } = useRuntimeConfig()
 const url = `${siteUrl}/chinh-sach/${policy.slug}`
 
 // html tắt: nội dung do shop soạn trong utils/policies.ts, chỉ cần Markdown cơ bản.
@@ -18,13 +17,19 @@ const md = new MarkdownIt({ linkify: true })
 const sections = policy.sections.map((s) => ({ heading: s.heading, html: md.render(s.body) }))
 const others = POLICIES.filter((p) => p.slug !== policy.slug)
 
-const seller = shop.seller
-const sellerRows = [
-  { label: 'Người bán', value: seller?.name },
-  { label: 'Địa chỉ', value: seller?.address },
-  { label: 'Điện thoại', value: seller?.phone },
-  { label: 'Email', value: seller?.email },
-].filter((r) => r.value)
+// Thông tin người bán nhập ở admin (Cài đặt > Thông tin người bán). Ô trống thì ẩn; API lỗi thì ẩn cả khối.
+interface Seller { name: string; address: string; phone: string; email: string }
+const { data: seller } = await useAsyncData('seller', () =>
+  $fetch<Seller>(`${apiBase}/public/seller`).catch(() => null),
+)
+const sellerRows = computed(() =>
+  [
+    { label: 'Người bán', value: seller.value?.name },
+    { label: 'Địa chỉ', value: seller.value?.address },
+    { label: 'Điện thoại', value: seller.value?.phone },
+    { label: 'Email', value: seller.value?.email },
+  ].filter((r) => r.value),
+)
 
 const crumbs: Crumb[] = [
   { name: 'Trang chủ', to: '/' },

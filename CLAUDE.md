@@ -52,7 +52,7 @@ Client-side cart + VietQR bank transfer, confirmed by a SePay webhook on the API
 
 ## Routing & language conventions
 
-- Routes and slugs are Vietnamese, unaccented kebab-case: `/san-pham` (products), `/san-pham/[slug]`, `/gioi-thieu` (about), `/lien-he` (contact), `/gio-hang`, `/thanh-toan`, `/don-hang`, `/dat-thu`, `/chinh-sach/[slug]` (policy pages; content in `utils/policies.ts`, owner-approved wording, seller info from `app.config.ts` `shop.seller`).
+- Routes and slugs are Vietnamese, unaccented kebab-case: `/san-pham` (products), `/san-pham/[slug]`, `/gioi-thieu` (about), `/lien-he` (contact), `/gio-hang`, `/thanh-toan`, `/don-hang`, `/dat-thu`, `/chinh-sach/[slug]` (policy pages; content in `utils/policies.ts`, owner-approved wording, seller info entered in admin Settings, read from `GET /public/seller`).
 - All user-facing copy is **Vietnamese with full diacritics** — preserve them exactly when editing. Do not strip accents or substitute ASCII.
 - Per the brand voice (`docs/brand/README.md`): no em-dashes (—) in copy — use commas or periods. Sparse katakana accents are intentional.
 
