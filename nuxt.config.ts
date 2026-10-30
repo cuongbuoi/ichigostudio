@@ -6,6 +6,8 @@ export default defineNuxtConfig({
     id: 'G-TFCVBNLCB8',
     // Chỉ gửi số liệu ở production; khi `nuxt dev` sẽ không bắn event lên GA.
     enabled: process.env.NODE_ENV === 'production',
+    // gtag.js nạp trễ trong plugins/third-party.client.ts (giảm TBT mobile).
+    initMode: 'manual',
   },
   app: {
     head: {
