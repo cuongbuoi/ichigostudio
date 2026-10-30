@@ -17,7 +17,7 @@ export const CACHED_AT_HEADER = 'x-edge-cached-at'
 // cứu đơn, trang đặt thử đều KHÔNG cache.
 const CACHEABLE_RE = [
   /^\/$/,
-  /^\/(san-pham|danh-muc|blog)(\/[^/]+)?$/,
+  /^\/(san-pham|danh-muc|blog|chinh-sach)(\/[^/]+)?$/,
   /^\/(feedback|in-3d|3d-models|gioi-thieu|lien-he)$/,
   /^\/(sitemap\.xml|llms\.txt|robots\.txt)$/,
 ]
@@ -49,7 +49,7 @@ export function isFresh(cachedAt: string | null, now: number): boolean {
 }
 
 // Các mục có slug luôn viết thường; route có id (thanh toán...) có thể có chữ hoa nên không đụng.
-const LOWERCASE_SECTION_RE = /^\/(san-pham|danh-muc|blog|feedback|in-3d|3d-models|gioi-thieu|lien-he|gio-hang|don-hang)(\/|$)/i
+const LOWERCASE_SECTION_RE = /^\/(san-pham|danh-muc|blog|chinh-sach|feedback|in-3d|3d-models|gioi-thieu|lien-he|gio-hang|don-hang)(\/|$)/i
 
 /** URL chuẩn: bỏ "/" cuối, chữ thường cho các mục nội dung (giữ nguyên mã %XX). */
 export function canonicalPath(path: string): string {

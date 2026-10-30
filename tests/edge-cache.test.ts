@@ -3,7 +3,7 @@ import { isEdgeCacheablePath, edgeCacheKey, isFresh, canonicalPath } from '../se
 
 describe('isEdgeCacheablePath', () => {
   it.each(['/', '/san-pham', '/san-pham/khay-x-egg', '/danh-muc', '/danh-muc/kamen-rider', '/blog', '/blog/bai-viet',
-    '/feedback', '/in-3d', '/3d-models', '/gioi-thieu', '/lien-he', '/sitemap.xml', '/llms.txt', '/robots.txt'])(
+    '/feedback', '/in-3d', '/3d-models', '/gioi-thieu', '/lien-he', '/chinh-sach', '/chinh-sach/doi-tra', '/sitemap.xml', '/llms.txt', '/robots.txt'])(
     'cache %s', (p) => expect(isEdgeCacheablePath(p)).toBe(true),
   )
   it.each(['/gio-hang', '/thanh-toan', '/thanh-toan/abc', '/don-hang', '/dat-thu', '/san-pham/a/b', '/_nuxt/x.js'])(

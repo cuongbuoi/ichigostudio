@@ -42,6 +42,8 @@ describe('productJsonLd', () => {
     expect(ld.image).toEqual(['https://cdn/c.webp'])
     expect(ld.offers.seller).toEqual({ '@id': `${SITE}/#organization` })
     expect(ld.offers.itemCondition).toBe('https://schema.org/NewCondition')
+    expect(ld.offers.hasMerchantReturnPolicy.returnPolicyCategory).toBe('https://schema.org/MerchantReturnNotPermitted')
+    expect(ld.offers.hasMerchantReturnPolicy.merchantReturnLink).toBe(`${SITE}/chinh-sach/doi-tra`)
   })
   it('không có giá thì không khai Offer', () => {
     expect(productJsonLd({ ...base, price: null }, SITE)).not.toHaveProperty('offers')

@@ -1,3 +1,5 @@
+import { POLICIES } from '../../utils/policies'
+
 interface SitemapUrl {
   loc: string
   lastmod?: string
@@ -18,7 +20,7 @@ function isoDate(ms?: number | null): string | undefined {
 }
 
 // Google bỏ qua changefreq/priority nên chỉ khai loc + lastmod (lần sửa thật từ updatedAt).
-const STATIC_PAGES = ['/', '/san-pham', '/danh-muc', '/in-3d', '/3d-models', '/blog', '/feedback', '/lien-he']
+const STATIC_PAGES = ['/', '/san-pham', '/danh-muc', '/in-3d', '/3d-models', '/blog', '/feedback', '/lien-he', '/chinh-sach', ...POLICIES.map((p) => `/chinh-sach/${p.slug}`)]
 
 export default defineEventHandler(async (event) => {
   const { public: { siteUrl, apiBase } } = useRuntimeConfig(event)

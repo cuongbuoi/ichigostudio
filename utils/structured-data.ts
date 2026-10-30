@@ -48,6 +48,13 @@ export function productJsonLd(p: ProductMeta, siteUrl: string) {
             availability: 'https://schema.org/InStock',
             itemCondition: 'https://schema.org/NewCondition',
             seller: { '@id': `${siteUrl}/#organization` },
+            // Hàng in theo đơn: không nhận trả (chỉ gửi bù chi tiết lỗi/gãy). Xem /chinh-sach/doi-tra.
+            hasMerchantReturnPolicy: {
+              '@type': 'MerchantReturnPolicy',
+              applicableCountry: 'VN',
+              returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+              merchantReturnLink: `${siteUrl}/chinh-sach/doi-tra`,
+            },
             url,
           },
         }

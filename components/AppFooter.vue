@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { POLICIES } from '~/utils/policies'
+
 const shop = useShop()
 </script>
 
@@ -25,6 +27,16 @@ const shop = useShop()
         </div>
       </div>
     </div>
+    <nav class="border-t border-paper/10" aria-label="Chính sách">
+      <ul class="mx-auto flex max-w-content flex-wrap justify-center gap-x-6 gap-y-2 px-4 py-4 md:px-8">
+        <li v-for="p in POLICIES" :key="p.slug">
+          <NuxtLink
+            :to="`/chinh-sach/${p.slug}`"
+            class="rounded font-sans text-xs text-silver/70 transition hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
+          >{{ p.h1 }}</NuxtLink>
+        </li>
+      </ul>
+    </nav>
     <div class="border-t border-paper/10 py-4 text-center font-sans text-xs text-silver/60">
       &copy; {{ new Date().getFullYear() }} {{ shop.name }}.
     </div>

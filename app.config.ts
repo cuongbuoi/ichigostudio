@@ -10,5 +10,13 @@ export default defineAppConfig({
     responseTime: 'Thường phản hồi trong vài giờ',
     area: 'TP. Hồ Chí Minh',
     hasPhotos: true,
+    // Thông tin người bán hiện ở cuối các trang /chinh-sach (NĐ 52/2013 yêu cầu công khai).
+    // Chủ shop điền; trường trống thì không hiển thị.
+    seller: {
+      name: '',
+      address: '',
+      phone: '',
+      email: '',
+    },
   },
 })

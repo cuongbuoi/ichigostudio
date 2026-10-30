@@ -18,6 +18,10 @@ export default defineEventHandler((event) => {
 - [Blog / hướng dẫn](${site}/blog)
 - [Feedback khách hàng](${site}/feedback)
 - [Liên hệ](${site}/lien-he)
+- [Chính sách vận chuyển](${site}/chinh-sach/van-chuyen)
+- [Chính sách đổi trả và bảo hành](${site}/chinh-sach/doi-tra)
+- [Chính sách thanh toán](${site}/chinh-sach/thanh-toan)
+- [Chính sách bảo mật](${site}/chinh-sach/bao-mat)
 - [Sitemap](${site}/sitemap.xml)
 `
 })
