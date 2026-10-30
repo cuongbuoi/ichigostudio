@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import { mapApiProduct, formatPrice } from '~/utils/products'
+import { productCrumbs, productJsonLd, breadcrumbJsonLd } from '~/utils/structured-data'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
@@ -43,44 +44,20 @@ useSeoMeta({
   ogImage: () => product.value?.cover,
 })
 
+// Bài hướng dẫn gắn với danh mục của SP (admin chọn "Sản phẩm liên quan" khi soạn bài).
+const { posts } = useBlog()
+const guides = computed(() =>
+  product.value?.categorySlug ? posts.value.filter((b) => b.productCategorySlug === product.value!.categorySlug).slice(0, 3) : [],
+)
+
+const crumbs = computed(() => (product.value ? productCrumbs(product.value) : []))
+
 // JSON-LD: Product + đường dẫn (Breadcrumb). Dữ liệu đã resolve nhờ await ở trên.
 const { public: { siteUrl } } = useRuntimeConfig()
 if (product.value) {
   const p = product.value
-  const images = (p.images?.length ? p.images : [p.cover]).filter(Boolean)
-  const url = `${siteUrl}/san-pham/${p.slug}`
   useJsonLd(
-    [
-      {
-        '@type': 'Product',
-        name: p.title,
-        image: images,
-        description: `${p.title} - ${p.category}. Thiết kế và in 3D FDM (PLA+) bởi Ichigo Studio.`,
-        category: p.category,
-        material: p.material,
-        brand: { '@type': 'Brand', name: 'Ichigo Studio' },
-        url,
-        ...(p.price != null
-          ? {
-              offers: {
-                '@type': 'Offer',
-                price: p.price,
-                priceCurrency: 'VND',
-                availability: 'https://schema.org/InStock',
-                url,
-              },
-            }
-          : {}),
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: siteUrl },
-          { '@type': 'ListItem', position: 2, name: 'Bộ sưu tập', item: `${siteUrl}/san-pham` },
-          { '@type': 'ListItem', position: 3, name: p.title, item: url },
-        ],
-      },
-    ],
+    [productJsonLd(p, siteUrl), breadcrumbJsonLd(crumbs.value, siteUrl, `${siteUrl}/san-pham/${p.slug}`)],
     'product',
   )
 }
@@ -88,20 +65,19 @@ if (product.value) {
 
 <template>
   <article v-if="product" class="mx-auto max-w-6xl px-4 pt-12 pb-28 md:px-8 md:pb-12">
-    <NuxtLink
-      to="/san-pham"
-      class="inline-flex items-center gap-1 font-sans text-sm text-silver hover:text-paper transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-      Bộ sưu tập
-    </NuxtLink>
+    <Breadcrumbs :items="crumbs" />
 
     <div class="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2">
       <ProductGallery :images="product.images" :alt="product.title" />
 
       <div class="lg:py-4">
-        <!-- 1 eyebrow per page: series label -->
-        <p class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ product.category }}</p>
+        <!-- 1 eyebrow per page: danh mục, link về trang danh mục -->
+        <NuxtLink
+          v-if="product.categorySlug"
+          :to="`/danh-muc/${product.categorySlug}`"
+          class="rounded font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium transition hover:text-hopper-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
+        >{{ product.category }}</NuxtLink>
+        <p v-else class="font-sans text-[10px] uppercase tracking-[0.18em] text-hopper font-medium">{{ product.category }}</p>
         <h1 class="mt-2 font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
           {{ product.title }}
         </h1>
@@ -153,6 +129,26 @@ if (product.value) {
           class="group aspect-square overflow-hidden rounded-lg border border-paper/10 bg-panel"
         >
           <NuxtImg :src="f.imageUrl" alt="Feedback khách hàng Ichigo Studio" loading="lazy" width="300" class="size-full object-cover transition duration-500 group-hover:scale-105" />
+        </NuxtLink>
+      </div>
+    </section>
+
+    <section v-if="guides.length" class="mt-20" aria-label="Bài viết liên quan">
+      <h2 class="mb-8 font-display text-2xl uppercase tracking-tight text-paper">BÀI VIẾT LIÊN QUAN</h2>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <NuxtLink
+          v-for="g in guides"
+          :key="g.slug"
+          :to="`/blog/${g.slug}`"
+          class="group flex flex-col overflow-hidden rounded-lg border border-paper/10 bg-panel transition hover:border-hopper/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper"
+        >
+          <div class="aspect-[16/10] overflow-hidden bg-night">
+            <NuxtImg v-if="g.coverImage" :src="g.coverImage" :alt="g.title" width="400" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+          </div>
+          <div class="p-4">
+            <p v-if="g.categoryName" class="font-sans text-[10px] uppercase tracking-[0.15em] text-hopper font-medium">{{ g.categoryName }}</p>
+            <h3 class="mt-1 font-display text-sm uppercase leading-snug tracking-tight text-paper">{{ g.title }}</h3>
+          </div>
         </NuxtLink>
       </div>
     </section>

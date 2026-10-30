@@ -6,6 +6,10 @@ export interface BlogListItem {
   publishedAt: number | null
   categoryName: string | null
   categorySlug: string | null
+  // Danh mục SẢN PHẨM admin gắn cho bài (null nếu chưa gắn).
+  productCategoryName?: string | null
+  productCategorySlug?: string | null
+  updatedAt?: number | null
 }
 export interface BlogCategoryItem {
   name: string

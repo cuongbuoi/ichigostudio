@@ -6,8 +6,7 @@ import { CACHED_AT_HEADER, edgeCache, edgeCacheKey, isEdgeCacheablePath, isFresh
 const revalidating = new Set<string>()
 
 // Render lại trang ở nền; plugin edge-cache sẽ lưu bản mới.
-function revalidate(event: H3Event, key: string): Promise<unknown> {
-  const url = new URL(key)
+function revalidate(event: H3Event, url: URL): Promise<unknown> {
   return useNitroApp().localFetch(url.pathname + url.search, {
     host: url.hostname,
     protocol: 'https:',
@@ -24,7 +23,7 @@ export default defineEventHandler(async (event) => {
   const url = getRequestURL(event)
   if (!cache || event.method !== 'GET' || !isEdgeCacheablePath(url.pathname)) return
 
-  const key = edgeCacheKey(url)
+  const key = edgeCacheKey(url, useRuntimeConfig(event).app.buildId)
   event.context.edgeCacheKey = key
   if (event.context.edgeCacheRevalidate) return
 
@@ -37,7 +36,7 @@ export default defineEventHandler(async (event) => {
   const fresh = isFresh(hit.headers.get(CACHED_AT_HEADER), Date.now())
   if (!fresh && !revalidating.has(key)) {
     revalidating.add(key)
-    event.waitUntil(revalidate(event, key).catch(() => {}).finally(() => revalidating.delete(key)))
+    event.waitUntil(revalidate(event, url).catch(() => {}).finally(() => revalidating.delete(key)))
   }
   event.context.edgeCacheKey = undefined
 

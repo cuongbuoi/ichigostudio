@@ -33,11 +33,14 @@ export function isEdgeCacheablePath(path: string): boolean {
   return CACHEABLE_RE.some((re) => re.test(path))
 }
 
-/** Khoá cache: bỏ tham số tracking (không đổi nội dung), sắp xếp phần còn lại. */
-export function edgeCacheKey(url: URL): string {
+/**
+ * Khoá cache: bỏ tham số tracking (không đổi nội dung), sắp xếp phần còn lại. Gắn buildId vì
+ * HTML trỏ tới /_nuxt/<hash>.js của đúng bản build; deploy mới thì bản cũ không còn asset đó.
+ */
+export function edgeCacheKey(url: URL, buildId: string): string {
   const params = [...url.searchParams].filter(([k]) => !TRACKING_PARAM_RE.test(k)).sort(([a], [b]) => a.localeCompare(b))
   const query = new URLSearchParams(params).toString()
-  return `${url.origin}${url.pathname}${query ? `?${query}` : ''}`
+  return `${url.origin}/__edge/${buildId}${url.pathname}${query ? `?${query}` : ''}`
 }
 
 export function isFresh(cachedAt: string | null, now: number): boolean {

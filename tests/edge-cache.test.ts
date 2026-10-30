@@ -13,12 +13,16 @@ describe('isEdgeCacheablePath', () => {
 
 describe('edgeCacheKey', () => {
   it('bỏ tham số tracking, giữ tham số thật và sắp xếp', () => {
-    expect(edgeCacheKey(new URL('https://ichigostudio.vn/san-pham?utm_source=fb&fbclid=1&danh-muc=x&gclid=2')))
-      .toBe('https://ichigostudio.vn/san-pham?danh-muc=x')
-    expect(edgeCacheKey(new URL('https://ichigostudio.vn/?b=2&a=1'))).toBe('https://ichigostudio.vn/?a=1&b=2')
+    expect(edgeCacheKey(new URL('https://ichigostudio.vn/san-pham?utm_source=fb&fbclid=1&danh-muc=x&gclid=2'), 'b1'))
+      .toBe('https://ichigostudio.vn/__edge/b1/san-pham?danh-muc=x')
+    expect(edgeCacheKey(new URL('https://ichigostudio.vn/?b=2&a=1'), 'b1')).toBe('https://ichigostudio.vn/__edge/b1/?a=1&b=2')
   })
   it('không có query thì không có dấu ?', () => {
-    expect(edgeCacheKey(new URL('https://ichigostudio.vn/blog?utm_medium=x'))).toBe('https://ichigostudio.vn/blog')
+    expect(edgeCacheKey(new URL('https://ichigostudio.vn/blog?utm_medium=x'), 'b1')).toBe('https://ichigostudio.vn/__edge/b1/blog')
+  })
+  it('mỗi bản build một khoá riêng (HTML cũ trỏ tới asset đã bị xoá)', () => {
+    const u = new URL('https://ichigostudio.vn/blog')
+    expect(edgeCacheKey(u, 'b1')).not.toBe(edgeCacheKey(u, 'b2'))
   })
 })
 

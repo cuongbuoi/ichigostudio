@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { formatPostDate } from '~/composables/useBlog'
 import { stripLatinRuby } from '~/utils/blog-html'
+import { filterByCategory } from '~/utils/products'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
@@ -24,6 +25,13 @@ if (!post.value) {
 const bodyHtml = computed(() => stripLatinRuby(post.value?.bodyHtml ?? ''))
 const related = computed(() => relatedByCategory(slug.value, post.value?.categorySlug ?? null))
 
+// Sản phẩm thuộc danh mục admin gắn cho bài ("Sản phẩm liên quan").
+const { all: allProducts } = useProducts()
+const productCategorySlug = computed<string | null>(() => post.value?.productCategorySlug ?? null)
+const accessories = computed(() =>
+  productCategorySlug.value ? filterByCategory(allProducts.value, productCategorySlug.value).slice(0, 4) : [],
+)
+
 useSeoMeta({
   title: () => `${post.value?.title} - Ichigo Studio`,
   description: () => post.value?.excerpt || `${post.value?.title} - Blog Ichigo Studio`,
@@ -40,6 +48,7 @@ if (post.value) {
   const p = post.value
   const url = `${siteUrl}/blog/${p.slug}`
   const published = p.publishedAt ? new Date(p.publishedAt).toISOString() : undefined
+  const modified = p.updatedAt && p.updatedAt > (p.publishedAt ?? 0) ? new Date(p.updatedAt).toISOString() : published
   useJsonLd(
     [
       {
@@ -47,11 +56,11 @@ if (post.value) {
         headline: p.title,
         ...(p.coverImage ? { image: [p.coverImage] } : {}),
         ...(p.excerpt ? { description: p.excerpt } : {}),
-        ...(published ? { datePublished: published, dateModified: published } : {}),
+        ...(published ? { datePublished: published, dateModified: modified } : {}),
         ...(p.categoryName ? { articleSection: p.categoryName } : {}),
         inLanguage: 'vi-VN',
         author: { '@type': 'Organization', name: 'Ichigo Studio' },
-        publisher: { '@type': 'Organization', name: 'Ichigo Studio', logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` } },
+        publisher: { '@id': `${siteUrl}/#organization` },
         mainEntityOfPage: url,
         url,
       },
@@ -85,11 +94,14 @@ if (post.value) {
       <p class="mt-3 font-sans text-xs text-silver/70">{{ formatPostDate(post.publishedAt) }}</p>
     </header>
 
+    <!-- Khung 4:3 giữ chỗ trước khi ảnh tải (cover là trang hướng dẫn dọc, không biết trước tỉ lệ) để không đẩy nội dung (CLS). -->
     <NuxtImg
       v-if="post.coverImage"
       :src="post.coverImage"
       :alt="post.title"
-      class="mt-8 w-full rounded-lg border border-paper/10 object-cover"
+      width="768"
+      height="576"
+      class="mt-8 aspect-[4/3] w-full rounded-lg border border-paper/10 bg-panel object-contain"
       loading="eager"
       fetchpriority="high"
     />
@@ -99,6 +111,19 @@ if (post.value) {
       style="color: rgba(238,240,232,0.8);"
       v-html="bodyHtml"
     />
+
+    <section v-if="accessories.length" class="mt-12 border-t border-paper/10 pt-10" aria-label="Sản phẩm liên quan">
+      <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 class="font-display text-xl uppercase tracking-tight text-paper">PHỤ KIỆN CHO {{ post.productCategoryName }}</h2>
+        <NuxtLink
+          :to="`/danh-muc/${productCategorySlug}`"
+          class="rounded font-sans text-xs uppercase tracking-[0.12em] text-hopper underline underline-offset-4 transition hover:text-hopper-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
+        >Xem tất cả</NuxtLink>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        <ProductCard v-for="p in accessories" :key="p.slug" :product="p" />
+      </div>
+    </section>
 
     <div class="mt-10 rounded border border-hopper/30 bg-panel p-6">
       <p class="font-sans text-sm text-silver">Theo dõi Ichigo Studio để xem mẫu mới và video in 3D:</p>
