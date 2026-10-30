@@ -35,11 +35,11 @@ const { all: feedbackAll } = useFeedbacks()
 const feedbackImages = computed(() => feedbackAll.value.slice(0, 6))
 
 // Điểm tin cậy hiển thị cạnh nút mua (chip sự thật, giảm do dự).
-const trustPoints = ['🚚 Ship toàn quốc', '💳 Thanh toán trước', '🎨 Phối màu theo yêu cầu', '🖨 In theo đơn']
+const trustPoints = ['🚚 Giao hàng toàn quốc', '💳 Thanh toán trước', '🎨 Phối màu theo yêu cầu', '🖨 In theo đơn']
 
 useSeoMeta({
   title: () => `${product.value?.title} - Ichigo Studio`,
-  description: () => `${product.value?.title} - ${product.value?.category}. Phụ kiện in 3D cho đồ chơi DX, in FDM.`,
+  description: () => `${product.value?.title} - ${product.value?.category}. Thiết kế và in 3D bởi Ichigo Studio.`,
   ogImage: () => product.value?.cover,
 })
 
@@ -55,7 +55,7 @@ if (product.value) {
         '@type': 'Product',
         name: p.title,
         image: images,
-        description: `${p.title} - ${p.category}. Phụ kiện in 3D FDM (PLA+) cho đồ chơi DX tokusatsu.`,
+        description: `${p.title} - ${p.category}. Thiết kế và in 3D FDM (PLA+) bởi Ichigo Studio.`,
         category: p.category,
         material: p.material,
         brand: { '@type': 'Brand', name: 'Ichigo Studio' },
@@ -111,6 +111,10 @@ if (product.value) {
           <div class="py-3 border-b border-paper/10">
             <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Chất liệu</dt>
             <dd class="mt-0.5 text-sm font-medium text-paper">{{ product.material }}</dd>
+          </div>
+          <div v-if="product.sold" class="py-3 border-b border-paper/10">
+            <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Đã bán</dt>
+            <dd class="mt-0.5 text-sm font-medium text-paper">{{ product.sold }} sản phẩm</dd>
           </div>
           <div class="pt-3">
             <dt class="text-[10px] uppercase tracking-[0.12em] text-silver font-medium">Giá tham khảo</dt>

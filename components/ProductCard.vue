@@ -25,9 +25,11 @@ defineProps<{ product: ProductMeta; priority?: boolean }>()
       <span class="absolute bottom-2 right-2 font-sans text-[9px] font-medium tracking-[0.15em] text-silver/60 bg-night/70 px-1.5 py-0.5 rounded-sm">FDM</span>
     </div>
     <div class="mt-3">
-      <p class="font-sans text-[10px] uppercase tracking-[0.15em] text-hopper font-medium">{{ product.series }}</p>
+      <p class="font-sans text-[10px] uppercase tracking-[0.15em] text-hopper font-medium">{{ product.category }}</p>
       <h3 class="mt-1 font-sans text-base font-semibold leading-snug text-paper">{{ product.title }}</h3>
-      <p class="mt-0.5 font-sans text-xs font-medium text-hopper">{{ formatPrice(product.price) }}</p>
+      <p class="mt-0.5 font-sans text-xs font-medium text-hopper">
+        {{ formatPrice(product.price) }}<span v-if="product.sold" class="ml-2 font-normal text-silver">Đã bán {{ product.sold }}</span>
+      </p>
     </div>
   </NuxtLink>
 </template>

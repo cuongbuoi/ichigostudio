@@ -1,24 +1,24 @@
 <script setup lang="ts">
-const props = defineProps<{ series: string[]; modelValue: string }>()
+import type { CategoryRef } from '~/utils/products'
+const props = defineProps<{ categories: CategoryRef[]; modelValue: string }>()
 const emit = defineEmits<{ 'update:modelValue': [string] }>()
-const options = computed(() => ['all', ...props.series])
-function label(s: string) { return s === 'all' ? 'Tất cả' : s }
+const options = computed(() => [{ name: 'Tất cả', slug: 'all' }, ...props.categories])
 </script>
 
 <template>
   <div class="flex flex-wrap gap-2">
     <button
-      v-for="s in options"
-      :key="s"
+      v-for="c in options"
+      :key="c.slug"
       type="button"
-      @click="emit('update:modelValue', s)"
-      :aria-pressed="modelValue === s"
+      @click="emit('update:modelValue', c.slug)"
+      :aria-pressed="modelValue === c.slug"
       :class="[
         'font-sans text-xs font-medium uppercase tracking-[0.1em] border px-4 py-1.5 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper rounded-sm',
-        modelValue === s
+        modelValue === c.slug
           ? 'border-hopper bg-hopper text-night'
           : 'border-silver/20 text-silver hover:border-silver/50 hover:text-paper',
       ]"
-    >{{ label(s) }}</button>
+    >{{ c.name }}</button>
   </div>
 </template>

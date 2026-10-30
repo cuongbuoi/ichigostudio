@@ -9,17 +9,18 @@ const shop = useShop()
         <span class="inline-flex items-center justify-center overflow-hidden rounded-xl bg-paper">
           <NuxtImg src="/logo.png" :alt="shop.name" width="240" height="240" class="h-24 w-24 rounded-xl object-cover" />
         </span>
-        <p class="mt-3 max-w-[40ch] font-sans text-sm font-light text-silver/80">{{ shop.tagline }}</p>
+        <p class="mt-3 max-w-[48ch] font-sans text-sm font-medium text-hopper">{{ shop.slogan }}</p>
+        <p class="mt-1 max-w-[48ch] font-sans text-sm font-light text-silver/80">{{ shop.tagline }}</p>
         <p class="mt-1 font-sans text-sm font-light text-silver/70">{{ shop.area }}</p>
       </div>
       <div class="flex flex-col gap-4 md:items-end">
-        <MessengerButton variant="ghost" label="Nhắn tin cho shop" source="footer" />
+        <MessengerButton variant="ghost" label="Liên hệ qua Messenger" source="footer" />
         <NuxtLink
           to="/don-hang"
           class="rounded font-sans text-xs uppercase tracking-[0.12em] text-silver/70 underline underline-offset-4 transition hover:text-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-hopper"
         >Tra cứu đơn</NuxtLink>
         <div class="flex items-center gap-3">
-          <span class="font-sans text-xs uppercase tracking-[0.12em] text-silver/70">Theo dõi shop</span>
+          <span class="font-sans text-xs uppercase tracking-[0.12em] text-silver/70">Theo dõi Ichigo Studio</span>
           <SocialLinks source="footer" variant="icons" />
         </div>
       </div>

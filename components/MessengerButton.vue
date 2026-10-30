@@ -7,11 +7,16 @@ const props = withDefaults(defineProps<{
   source?: string
   /** Tên sản phẩm (nếu bấm từ trang SP) để biết SP nào ra lead. */
   item?: string
+  /** Gắn vào m.me ?ref= để shop biết khách hỏi từ đâu (VD 'sp-<slug>'). */
+  refCode?: string
 }>(), {
   label: 'Liên hệ qua Messenger', variant: 'primary', source: 'generic',
 })
 const shop = useShop()
-const href = computed(() => buildMessengerHref(shop.messengerUrl))
+const href = computed(() => {
+  const base = buildMessengerHref(shop.messengerUrl)
+  return props.refCode ? `${base}?ref=${encodeURIComponent(props.refCode)}` : base
+})
 
 // GA4: coi click Messenger là "lead" (đánh dấu conversion trong GA4 được).
 const { gtag } = useGtag()

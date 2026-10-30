@@ -2,7 +2,8 @@ export interface ProductMeta {
   id: string
   slug: string
   title: string
-  series: string
+  category: string
+  categorySlug: string
   material: string
   price: number | null
   cover: string
@@ -10,6 +11,8 @@ export interface ProductMeta {
   featured: boolean
   order: number
   createdAt?: number
+  // Số món đã bán; null khi dưới ngưỡng công khai (API quyết định).
+  sold?: number | null
 }
 
 export interface Product extends ProductMeta {

@@ -3,8 +3,13 @@ import { formatPostDate } from '~/composables/useBlog'
 
 const shop = useShop()
 const { all, featured, newest, categoryList } = useProducts()
-const { featured: feedbackImages } = useFeedbacks()
+const { all: allFeedbacks, featured: feedbackImages } = useFeedbacks()
 const { posts: blogPosts } = useBlog()
+// Giỏ hàng bật/tắt từ API (chỉ biết ở client): copy cách mua đổi theo cờ này.
+const { enabled: checkoutEnabled } = useCheckoutConfig()
+
+// Ngày mẫu mới nhất lên kệ, cho subtitle khối "mới nhất".
+const newestDate = computed(() => formatPostDate(newest.value[0]?.createdAt))
 
 // 3 bài mới nhất cho khối blog ở home (API đã sort theo publishedAt giảm dần).
 const latestPosts = computed(() => blogPosts.value.slice(0, 3))
@@ -19,36 +24,48 @@ const categoryCards = computed(() =>
   }),
 )
 
-const steps = [
-  { n: '01', t: 'Nhắn shop', d: 'Nhắn Messenger hoặc Facebook, gửi mẫu và dòng bạn muốn.' },
-  { n: '02', t: 'Chốt mẫu & màu', d: 'Cùng chốt phối màu, chất liệu và giá cuối cho món của bạn.' },
-  { n: '03', t: 'Thanh toán & in', d: 'Thanh toán trước, shop bắt đầu in theo đơn.' },
-  { n: '04', t: 'Giao hàng', d: 'In xong, đóng gói kỹ và ship tận nơi toàn quốc.' },
-]
+const steps = computed(() => [
+  {
+    n: '01',
+    t: 'Liên hệ',
+    d: checkoutEnabled.value
+      ? 'Gửi mẫu và dòng đồ chơi bạn quan tâm qua Messenger hoặc Facebook. Với sản phẩm có sẵn, bạn có thể đặt hàng trực tiếp trên website.'
+      : 'Gửi mẫu và dòng đồ chơi bạn quan tâm qua Messenger hoặc Facebook.',
+  },
+  { n: '02', t: 'Xác nhận mẫu và màu', d: 'Ichigo Studio cùng bạn thống nhất phối màu, chất liệu và báo giá chính thức.' },
+  { n: '03', t: 'Thanh toán và sản xuất', d: 'Đơn hàng được thanh toán trước, sau đó Ichigo Studio tiến hành in theo đơn.' },
+  { n: '04', t: 'Giao hàng', d: 'Sản phẩm được đóng gói cẩn thận và giao tận nơi trên toàn quốc.' },
+])
 
-const faqs = [
-  { q: 'Sản phẩm làm bằng chất liệu gì?', a: 'In FDM bằng nhựa PLA+, phối màu trực tiếp bằng nhựa chứ không dùng sơn, nên màu bền và không lo tróc.' },
-  { q: 'In mất bao lâu?', a: 'Tùy mẫu và số lượng, thường vài ngày tới hơn một tuần. Shop báo thời gian cụ thể khi chốt đơn.' },
-  { q: 'Thanh toán như thế nào?', a: 'Thanh toán trước toàn bộ để shop bắt đầu in theo đơn. In xong shop đóng gói và ship tận nơi.' },
-  { q: 'Có ship toàn quốc không?', a: 'Có. Shop đóng gói kỹ và gửi qua đơn vị vận chuyển tới tận nơi trên toàn quốc.' },
-  { q: 'Đồ chơi trong ảnh có bán kèm không?', a: 'Không. Đồ chơi DX trong ảnh chỉ để minh họa cách dùng phụ kiện, không bao gồm khi mua.' },
-]
+const faqs = computed(() => [
+  { q: 'Sản phẩm được làm bằng chất liệu gì?', a: 'Sản phẩm được in FDM bằng nhựa PLA+. Màu sắc được phối trực tiếp bằng nhựa thay vì sơn, nên bền màu và không bị bong tróc.' },
+  { q: 'Thời gian hoàn thiện một đơn hàng là bao lâu?', a: 'Thời gian hoàn thiện tùy theo mẫu, trung bình từ 3 đến 4 ngày. Với đơn hàng số lượng lớn, thời gian khoảng 1 tuần. Thời gian cụ thể sẽ được thông báo khi xác nhận đơn.' },
+  {
+    q: 'Hình thức thanh toán như thế nào?',
+    a: checkoutEnabled.value
+      ? 'Đơn hàng được thanh toán trước toàn bộ giá trị sản phẩm để Ichigo Studio tiến hành in. Khi đặt hàng trên website, bạn có thể thanh toán bằng mã VietQR.'
+      : 'Đơn hàng được thanh toán trước toàn bộ giá trị sản phẩm để Ichigo Studio tiến hành in.',
+  },
+  { q: 'Ichigo Studio có giao hàng toàn quốc không?', a: 'Có. Sản phẩm được đóng gói cẩn thận và giao tận nơi trên toàn quốc. Phí vận chuyển được thanh toán khi nhận hàng.' },
+  { q: 'Sản phẩm bị gãy trong quá trình vận chuyển thì xử lý thế nào?', a: 'Bạn vui lòng quay video khi mở hàng. Nếu có chi tiết bị gãy, bạn gửi video cho Ichigo Studio để được gửi bù chi tiết đó.' },
+  { q: 'Đồ chơi trong ảnh có được bán kèm không?', a: 'Không. Đồ chơi DX trong ảnh chỉ dùng để minh họa cách sử dụng phụ kiện và không bao gồm trong sản phẩm.' },
+])
 
 useSeoMeta({
-  title: `${shop.name} - Phụ kiện in 3D cho đồ chơi DX`,
+  title: `${shop.name} - Thiết kế và in 3D đồ chơi DX`,
   description: shop.tagline,
 })
 
 // FAQPage schema — rất hợp AEO: AI có thể trích thẳng cặp hỏi-đáp.
 useJsonLd(
-  {
+  () => ({
     '@type': 'FAQPage',
-    mainEntity: faqs.map((f) => ({
+    mainEntity: faqs.value.map((f) => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
-  },
+  }),
   'faq',
 )
 
@@ -97,17 +114,18 @@ useJsonLd(
     <div class="relative z-10">
       <p class="mb-2 font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">DX CUSTOM / FDM / PLA+</p>
       <h1 class="font-display text-5xl uppercase leading-[1.5] tracking-tight text-paper md:text-7xl md:leading-[1.5]">
-        PHỤ KIỆN IN 3D<br />CHO ĐỒ CHƠI DX.
+        THIẾT KẾ VÀ IN 3D<br />ĐỒ CHƠI DX.
       </h1>
-      <p class="mt-5 max-w-[42ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Phụ kiện và đế trưng bày in FDM cho đồ chơi DX: Super Sentai, Kamen Rider, Beyblade và hơn thế. Phối màu theo yêu cầu.
+      <p class="mt-5 max-w-[42ch] font-sans text-base font-medium leading-relaxed text-hopper md:text-lg">Với tinh thần "{{ shop.slogan }}"</p>
+      <p class="mt-3 max-w-[48ch] font-sans text-sm font-light leading-relaxed text-silver">
+        {{ shop.tagline }} Màu sắc được phối trực tiếp bằng nhựa in thay vì sơn, nên bền màu và không bị bong tróc.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <NuxtLink
           to="/san-pham"
           class="inline-flex items-center bg-hopper px-6 py-3 font-sans text-sm font-medium tracking-wide text-night transition hover:bg-hopper-bright active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hopper-bright rounded-sm"
         >XEM BỘ SƯU TẬP</NuxtLink>
-        <MessengerButton variant="ghost" label="Nhắn Messenger" source="home-hero" />
+        <MessengerButton variant="ghost" label="Liên hệ qua Messenger" source="home-hero" />
       </div>
     </div>
 
@@ -149,7 +167,7 @@ useJsonLd(
   <section v-if="categoryCards.length" class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
       title="DUYỆT THEO DANH MỤC"
-      subtitle="Chọn thẳng dòng bạn đang chơi."
+      subtitle="Tìm phụ kiện theo dòng đồ chơi bạn đang sưu tầm."
     />
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       <NuxtLink
@@ -180,7 +198,7 @@ useJsonLd(
   <section class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
       title="SẢN PHẨM NỔI BẬT"
-      subtitle="Những mẫu được yêu thích nhất tại shop."
+      subtitle="Những mẫu tiêu biểu do Ichigo Studio lựa chọn."
     />
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       <ProductCard v-for="p in featured" :key="p.slug" :product="p" />
@@ -196,8 +214,8 @@ useJsonLd(
   <!-- NEW ARRIVALS -->
   <section v-if="newest.length" class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
-      title="SẢN PHẨM MỚI NHẤT TẠI SHOP"
-      subtitle="Những mẫu mới nhất vừa cập nhật."
+      title="SẢN PHẨM MỚI"
+      :subtitle="newestDate ? `Cập nhật gần nhất ngày ${newestDate}.` : 'Những mẫu vừa được cập nhật.'"
     />
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       <ProductCard v-for="p in newest" :key="p.slug" :product="p" />
@@ -207,8 +225,8 @@ useJsonLd(
   <!-- KHÁCH HÀNG FEEDBACK -->
   <section v-if="feedbackImages.length" class="mx-auto max-w-content px-4 pb-16 md:px-8">
     <SectionHeading
-      title="KHÁCH HÀNG NÓI GÌ"
-      subtitle="Ảnh thật khách gửi sau khi nhận hàng."
+      title="PHẢN HỒI TỪ KHÁCH HÀNG"
+      :subtitle="`${allFeedbacks.length} hình ảnh thực tế do khách hàng gửi sau khi nhận sản phẩm.`"
     />
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       <NuxtLink
@@ -221,7 +239,40 @@ useJsonLd(
       </NuxtLink>
     </div>
     <div class="mt-8">
-      <NuxtLink to="/feedback" class="font-sans text-sm font-medium text-hopper hover:text-hopper-bright hover:underline underline-offset-4 transition">Xem tất cả feedback &rsaquo;</NuxtLink>
+      <NuxtLink to="/feedback" class="font-sans text-sm font-medium text-hopper hover:text-hopper-bright hover:underline underline-offset-4 transition">Xem tất cả phản hồi &rsaquo;</NuxtLink>
+    </div>
+  </section>
+
+  <!-- ORDER PROCESS (4 steps) -->
+  <section class="bg-panel py-20">
+    <div class="mx-auto max-w-content px-4 md:px-8">
+      <SectionHeading
+        title="QUY TRÌNH ĐẶT HÀNG"
+        subtitle="Mỗi sản phẩm được in riêng theo từng đơn hàng."
+      />
+      <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <li v-for="s in steps" :key="s.n" class="relative rounded border border-paper/10 bg-night/40 p-5">
+          <span class="font-display text-4xl leading-none text-hopper/70">{{ s.n }}</span>
+          <p class="mt-3 font-sans text-sm font-medium uppercase tracking-wide text-paper">{{ s.t }}</p>
+          <p class="mt-1.5 font-sans text-sm font-light leading-relaxed text-silver">{{ s.d }}</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CUSTOM ORDER -->
+  <section class="mx-auto max-w-content px-4 py-20 md:px-8">
+    <div class="rounded border border-hopper/30 bg-panel p-8 md:p-12">
+      <p class="font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">CUSTOM / IN THEO YÊU CẦU</p>
+      <h2 class="mt-2 font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
+        BẠN CÓ MẪU RIÊNG CẦN IN?
+      </h2>
+      <p class="mt-3 max-w-[52ch] font-sans text-sm font-light leading-relaxed text-silver">
+        Bạn gửi hình ảnh hoặc file 3D của mẫu mong muốn, Ichigo Studio sẽ báo giá và thời gian hoàn thiện. Ichigo Studio nhận phối màu theo yêu cầu và sản xuất số lượng nhỏ để đảm bảo chất lượng từng sản phẩm.
+      </p>
+      <div class="mt-8">
+        <MessengerButton label="Gửi mẫu và nhận báo giá" source="home-custom" />
+      </div>
     </div>
   </section>
 
@@ -229,7 +280,7 @@ useJsonLd(
   <section v-if="latestPosts.length" class="mx-auto max-w-content px-4 pb-16 md:px-8" aria-labelledby="home-blog-heading">
     <div class="mb-10 max-w-content">
       <h2 id="home-blog-heading" class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">HƯỚNG DẪN &amp; BLOG</h2>
-      <p class="mt-3 max-w-[60ch] font-sans text-sm font-light text-silver">Hướng dẫn chơi đồ DX, hậu trường in 3D và tin tức tokusatsu.</p>
+      <p class="mt-3 max-w-[60ch] font-sans text-sm font-light text-silver">Hướng dẫn sử dụng đồ chơi DX, hậu trường in 3D và tin tức tokusatsu.</p>
     </div>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       <article
@@ -271,46 +322,13 @@ useJsonLd(
     </div>
   </section>
 
-  <!-- ORDER PROCESS (4 steps) -->
-  <section class="bg-panel py-20">
-    <div class="mx-auto max-w-content px-4 md:px-8">
-      <SectionHeading
-        title="ĐẶT HÀNG NHƯ THẾ NÀO?"
-        subtitle="Bốn bước gọn, in theo yêu cầu từng đơn."
-      />
-      <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <li v-for="s in steps" :key="s.n" class="relative rounded border border-paper/10 bg-night/40 p-5">
-          <span class="font-display text-4xl leading-none text-hopper/70">{{ s.n }}</span>
-          <p class="mt-3 font-sans text-sm font-medium uppercase tracking-wide text-paper">{{ s.t }}</p>
-          <p class="mt-1.5 font-sans text-sm font-light leading-relaxed text-silver">{{ s.d }}</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- CUSTOM ORDER -->
-  <section class="mx-auto max-w-content px-4 py-20 md:px-8">
-    <div class="rounded border border-hopper/30 bg-panel p-8 md:p-12">
-      <p class="font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">CUSTOM / IN THEO YÊU CẦU</p>
-      <h2 class="mt-2 font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
-        CÓ MẪU RIÊNG MUỐN IN?
-      </h2>
-      <p class="mt-3 max-w-[52ch] font-sans text-sm font-light leading-relaxed text-silver">
-        Gửi ảnh hoặc file 3D mẫu bạn muốn, shop báo giá và thời gian in. Nhận phối màu theo yêu cầu, số lượng nhỏ để giữ chất lượng từng món.
-      </p>
-      <div class="mt-8">
-        <MessengerButton label="Gửi mẫu, nhận báo giá" source="home-custom" />
-      </div>
-    </div>
-  </section>
-
   <!-- THEO DÕI SOCIAL -->
   <section class="mx-auto max-w-content px-4 py-16 md:px-8">
     <div class="rounded border border-hopper/30 bg-panel p-8 md:flex md:items-center md:justify-between md:p-10">
       <div>
         <p class="font-sans text-[10px] uppercase tracking-[0.2em] text-hopper">FACEBOOK / TIKTOK / CULTS3D</p>
         <h2 class="mt-2 font-display text-2xl uppercase leading-tight tracking-tight text-paper md:text-3xl">Theo dõi Ichigo Studio</h2>
-        <p class="mt-2 max-w-[46ch] font-sans text-sm font-light text-silver">Mẫu mới, video in 3D và feedback khách cập nhật liên tục trên Facebook và TikTok. Tải file in 3D của shop trên Cults3D.</p>
+        <p class="mt-2 max-w-[46ch] font-sans text-sm font-light text-silver">Sản phẩm mới, video quá trình in 3D và phản hồi của khách hàng được cập nhật thường xuyên trên Facebook và TikTok. File in 3D của Ichigo Studio hiện có trên Cults3D.</p>
       </div>
       <div class="mt-6 md:mt-0">
         <SocialLinks source="home" variant="buttons" />
@@ -335,13 +353,17 @@ useJsonLd(
   <!-- CTA SECTION -->
   <section class="mx-auto max-w-content px-4 py-24 md:px-8">
     <h2 class="font-display text-3xl uppercase leading-[1.5] tracking-tight text-paper md:text-4xl md:leading-[1.5]">
-      ĐÃ TÌM THẤY SẢN PHẨM ƯNG Ý CHƯA?
+      BẠN CẦN TƯ VẤN THÊM?
     </h2>
     <p class="mt-3 max-w-[45ch] font-sans text-sm font-light text-silver">
-      Nhắn shop qua Messenger để hỏi giá, chọn phối màu hoặc mẫu theo yêu cầu.
+      Ichigo Studio hỗ trợ báo giá, tư vấn phối màu và nhận in theo yêu cầu qua Messenger. {{ shop.responseTime }}.
     </p>
-    <div class="mt-8">
-      <MessengerButton label="Nhắn Messenger" source="home-cta" />
+    <div class="mt-8 flex flex-wrap items-center gap-6">
+      <MessengerButton label="Liên hệ qua Messenger" source="home-cta" />
+      <NuxtLink
+        to="/san-pham"
+        class="font-sans text-sm font-medium text-hopper hover:text-hopper-bright hover:underline underline-offset-4 transition"
+      >Xem bộ sưu tập &rsaquo;</NuxtLink>
     </div>
   </section>
 </template>

@@ -25,10 +25,21 @@ export default defineEventHandler(async (event) => {
   const urls: SitemapUrl[] = [
     { loc: '/', changefreq: 'weekly', priority: '1.0' },
     { loc: '/san-pham', changefreq: 'daily', priority: '0.9' },
+    { loc: '/danh-muc', changefreq: 'weekly', priority: '0.7' },
+    { loc: '/in-3d', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/3d-models', changefreq: 'weekly', priority: '0.7' },
     { loc: '/blog', changefreq: 'weekly', priority: '0.7' },
     { loc: '/feedback', changefreq: 'weekly', priority: '0.6' },
     { loc: '/lien-he', changefreq: 'monthly', priority: '0.5' },
   ]
+
+  // Trang danh mục
+  try {
+    const res = await $fetch<{ items: { slug: string }[] }>(`${apiBase}/public/categories`)
+    for (const c of res.items ?? []) {
+      urls.push({ loc: `/danh-muc/${c.slug}`, changefreq: 'weekly', priority: '0.7' })
+    }
+  } catch { /* bỏ qua */ }
 
   // Sản phẩm (đã đăng) — kèm ảnh bìa cho image sitemap.
   try {

@@ -63,7 +63,7 @@ export default defineNuxtConfig({
     manifest: {
       name: 'Ichigo Studio',
       short_name: 'Ichigo Studio',
-      description: 'Phụ kiện, đế trưng bày và prop custom in 3D FDM cho đồ chơi DX tokusatsu.',
+      description: 'Ichigo Studio chuyên cung cấp dịch vụ thiết kế và in 3D liên quan đến các dòng đồ chơi DX, prop và phụ kiện Tokusatsu.',
       lang: 'vi',
       theme_color: '#0e0f0c',
       background_color: '#0e0f0c',

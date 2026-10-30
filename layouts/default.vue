@@ -11,7 +11,7 @@ useHead(() => ({
 }))
 
 // JSON-LD toàn site: Organization + WebSite (dạy máy shop là ai — mạnh cho AEO).
-const sameAs = [shop.facebookUrl, (shop as any).tiktokUrl].filter(Boolean)
+const sameAs = [shop.facebookUrl, (shop as any).tiktokUrl, (shop as any).cults3dUrl].filter(Boolean)
 useJsonLd(
   [
     {
@@ -22,9 +22,9 @@ useJsonLd(
       logo: `${siteUrl}/logo.png`,
       image: `${siteUrl}/og.png`,
       description: shop.tagline,
-      slogan: shop.tagline,
+      slogan: shop.slogan,
       areaServed: { '@type': 'Country', name: 'Việt Nam' },
-      knowsAbout: ['in 3D FDM', 'phụ kiện tokusatsu', 'Kamen Rider', 'Super Sentai', 'đồ chơi DX'],
+      knowsAbout: ['thiết kế 3D', 'in 3D FDM', 'phụ kiện tokusatsu', 'prop tokusatsu', 'Kamen Rider', 'Super Sentai', 'đồ chơi DX'],
       ...(shop.messengerUrl
         ? { contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: shop.messengerUrl, areaServed: 'VN', availableLanguage: 'Vietnamese' } }
         : {}),

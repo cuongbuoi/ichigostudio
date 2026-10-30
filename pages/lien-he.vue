@@ -2,7 +2,7 @@
 const shop = useShop()
 useSeoMeta({
   title: `Liên hệ - ${shop.name}`,
-  description: 'Liên hệ shop qua Messenger để hỏi phụ kiện in 3D cho đồ chơi DX.',
+  description: 'Liên hệ Ichigo Studio qua Messenger để được tư vấn thiết kế và in 3D đồ chơi DX, prop và phụ kiện Tokusatsu.',
 })
 </script>
 
@@ -12,12 +12,13 @@ useSeoMeta({
       <div>
         <h1 class="font-display text-4xl uppercase leading-[1.5] tracking-tight text-paper md:text-5xl md:leading-[1.5]">LIÊN HỆ</h1>
         <p class="mt-5 max-w-[45ch] font-sans text-sm font-light leading-relaxed text-silver">
-          Cách nhanh nhất là nhắn tin Messenger. Cho shop biết bạn quan tâm mẫu nào,
-          shop sẽ báo giá và tình trạng hàng.
+          Ichigo Studio tiếp nhận tư vấn và đặt hàng qua Messenger. Bạn cho biết mẫu
+          hoặc ý tưởng đang quan tâm, Ichigo Studio sẽ báo giá và thời gian hoàn thiện.
         </p>
         <div class="mt-8">
-          <MessengerButton label="Mở Messenger" source="contact-page" />
+          <MessengerButton label="Liên hệ qua Messenger" source="contact-page" />
         </div>
+        <PaymentMethods class="mt-5" />
       </div>
 
       <dl class="space-y-6 border-t border-paper/10 pt-8 font-sans md:border-l md:border-t-0 md:pl-12 md:pt-0">

@@ -16,6 +16,7 @@ const links = computed(() =>
   [
     { key: 'facebook', label: 'Facebook', href: (shop as any).facebookUrl },
     { key: 'tiktok', label: 'TikTok', href: (shop as any).tiktokUrl },
+    { key: 'cults', label: 'Cults3D', href: (shop as any).cults3dUrl },
   ].filter((l) => l.href),
 )
 </script>
@@ -42,8 +43,14 @@ const links = computed(() =>
         <path d="M22 12.06C22 6.48 17.52 2 11.94 2 6.36 2 1.88 6.48 1.88 12.06c0 5.02 3.68 9.19 8.49 9.94v-7.03H7.83v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.81-.75 8.49-4.92 8.49-9.94z"/>
       </svg>
       <!-- TikTok -->
-      <svg v-else viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor" aria-hidden="true">
+      <svg v-else-if="l.key === 'tiktok'" viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor" aria-hidden="true">
         <path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.2v12.9a2.34 2.34 0 0 1-2.34 2.28 2.34 2.34 0 0 1-2.33-2.34 2.34 2.34 0 0 1 3.02-2.24V8.3a5.54 5.54 0 0 0-5.94 5.52A5.54 5.54 0 0 0 10.3 19.9a5.54 5.54 0 0 0 5.5-5.52V8.9a7.5 7.5 0 0 0 4.2 1.28V6.98a4.28 4.28 0 0 1-3.4-1.16z"/>
+      </svg>
+      <!-- Cults3D (icon khối 3D) -->
+      <svg v-else viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+        <line x1="12" y1="22.08" x2="12" y2="12"/>
       </svg>
       <span v-if="variant === 'buttons'">{{ l.label }}</span>
     </a>
